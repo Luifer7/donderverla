@@ -15,7 +15,7 @@
         :peticion="useBodega.peticion"
         @pasar-pagina="(n) => 
         getPopular( useBodega.peliculasPopulares?.page == 1 ? useBodega.peliculasPopulares?.page - n
-        : useBodega.peliculasPopulares?.page + n)">
+        : useBodega.peliculasPopulares?.page + n, useBodega.peticion)">
         </PeliculasModalidad>
 
     </div>
@@ -30,7 +30,6 @@ import { useBodegaStore } from "../stores/bodega";
 
 const { getPopular } = usePeliculas()
 const useBodega = useBodegaStore()
-
 
 
 </script>

@@ -14,13 +14,13 @@
                 
                 <i @click="pasarpagina(-1)" class="bi bi-arrow-left-circle-fill text-white h4 m-0"></i>
             
-                <h5 class="text-white m-0">{{ resultados?.page }}</h5>
+                <h6 class="text-white m-0">{{ resultados?.page }}</h6>
             
                 <i @click="pasarpagina(1)" class="bi bi-arrow-right-circle-fill text-white h4 m-0"></i>
             
             </div>
 
-            <h6 class="m-0 text-white" > <i>Paginas: {{ resultados?.total_pages }}</i> </h6>
+            <h6 class="m-0 text-white" > <i># {{ resultados?.total_pages }}</i> </h6>
         
         </div>
 
@@ -32,8 +32,8 @@
                 
                 <div class="h-100 w-100 rounded box-pelicula"  >
 
-                    <div style="height: 200px;" class="mw-100" >
-                        <img :src="`https://image.tmdb.org/t/p/w500/${p.poster_path}`" 
+                    <div v-if="p?.poster_path" style="height: 200px;" class="mw-100" >
+                        <img :src="`https://image.tmdb.org/t/p/w500/${p?.poster_path}`" 
                               class="w-100 h-100" style="object-fit: cover;" alt="no disponible">
                     </div>
                   
