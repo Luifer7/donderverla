@@ -18,6 +18,16 @@ const router = createRouter({
       path: '/:current/:currentId/:pelicula/:id',
       name: 'similar',
       component: () => import('../views/SimilarView.vue')
+    },
+    {
+      path: '/buscarseries',
+      name: 'buscarseries',
+      component: () => import('../views/BuscarserieView.vue')
+    },
+    {
+      path: '/buscarpeliculas',
+      name: 'buscarpeliculas',
+      component: () => import('../views/BuscarpeliculaView.vue')
     }
   ],
 })

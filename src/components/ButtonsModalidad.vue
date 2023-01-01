@@ -2,7 +2,7 @@
 
 <template>
     
-    <div class="d-flex flex-wrap mt-3 mb-3 align-items-center justify-content-center gap-2 p-2" >
+    <div class="d-flex container flex-wrap mt-3 mb-3 align-items-center justify-content-start gap-2 p-2" >
 
         <button class="btn btn-sm text-white fw-bold" 
         @click="getModalidad(Math.floor(Math.random() * 50), 'top_rated')" 

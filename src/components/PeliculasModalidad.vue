@@ -34,7 +34,7 @@
 
                     <div v-if="p?.poster_path" style="height: 200px;" class="mw-100" >
                         <img :src="`https://image.tmdb.org/t/p/w500/${p?.poster_path}`" 
-                              class="w-100 h-100" style="object-fit: cover;" alt="no disponible">
+                              class="w-100 h-100 img-thumbnail" style="object-fit: cover;" alt="no disponible">
                     </div>
                   
                     <div style="height:40px;" 

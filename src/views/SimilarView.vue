@@ -30,7 +30,7 @@
           <div class="row p-2 m-auto" >
             
             <div class="col-12 col-sm-4 col-md-4 p-2" >
-              <img v-if="pelicula?.poster_path" height="300" class="rounded w-100" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
+              <img v-if="pelicula?.poster_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
@@ -63,8 +63,8 @@
 
             <!-- Galeria -->
             <div class="d-flex box-imagenes"  >
-            <img v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
-            <img  v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
+            <img class="img-thumbnail" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
+            <img class="img-thumbnail" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
             </div>
 
     </div>
