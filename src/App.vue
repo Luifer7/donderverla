@@ -12,7 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   
-  <div class="text-center banner p-5">
+  <div class="text-center banner p-5 mb-3">
     <h1 class="text-white" ><i>¿DONDE VERLA?</i></h1>
   </div>
 

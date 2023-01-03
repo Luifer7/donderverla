@@ -14,7 +14,7 @@
 
           <!-- Titulo -->
           <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
-              <i>{{ pelicula?.title }}</i> <small class="h5" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
+              <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
 
           <!-- Imagen y sinopsis -->
