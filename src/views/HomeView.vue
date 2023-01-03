@@ -4,16 +4,20 @@
 <template>
 
 
-    <div class="w-100 p-3" >
+    <div class="w-100 p-1 mb-5" >
 
-        <h3 class="text-center text-white m-2 p-2" ><i>Tú decides que quieres buscar</i></h3>
+        <h3 class="text-center text-white m-2 p-2" ><i>Inicia tu búsqueda</i></h3>
         <div class="w-90 m-auto p-2 d-flex align-items-center justify-content-center gap-3" >
-            <button class="button-30" role="button">
-                <router-link to="/buscarseries" class="text-decoration-none" >Series</router-link>
-            </button>
-            <button class="button-30" role="button">
-                <router-link to="/buscarpeliculas" class="text-decoration-none" >Peliculas</router-link>
-            </button>
+          
+                <router-link to="/buscarseries" class="text-decoration-none" >
+                  <button class="button-30" role="button">Series</button>
+                </router-link>
+            
+               
+                <router-link to="/buscarpeliculas" class="text-decoration-none" >
+                  <button class="button-30" role="button">Peliculas</button>
+                </router-link>
+  
         </div>
        
     </div>
@@ -21,14 +25,13 @@
     <ButtonsModalidad @change-mod="(p, m) => getPopular(p, m)" :modd="useBodega.peticion" ></ButtonsModalidad>
  
     <div class="w-100">
-                              
+
         <PeliculasModalidad 
         :peliculas="useBodega.peliculasPopulares?.results"
         :resultados="useBodega.peliculasPopulares"
         :peticion="useBodega.peticion"
         @pasar-pagina="(n) => 
-        getPopular( useBodega.peliculasPopulares?.page == 1 ? useBodega.peliculasPopulares?.page - n
-        : useBodega.peliculasPopulares?.page + n, useBodega.peticion)">
+        getPopular( n, useBodega.peticion)">
         </PeliculasModalidad>
 
     </div>

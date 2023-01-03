@@ -4,7 +4,7 @@
      
     <div class="w-100">
 
-        <router-link to="/" >
+        <router-link :to="`${route.params.lasturl}`" >
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
         </router-link>
 
@@ -14,7 +14,7 @@
 
           <!-- Titulo -->
           <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
-              <i>{{ pelicula?.title }}</i> <small class="h5" >{{ pelicula?.release_date}}</small>
+              <i>{{ pelicula?.title }}</i> <small class="h5" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
 
           <!-- Imagen y sinopsis -->
@@ -36,7 +36,7 @@
           </div>
 
           
-          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor"></DetallesComponent>
+          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor" :genres="genres"></DetallesComponent>
             
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
@@ -61,18 +61,16 @@
 
 
         <div class="w-100 text-center mt-5" >
-          <h4 class="text-white m-auto mb-4"> <i>Similares a <strong class="text-primary" >{{ route.params.pelicula }}</strong> </i></h4>
+          <h4 class="text-white m-auto mb-4"> <i>Similares a <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
           :peticion="'similares'"
           :resultados="similares"
           @pasar-dos="(p) => netxPage(p)"
           @pasar-page="(n) => 
-          getPasar( similares.page == 1 ? similares.page - n
-          : similares.page + n)"
+          getPasar(n)"
           ></PeliculasSimilares>
         </div>
-       
       
     </div>
 
@@ -102,6 +100,7 @@ const director = ref([])
 const escritor = ref([])
 const reparto = ref([])
 const similares = ref([])
+const genres = ref([])
 
 const spinner = ref(true)
 
@@ -129,6 +128,7 @@ onMounted( async () => {
     const resSimilares = await axios.get(apiSimilares)
 
     pelicula.value = res.data
+    genres.value = res.data.genres
     trailers.value = resTrailers.data.results
     reviews.value = resReviews.data.results
     proovedores.value = resProovedores.data.results.CO
@@ -136,9 +136,8 @@ onMounted( async () => {
     escritor.value = resCreditos.data.crew.filter(field => field.job === 'Writer')
     reparto.value = resCreditos.data.cast
     similares.value = resSimilares.data
-
     spinner.value = false
-    
+   
   } catch (error) {
     Swal.fire({
       icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',
@@ -187,6 +186,7 @@ const realoadData = async  () => {
     const resSimilares = await axios.get(apiSimilares)
 
     pelicula.value = res.data
+    genres.value = res.data.genres
     trailers.value = resTrailers.data.results
     reviews.value = resReviews.data.results
     proovedores.value = resProovedores.data.results.CO

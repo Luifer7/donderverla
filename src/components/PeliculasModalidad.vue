@@ -12,11 +12,11 @@
             
             <div class="d-flex align-items-center justify-content-center gap-3 m-1" >
                 
-                <i @click="pasarpagina(-1)" class="bi bi-arrow-left-circle-fill text-white h4 m-0"></i>
+                <i v-if="resultados?.page != 1" @click="pasarpagina(-1, resultados?.page)" class="bi bi-arrow-left-circle-fill text-white h4 m-0"></i>
             
                 <h6 class="text-white m-0">{{ resultados?.page }}</h6>
             
-                <i @click="pasarpagina(1)" class="bi bi-arrow-right-circle-fill text-white h4 m-0"></i>
+                <i v-if="resultados?.page != resultados?.total_pages" @click="pasarpagina(1, resultados?.page)" class="bi bi-arrow-right-circle-fill text-white h4 m-0"></i>
             
             </div>
 
@@ -53,21 +53,24 @@
 </template>
 
 <script setup >
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 
 const router = useRouter()
+const route = useRoute()
 
 defineProps({
     peliculas: Object, resultados: Object, peticion: String
 })
+
 const emit = defineEmits(['pasarPagina'])
 
-const pasarpagina = (n) => {
-    emit('pasarPagina', n)
+const pasarpagina = (n, r) => {
+    emit('pasarPagina', r+n) 
 }
+    
 
 const detalles = (p) => {
-    router.push( { name: 'pelicula', params: { pelicula: p.title, id: p.id } } ) 
+    router.push( { name: 'pelicula', params: { pelicula: p.title, id: p.id, lasturl: route.path } } ) 
 }
 
 </script>

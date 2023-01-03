@@ -10,12 +10,12 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/:pelicula/:id',
+      path: '/:lasturl/:pelicula/:id',
       name: 'pelicula',
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/:current/:currentId/:pelicula/:id',
+      path: '/:lasturl/:current/:currentId/:pelicula/:id',
       name: 'similar',
       component: () => import('../views/SimilarView.vue')
     },

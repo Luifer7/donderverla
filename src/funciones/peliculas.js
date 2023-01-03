@@ -16,14 +16,11 @@ export function usePeliculas () {
     let api = 'https://api.themoviedb.org/3/movie/'
     let modalidad = ref('') // for example
     let page = ref('')
-
-   // let fullKey = `https://api.themoviedb.org/3/movie/${id}?api_key=9f7031622a3c84ce82bbf384f262391a`
-   // let youtube = `https://www.youtube.com/watch?v=${keyid}`
     
-    const getPopular = async (pagina, mod) => {
+    const getPopular = async (n, mod) => {
           
         modalidad = mod
-        page = `&page=${pagina}&language=es-MX`
+        page = `&page=${n}&language=es-MX`
         useBodega.peticion = modalidad
         try { 
             const res = await axios.get(`${api}${modalidad}${key}${page}`)

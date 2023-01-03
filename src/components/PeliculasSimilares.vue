@@ -6,17 +6,17 @@
 <div class="container text-center" >
 
      <!-- CONTROLES -->
-     <div class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
+        <div class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
             
             <h6 class="m-0 text-white"> <i>{{ peticion }}</i> </h6>
             
             <div class="d-flex align-items-center justify-content-center gap-3 m-1" >
                 
-                <i @click="pasarpage(-1)" class="bi bi-arrow-left-circle-fill text-white h4 m-0"></i>
+                <i v-if="resultados?.page != 1" @click="pasarpage(-1, resultados?.page)" class="bi bi-arrow-left-circle-fill text-white h4 m-0"></i>
             
                 <h5 class="text-white m-0">{{ resultados?.page }}</h5>
             
-                <i @click="pasarpage(1)" class="bi bi-arrow-right-circle-fill text-white h4 m-0"></i>
+                <i v-if="resultados?.page != resultados?.total_pages" @click="pasarpage(1, resultados?.page)" class="bi bi-arrow-right-circle-fill text-white h4 m-0"></i>
             
             </div>
 
@@ -24,31 +24,29 @@
         
         </div>
 
-<!-- pasarpage -->
+        <!-- CONTENIDO -->
+        <div class="row" >
 
-<!-- CONTENIDO -->
-<div class="row" >
+            <div style="height: 260px;" class="col-6 col-sm-4 col-md-3 col-xl-2 p-2" 
+                v-for="p of peliculas" :key="p.id" @click="detalles(p)" >
+                
+                <div class="h-100 w-100 rounded box-pelicula"  >
 
-    <div style="height: 260px;" class="col-6 col-sm-4 col-md-3 col-xl-2 p-2" 
-         v-for="p of peliculas" :key="p.id" @click="detalles(p)" >
-        
-        <div class="h-100 w-100 rounded box-pelicula"  >
-
-            <div style="height: 200px;" class="mw-100" >
-                <img :src="`https://image.tmdb.org/t/p/w500/${p.poster_path}`" 
-                      class="w-100 h-100 img-thumbnail" style="object-fit: cover;" alt="no disponible">
+                    <div style="height: 200px;" class="mw-100" >
+                        <img :src="`https://image.tmdb.org/t/p/w500/${p.poster_path}`" 
+                            class="w-100 h-100 img-thumbnail" style="object-fit: cover;" alt="no disponible">
+                    </div>
+                
+                    <div style="height:40px;" 
+                    class="m-0 text-white d-flex align-items-center justify-content-center"> 
+                        <i style="font-size: .7em; word-break: break-all;" class="fw-bold"  >{{ p.title }}</i>
+                    </div>
+                
+                </div>
+            
             </div>
-          
-            <div style="height:40px;" 
-            class="m-0 text-white d-flex align-items-center justify-content-center"> 
-                <i style="font-size: .7em; word-break: break-all;" class="fw-bold"  >{{ p.title }}</i>
-            </div>
-        
-        </div>
-    
-    </div>
-    
-</div>  
+            
+        </div>  
 
 </div>
     
@@ -65,8 +63,9 @@ defineProps({
 })
 const emit = defineEmits(['pasarPage', 'pasarDos'])
 
-const pasarpage = (n) => {
-    emit('pasarPage', n)
+const pasarpage = (n, r) => {
+
+    emit('pasarPage', r+n)
 }
 
 const detalles = (p) => {

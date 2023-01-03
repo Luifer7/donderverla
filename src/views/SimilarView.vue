@@ -4,13 +4,13 @@
     <div class="w-100">
 
         <!-- Link BACK -->
-        <div class="w-100 text-center " >
+        <div class="w-100 text-center" >
             <router-link class="text-decoration-none"  :to="{
             name: 'pelicula', params: { pelicula: route.params.current, id: route.params.currentId}
         }">
 
           <i class="bi bi-arrow-left-circle-fill text-white h2 m-auto text-decoration-none"> 
-           <small class="m-2 text-secondary" > {{ route.params.current }}</small>
+           <small class="m-2 text-info" > {{ route.params.current }}</small>
           </i>
         </router-link>
         </div>
@@ -22,7 +22,7 @@
         
           <!-- Titulo -->
           <h2 class="mt-4 text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
-              <i>{{ pelicula?.title }}</i> <small class="h5" >{{ pelicula?.release_date}}</small>
+              <i>{{ pelicula?.title }}</i> <small class="h4" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h2>
 
          
@@ -45,7 +45,7 @@
           </div>
 
       
-          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor"></DetallesComponent>
+          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor" :genres="genres"></DetallesComponent>
 
           <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
 
@@ -92,6 +92,7 @@ const proovedores = ref([])
 const director = ref([])
 const escritor = ref([])
 const reparto = ref([])
+const genres = ref([])
 
 const spinner = ref(true)
 
@@ -117,6 +118,7 @@ onMounted( async () => {
     const resCreditos = await axios.get(apiCreditos)
 
     pelicula.value = res.data
+    genres.value = res.data.genres
     trailers.value = resTrailers.data.results
     reviews.value = resReviews.data.results
     proovedores.value = resProovedores.data.results.CO
@@ -162,6 +164,7 @@ const realoadData = async () => {
   const resCreditos = await axios.get(apiCreditos)
 
   pelicula.value = res.data
+  genres.value = res.data.genres
   trailers.value = resTrailers.data.results
   reviews.value = resReviews.data.results
   proovedores.value = resProovedores.data.results.CO
