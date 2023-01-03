@@ -3,6 +3,12 @@
 
 <template>
 
+    <div class="w-100 mt-3 mb-3" >
+        <router-link to="/" class="m-2" >
+          <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
+        </router-link>
+    </div>
+
     <div class="w-100 d-flex justify-content-center mb-4" >
         <form v-on:submit.prevent="buscarPleicula(query)" style="width: 80%;" >
             <input type="text" required v-model="query" class="form-control form-control-sm w-100" 

@@ -12,7 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   
-  <div class="text-center p-5">
+  <div class="text-center banner p-5">
     <h1 class="text-white" ><i>¿DONDE VERLA?</i></h1>
   </div>
 
@@ -32,7 +32,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
 
-
+.banner {
+  background-image: url(../src/assets/img/banner.jpg);
+  background-size: cover;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 
 @media (min-width: 1024px) {
