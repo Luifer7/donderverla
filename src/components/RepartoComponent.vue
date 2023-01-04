@@ -13,7 +13,7 @@
                <h6 class="text-center m-0" > {{ re.name }}</h6>
                <small class="text-center" style="font-size: .6em;">{{re.character}}</small>
                <img v-if="re?.profile_path" :src="`https://image.tmdb.org/t/p/w500/${re?.profile_path}`" 
-                    width="80"  height="80" class="rounded-circle" alt="no disponible" 
+                    width="80"  height="80" class="rounded-circle img-border" alt="no disponible" 
                     style="object-fit: cover;">
             </div>
 
@@ -50,4 +50,9 @@ defineProps({
         overflow: auto;
         max-height: 300px;
     }
+
+    .img-border{
+        border: 3px solid white;
+    }
+
 </style>

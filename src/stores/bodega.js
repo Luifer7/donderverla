@@ -12,11 +12,12 @@ const peticion = ref('')
 
 
 ///////SERIES////////
-
+const seriesPopulares = ref(null)
+const seriePeticion = ref('')
 
 
   return { 
-    peliculasPopulares, peticion
+    peliculasPopulares, peticion, seriePeticion, seriesPopulares
   }
 
 })

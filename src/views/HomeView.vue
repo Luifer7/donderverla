@@ -36,6 +36,9 @@
 
     </div>
 
+    
+  
+
 </template>
 
 <script setup>
@@ -46,6 +49,7 @@ import { useBodegaStore } from "../stores/bodega";
 
 const { getPopular } = usePeliculas()
 const useBodega = useBodegaStore()
+
 
 
 </script>

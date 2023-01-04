@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/:serie/:id',
+      name: 'serie',
+      component: () => import('../views/SeriesView.vue')
+    },
+    {
       path: '/:lasturl/:current/:currentId/:pelicula/:id',
       name: 'similar',
       component: () => import('../views/SimilarView.vue')

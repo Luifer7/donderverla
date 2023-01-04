@@ -31,7 +31,7 @@ export function usePeliculas () {
                 allowOutsideClick: false, confirmButtonText: 'solucionar!'
               }).then((r)=>{
                 if (r.isConfirmed) {
-                 getPopular(Math.floor(Math.random() * 50))   
+                 getPopular(Math.floor(Math.random() * 50), 'popular')   
                  Swal.fire({icon: 'success', title: 'solucionado!', timer: 1000, showConfirmButton: false })     
                 }
               })
