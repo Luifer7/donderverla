@@ -29,7 +29,7 @@ export function useSeries () {
                 allowOutsideClick: false, confirmButtonText: 'solucionar!'
               }).then((r)=>{
                 if (r.isConfirmed) {
-                 getSeriesPopulares(Math.floor(Math.random() * 20), 'top_rated')   
+                 getSeriesPopulares(Math.floor(Math.random() * 40), 'top_rated')   
                  Swal.fire({icon: 'success', title: 'solucionado!', timer: 1000, showConfirmButton: false })     
                 }
               })
@@ -37,7 +37,7 @@ export function useSeries () {
           
     }
 
-    getSeriesPopulares(Math.floor(Math.random() * 20), 'top_rated')
+    getSeriesPopulares(Math.floor(Math.random() * 40), 'top_rated')
 
     return {
         getSeriesPopulares

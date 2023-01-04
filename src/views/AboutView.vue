@@ -36,7 +36,10 @@
           </div>
 
           
-          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor" :genres="genres"></DetallesComponent>
+          <DetallesComponent 
+          :pelicula="pelicula" :director="director" 
+          :escritor="escritor" :genres="genres"
+          ></DetallesComponent>
             
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>

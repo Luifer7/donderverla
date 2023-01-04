@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/:lasturl/:pelicula/:id',
+      path: '/pelicula/:lasturl/:pelicula/:id',
       name: 'pelicula',
       component: () => import('../views/AboutView.vue')
     },
@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('../views/SimilarView.vue')
     },
     {
-      path: '/:lasturl/:current/:currentId/:person/:id',
+      path: '/:lasturl/:current/:currentId/person/:id',
       name: 'person',
       component: () => import('../views/PersonView.vue')
     },

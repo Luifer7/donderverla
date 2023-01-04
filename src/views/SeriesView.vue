@@ -7,6 +7,10 @@
                 <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
             </router-link>
 
+            <div v-if="spinner" class="w-100 text-center p-4" >
+            <SpinnerComponent></SpinnerComponent>
+            </div>
+
          <!-- Titulo -->
             <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
               <i>{{ serie?.name }}</i> <small v-if="serie?.first_air_date" class="h5" >({{ serie?.first_air_date?.slice(0, -6)}})</small>
@@ -31,22 +35,30 @@
             </div>
 
             
-        <h4 class="mt-2 text-center text-white p-2" >
-            <i>
-            <blockquote v-if="serie?.tagline" >"{{ serie?.tagline }}"</blockquote>
-            </i> 
-            
-        </h4>
+            <h4 class="mt-2 text-center text-white p-2" >
+                <i>
+                <blockquote v-if="serie?.tagline" >"{{ serie?.tagline }}"</blockquote>
+                </i> 
+                
+            </h4>
+
+            <div v-if="spinner" class="w-100 text-center p-4" >
+            <SpinnerComponent></SpinnerComponent>
+            </div>
 
             <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
 
             <RepartoSeries :reparto="reparto" ></RepartoSeries>
 
+            <div v-if="spinner" class="w-100 text-center p-4" >
+            <SpinnerComponent></SpinnerComponent>
+            </div>
+
               <!-- Galeria -->
-        <div class="d-flex box-imagenes mt-4"  >
-          <img class="img-thumbnail" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
-          <img class="img-thumbnail" v-if="serie?.last_episode_to_air?.still_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
-        </div>
+            <div class="d-flex box-imagenes mt-4"  >
+              <img class="img-thumbnail" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
+              <img class="img-thumbnail" v-if="serie?.last_episode_to_air?.still_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
+            </div>
        
 
     </div>
@@ -61,6 +73,7 @@ import { useRoute, useRouter } from "vue-router";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import RepartoSeries from "../components/RepartoSeries.vue";
+import SpinnerComponent from "../components/SpinnerComponent.vue";
 
 
 const route = useRoute()
@@ -70,6 +83,8 @@ const serie = ref({})
 const trailers = ref({})
 const proovedores = ref([])
 const reparto = ref([])
+
+const spinner = ref(true)
 
 onMounted( async () => {
 
@@ -93,6 +108,8 @@ onMounted( async () => {
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
         
+        spinner.value = false
+
     } catch (error) {
         Swal.fire({
         icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',

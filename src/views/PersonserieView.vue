@@ -27,8 +27,9 @@
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
-                <h5 class="m-0 text-white fw-bold">{{ persona.name }} - ( {{ persona.known_for_department}} )</h5>
-              <small class="text-white" >
+                <h4 class="m-0 text-white fw-bold">{{ persona.name }}</h4>
+                <h5 class="m-0 text-white fw-bold" >Cumpleaños: {{persona.birthday}}</h5>
+              <small class="text-white mt-4" >
               <i class="text-justify" >{{ persona?.biography }}</i>
             </small>
   

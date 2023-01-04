@@ -15,8 +15,11 @@
 
         </router-link>
         
-    </div>
+          </div>
 
+          <div v-if="spinner" class="w-100 text-center p-4" >
+            <SpinnerComponent></SpinnerComponent>
+            </div>
         
           <!-- Imagen y sinopsis -->
           <div class="row p-2 m-auto" >
@@ -26,7 +29,7 @@
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
-                <h5 class="m-0 text-white fw-bold">{{ persona.name }} - ( {{ persona.known_for_department}} )</h5>
+                <h5 class="m-0 text-white fw-bold">{{ persona.name }}</h5>
               <small class="text-white" >
               <i class="text-justify" >{{ persona?.biography }}</i>
             </small>
@@ -35,6 +38,7 @@
           
           </div>
 
+        
 
     </div>
 
@@ -44,19 +48,22 @@
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router"
+import SpinnerComponent from "../components/SpinnerComponent.vue";
 
 
 const route = useRoute()
 const persona = ref('')
+const spinner = ref(true)
 
 onMounted(async() => {
     let person = `https://api.themoviedb.org/3/person/`
     let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
     let lenguage = `&language=es-MX`
     
-    let api = `${person}${route.params.id}${key}${lenguage}`
+    let api = `${person}${route.params.id}${key}`
     const res = await axios.get(api)
     persona.value = res.data
+    spinner.value = false
 
 })
 

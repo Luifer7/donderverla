@@ -35,13 +35,13 @@ defineProps({
 })
 
 const getPersona =  (id, nombre) => {
-    
+    console.log(nombre)
     router.push( 
         { name: 'person', 
           params: { 
             current: route.params.pelicula, 
             currentId: route.params.id, 
-            person: nombre, id: id} 
+            id: id} 
         } )
 }
 

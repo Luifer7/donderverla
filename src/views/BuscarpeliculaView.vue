@@ -25,6 +25,10 @@
         pasarPage( n, peticion)"
         ></PeliculasModalidad>   
     </div>
+
+    <div v-if="!peliculas" class="w-100 text-center p-4" >
+        <img src="../assets/img/ggg.png" width="250" height="400" alt="">
+    </div>
     
 
 </template>
