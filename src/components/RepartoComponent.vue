@@ -4,11 +4,12 @@
 <template>
 
       <h4 class="text-center text-white" ><i>Reparto</i></h4>
+      
         <div class="text-white d-flex gap-2 box-imagenes p-1"
         style="height: 200px;">
            
-            <div v-for="re of reparto" :key="re.id" 
-                 class="p-2 d-flex flex-column align-items-center justify-content-evenly" 
+            <div v-for="re of reparto" :key="re.id"  @click="getPersona(re.id, re.name)"
+                 class="p-2 d-flex flex-column align-items-center justify-content-evenly rounded character" 
                  style="min-width: 150px;" >
                <h6 class="text-center m-0" > {{ re.name }}</h6>
                <small class="text-center" style="font-size: .6em;">{{re.character}}</small>
@@ -22,16 +23,34 @@
 </template>
 
 <script setup >
+import { ref } from "@vue/reactivity"
+import axios from "axios"
+import { useRoute, useRouter } from "vue-router"
+
+const route = useRoute()
+const router = useRouter()
 
 defineProps({
     reparto: Object
 })
 
+const getPersona =  (id, nombre) => {
+    
+    router.push( 
+        { name: 'person', 
+          params: { 
+            current: route.params.pelicula, 
+            currentId: route.params.id, 
+            person: nombre, id: id} 
+        } )
+}
+
+
 </script>
 
 <style scoped>
 
-::-webkit-scrollbar {
+    ::-webkit-scrollbar {
     width: 10px;
     }
 
@@ -54,5 +73,18 @@ defineProps({
     .img-border{
         border: 3px solid white;
     }
+
+    .character {
+        cursor: pointer;
+        transition: .6s ease all;
+    }
+    .character:hover{
+        background-color: rgba(0, 0, 0, 0.199);
+        transform: scale(.9);
+    } 
+    .character:active {
+        transform: scale(1.1);
+    }
+
 
 </style>

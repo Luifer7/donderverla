@@ -40,7 +40,7 @@
 
             <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
 
-            <RepartoComponent :reparto="reparto" ></RepartoComponent>
+            <RepartoSeries :reparto="reparto" ></RepartoSeries>
 
               <!-- Galeria -->
         <div class="d-flex box-imagenes mt-4"  >
@@ -60,7 +60,7 @@ import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
-import RepartoComponent from "../components/RepartoComponent.vue";
+import RepartoSeries from "../components/RepartoSeries.vue";
 
 
 const route = useRoute()
@@ -133,11 +133,11 @@ const realoadData = async () => {
 <style scoped>
 
 
-.box-imagenes {
-  overflow: auto;
-  max-height: 300px;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-}
+    .box-imagenes {
+      overflow: auto;
+      max-height: 300px;
+      box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    }
 
     ::-webkit-scrollbar {
     width: 10px;

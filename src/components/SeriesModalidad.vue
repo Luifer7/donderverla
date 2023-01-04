@@ -69,7 +69,7 @@ const pasarpagina = (n, r) => {
 }
 
 const detalles = (p) => {
-    router.push( { name: 'serie', params: { serie: p.name, id: p.id } } ) 
+    router.push( { name: 'serie', params: { serie: p.name, id: p.id} } ) 
 }
 
 </script>

@@ -137,7 +137,8 @@ onMounted( async () => {
     reparto.value = resCreditos.data.cast
     similares.value = resSimilares.data
     spinner.value = false
-   
+    
+  
   } catch (error) {
     Swal.fire({
       icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',

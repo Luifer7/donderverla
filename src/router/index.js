@@ -15,14 +15,24 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/:lasturl/:current/:currentId/:pelicula/:id',
+      name: 'similar',
+      component: () => import('../views/SimilarView.vue')
+    },
+    {
+      path: '/:lasturl/:current/:currentId/:person/:id',
+      name: 'person',
+      component: () => import('../views/PersonView.vue')
+    },
+    {
       path: '/:serie/:id',
       name: 'serie',
       component: () => import('../views/SeriesView.vue')
     },
     {
-      path: '/:lasturl/:current/:currentId/:pelicula/:id',
-      name: 'similar',
-      component: () => import('../views/SimilarView.vue')
+      path: '/:current/:currentId/:person/:id',
+      name: 'personserie',
+      component: () => import('../views/PersonserieView.vue')
     },
     {
       path: '/buscarseries',
