@@ -214,18 +214,18 @@ const realoadData = async  () => {
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
 
-    ::-webkit-scrollbar {
-    width: 10px;
+    .box-imagenes::-webkit-scrollbar {
+    height: 13px;
     }
 
-    ::-webkit-scrollbar-track {
+    .box-imagenes::-webkit-scrollbar-track {
     background-color:  rgba(102, 51, 153, 0.082);
-    border-radius: 10px;
+    border-radius: 6px;
     }
 
-    ::-webkit-scrollbar-thumb {
+    .box-imagenes::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: rgba(102, 51, 153, 0.705);
+    background-color: rgba(102, 51, 153, 0.534);
     border-radius: 10px;
     }
 

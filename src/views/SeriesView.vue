@@ -189,20 +189,6 @@ const realoadData = async () => {
       box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     }
 
-    ::-webkit-scrollbar {
-    width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-    background-color:  rgba(102, 51, 153, 0.082);
-    border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: rgba(102, 51, 153, 0.705);
-    border-radius: 10px;
-    }
 
     .box-temp{
       overflow: auto;

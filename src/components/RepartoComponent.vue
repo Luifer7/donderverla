@@ -50,20 +50,6 @@ const getPersona =  (id, nombre) => {
 
 <style scoped>
 
-    ::-webkit-scrollbar {
-    width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-    background-color:  rgba(102, 51, 153, 0.082);
-    border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: rgba(102, 51, 153, 0.705);
-    border-radius: 10px;
-    }
 
     .box-imagenes {
         overflow: auto;
@@ -84,6 +70,21 @@ const getPersona =  (id, nombre) => {
     } 
     .character:active {
         transform: scale(1.1);
+    }
+
+    .box-imagenes::-webkit-scrollbar {
+    height: 13px;
+    }
+
+    .box-imagenes::-webkit-scrollbar-track {
+    background-color:  rgba(102, 51, 153, 0.082);
+    border-radius: 6px;
+    }
+
+    .box-imagenes::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(102, 51, 153, 0.534);
+    border-radius: 10px;
     }
 
 
