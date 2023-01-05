@@ -68,17 +68,8 @@
             <!-- PROOVEDORES -->
             <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
 
-            <!-- TMPORADAS VOLVER UN COMPONENTE -->
-            <h4 class="text-center text-white fw-bold">Temporadas</h4>
-            <div class="w-100 p-2 d-flex gap-3 align-items-center box-temp mb-4" >
-
-                <div v-for="s of contenido.seasons" :key="s.id" class="box-season p-2" >
-                  <strong class="m-0 text-center text-white m-1" >Season {{s.season_number}}</strong>
-                  <img  class="img-season"
-                       :src="`https://image.tmdb.org/t/p/w500/${s.poster_path}`" alt="">
-                </div>
-                
-            </div>
+            <!-- TMPORADAS VOLVER UN COMPONENTE --> 
+            <TemporadasComponent :temporadas="contenido.seasons"></TemporadasComponent>
 
             <!-- REPARTO SERIES -->
             <RepartoSeries :reparto="reparto" ></RepartoSeries>
@@ -108,6 +99,7 @@ import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
+import TemporadasComponent from "../components/TemporadasComponent.vue";
 
 
 const route = useRoute()

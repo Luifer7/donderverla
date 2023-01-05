@@ -35,6 +35,11 @@ const router = createRouter({
       component: () => import('../views/PersonserieView.vue')
     },
     {
+      path: '/:current/:currentId/temporada/:numero/',
+      name: 'temporada',
+      component: () => import('../views/TemporadasView.vue')
+    },
+    {
       path: '/buscarseries',
       name: 'buscarseries',
       component: () => import('../views/BuscarserieView.vue')
