@@ -4,7 +4,7 @@
      
     <div class="w-100">
 
-        <router-link :to="`${route.params.lasturl}`" >
+        <router-link to="/" >
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
         </router-link>
 
@@ -80,7 +80,7 @@
 </template>
 
 <script setup >
-import { onMounted, ref } from "@vue/runtime-core";
+import { onBeforeMount, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import ReviewsComppnent from "../components/ReviewsComppnent.vue";

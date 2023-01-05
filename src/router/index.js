@@ -10,24 +10,24 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/pelicula/:lasturl/:pelicula/:id',
+      path: '/pelicula/:pelicula/:id',
       name: 'pelicula',
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/:lasturl/:current/:currentId/:pelicula/:id',
+      path: '/serie/:serie/:id',
+      name: 'serie',
+      component: () => import('../views/SeriesView.vue')
+    },
+    {
+      path: '/similar/:current/:currentId/:pelicula/:id',
       name: 'similar',
       component: () => import('../views/SimilarView.vue')
     },
     {
-      path: '/:lasturl/:current/:currentId/person/:id',
+      path: '/:current/:currentId/personpelicula/:id',
       name: 'person',
       component: () => import('../views/PersonView.vue')
-    },
-    {
-      path: '/:serie/:id',
-      name: 'serie',
-      component: () => import('../views/SeriesView.vue')
     },
     {
       path: '/:current/:currentId/:person/:id',

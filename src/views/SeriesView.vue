@@ -34,22 +34,56 @@
           
             </div>
 
-            
-            <h4 class="mt-2 text-center text-white p-2" >
-                <i>
-                <blockquote v-if="serie?.tagline" >"{{ serie?.tagline }}"</blockquote>
-                </i> 
-                
-            </h4>
+            <!-- DETALLES -->
+            <div class="w-100 row p-3" >
 
+              <h4 class="mt-2 m-0 text-center text-white col-12" >
+                  <i> 
+                  <blockquote >{{ contenido?.tagline }}</blockquote>
+                  </i> 
+              </h4>
+
+              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-center flex-wrap" >
+                <h5 class="m-0" ><i>Genero: </i> </h5> <strong class="m-0 fw-bold" v-for="g of contenido?.genres" :key="g.id" >{{g.name}}</strong>
+              </div>
+
+              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-center flex-wrap" >
+                <h5 class="m-0" >Episodios: <small class="fw-bold"> <i>{{contenido?.number_of_episodes}}</i> </small> </h5>
+                <h5 class="m-0" >Temporadas: <small class="fw-bold"> <i>{{ contenido?.number_of_seasons}}</i> </small></h5>
+                <h5 class="m-0" >Estado: <small class="fw-bold"> <i>{{ contenido?.status}}</i> </small> </h5>
+              </div>
+
+              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-1 justify-content-start align-items-center flex-wrap" >
+                <h5 class="fw-bold m-0" >Ultimo episodio</h5>
+                {{contenido?.last_episode_to_air?.name}} ( {{contenido?.last_episode_to_air?.air_date}} )
+              </div>
+
+            </div>
+          
+            <!-- SPINNER -->
             <div v-if="spinner" class="w-100 text-center p-4" >
             <SpinnerComponent></SpinnerComponent>
             </div>
 
+            <!-- PROOVEDORES -->
             <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
 
+            <!-- TMPORADAS VOLVER UN COMPONENTE -->
+            <h4 class="text-center text-white fw-bold">Temporadas</h4>
+            <div class="w-100 p-2 d-flex gap-3 align-items-center box-temp mb-4" >
+
+                <div v-for="s of contenido.seasons" :key="s.id" class="box-season p-2" >
+                  <strong class="m-0 text-center text-white m-1" >Season {{s.season_number}}</strong>
+                  <img  class="img-season"
+                       :src="`https://image.tmdb.org/t/p/w500/${s.poster_path}`" alt="">
+                </div>
+                
+            </div>
+
+            <!-- REPARTO SERIES -->
             <RepartoSeries :reparto="reparto" ></RepartoSeries>
 
+            <!-- SPINNER -->
             <div v-if="spinner" class="w-100 text-center p-4" >
             <SpinnerComponent></SpinnerComponent>
             </div>
@@ -83,6 +117,7 @@ const serie = ref({})
 const trailers = ref({})
 const proovedores = ref([])
 const reparto = ref([])
+const contenido = ref([])
 
 const spinner = ref(true)
 
@@ -96,17 +131,23 @@ onMounted( async () => {
     let apitrailers = `${series}${route.params.id}/videos${key}`
     let apiproovedores = `${series}${route.params.id}/watch/providers${key}`
     let apiCreditos = `${series}${route.params.id}/credits${key}`
+    let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}`
+
+    //GET EPISODES 
+    // https://api.themoviedb.org/3/tv/19885/season/1?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-MX
 
     try {
         const res = await axios.get(api)
         const resTrailers = await axios.get(apitrailers)
         const resProovedores = await axios.get(apiproovedores)
         const resCreditos = await axios.get(apiCreditos)
+        const resEpisodes = await axios.get(apiEpisodes)
 
         serie.value = res.data
         trailers.value = resTrailers.data.results
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
+        contenido.value = resEpisodes.data
         
         spinner.value = false
 
@@ -169,6 +210,22 @@ const realoadData = async () => {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: rgba(102, 51, 153, 0.705);
     border-radius: 10px;
+    }
+
+    .box-temp{
+      overflow: auto;
+    }
+
+    .box-season{
+      width: 140px;
+      min-width: 110px;
+    }
+
+    .img-season{
+      width: 100%;
+      height: 100%;
+      border: 3px solid white; border-radius: 10px;
+      object-fit: contain;
     }
 
 </style>

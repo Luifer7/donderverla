@@ -2,7 +2,7 @@
 <template>
 
             
-
+      
 
         <!-- Link BACK -->
         <div class="w-100 text-center mb-3" >
@@ -15,6 +15,12 @@
         </router-link>
 
         </div>
+
+        <ButtonsSeries @change-mod="(p, m) => getSeriesPopulares(p, m)" :modd="useBodega.seriePeticion">
+        </ButtonsSeries>
+
+        
+
 
         <div v-if="!useBodega.seriesPopulares" class="w-100 text-center p-4" >
         <SpinnerComponent></SpinnerComponent>
@@ -37,6 +43,7 @@
 </template>
 
 <script setup>
+import ButtonsSeries from "../components/ButtonsSeries.vue";
 import SeriesModalidad from "../components/SeriesModalidad.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { useSeries } from '../funciones/series';

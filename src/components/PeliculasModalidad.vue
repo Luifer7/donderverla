@@ -70,7 +70,7 @@ const pasarpagina = (n, r) => {
     
 
 const detalles = (p) => {
-    router.push( { name: 'pelicula', params: { pelicula: p.title, id: p.id, lasturl: route.path } } ) 
+    router.push( { name: 'pelicula', params: { pelicula: p.title, id: p.id } } ) 
 }
 
 </script>
