@@ -3,7 +3,7 @@
 
 <template>
 
-
+<div>
     <div class="w-100 p-1 mb-5" >
 
         <h3 class="text-center text-white m-2 p-2" ><i>Inicia tu búsqueda</i></h3>
@@ -36,7 +36,7 @@
 
     </div>
 
-    
+  </div>
   
 
 </template>

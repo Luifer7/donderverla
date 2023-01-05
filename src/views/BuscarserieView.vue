@@ -3,7 +3,7 @@
 
             
       
-
+        <div>
         <!-- Link BACK -->
         <div class="w-100 text-center mb-3" >
         <router-link class="text-decoration-none" to="/" >
@@ -35,9 +35,7 @@
         
         </div>
         
-        
-
-
+    
         <div v-if="!useBodega.seriesPopulares" class="w-100 text-center p-4" >
         <SpinnerComponent></SpinnerComponent>
         </div>
@@ -54,7 +52,7 @@
         
         </div>
 
-       
+    </div>
 
 </template>
 

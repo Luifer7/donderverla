@@ -3,6 +3,7 @@
 
 <template>
 
+    <div>
     <div class="w-100 mt-3 mb-3" >
         <router-link to="/" class="m-2" >
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
@@ -29,7 +30,7 @@
     <div v-if="!peliculas" class="w-100 text-center p-4" >
         <img src="../assets/img/ggg.png" width="250" height="400" alt="">
     </div>
-    
+    </div>
 
 </template>
 

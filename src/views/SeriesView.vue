@@ -70,7 +70,7 @@
 
             <!-- TMPORADAS VOLVER UN COMPONENTE --> 
             <TemporadasComponent :temporadas="contenido.seasons"></TemporadasComponent>
-
+            
             <!-- REPARTO SERIES -->
             <RepartoSeries :reparto="reparto" ></RepartoSeries>
 
@@ -117,13 +117,13 @@ onMounted( async () => {
 
     let series = `https://api.themoviedb.org/3/tv/`
     let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
-    let lenguage = `&language=es-MX`
+    let lenguage = `&language=es-ES`
 
     let api = `${series}${route.params.id}${key}${lenguage}`
     let apitrailers = `${series}${route.params.id}/videos${key}`
     let apiproovedores = `${series}${route.params.id}/watch/providers${key}`
     let apiCreditos = `${series}${route.params.id}/credits${key}`
-    let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}`
+    let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}${lenguage}`
 
     //GET EPISODES 
     // https://api.themoviedb.org/3/tv/19885/season/1?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-MX
@@ -140,7 +140,7 @@ onMounted( async () => {
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
         contenido.value = resEpisodes.data
-        
+       
         spinner.value = false
 
     } catch (error) {
@@ -204,6 +204,21 @@ const realoadData = async () => {
       height: 100%;
       border: 3px solid white; border-radius: 10px;
       object-fit: contain;
+    }
+
+    .box-imagenes::-webkit-scrollbar {
+    height: 13px;
+    }
+
+    .box-imagenes::-webkit-scrollbar-track {
+    background-color:  rgba(102, 51, 153, 0.082);
+    border-radius: 6px;
+    }
+
+    .box-imagenes::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(102, 51, 153, 0.534);
+    border-radius: 10px;
     }
 
 </style>

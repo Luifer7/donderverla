@@ -60,7 +60,7 @@ onMounted(async() => {
     let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
     let lenguage = `&language=es-MX`
     
-    let api = `${person}${route.params.id}${key}`
+    let api = `${person}${route.params.id}${key}${lenguage}`
     const res = await axios.get(api)
     persona.value = res.data
     spinner.value = false

@@ -2,8 +2,10 @@
 
 <template>
 
+
+<div>
       <!-- Link BACK SIRVE PARA TOOOOODO -->
-      <div class="w-100 text-center mb-3" >
+        <div class="w-100 text-center mb-3" >
             <router-link class="text-decoration-none"  :to="{
             name: 'serie', params: { serie: route.params.current, id: route.params.currentId}}">
 
@@ -13,13 +15,13 @@
 
         </router-link>
         
-      </div>
+        </div>
     
-      <div class="w-100 row text-center">
+        <div class="w-100 row text-center">
 
         <div class="col-12 col-sm-6" >
             <h4 class="text-white px-2 mb-2 m-0"> <i>{{ episodios?.name }}</i> 
-            <small class="text-info m-2" >- {{ episodios.air_date?.slice(0, -6) }}</small> </h4>
+            <small v-if="episodios.air_date" class="text-info m-2" >- {{ episodios?.air_date?.slice(0, -6) }}</small> </h4>
             <p class="px-4 py-2 m-0 text-start text-dark fw-bold" style="font-size: .9em;" >
                 {{ episodios?.overview }}
             </p>
@@ -30,9 +32,9 @@
             :src="`https://image.tmdb.org/t/p/w500${episodios?.poster_path}`" alt="">
         </div>
       
-    </div>
+        </div>
 
-    <div class="w-100 mt-3 row m-auto" >
+        <div class="w-100 mt-3 row m-auto" >
         <h3 class="text-center mt-2 text-white fw-bold mb-3">Episodios</h3>
         
         <div class="col-12 col-sm-6 col-lg-4  box-episodio"
@@ -43,17 +45,23 @@
                  :src="`https://image.tmdb.org/t/p/w500${epi?.still_path}`" alt="">
            </div>
 
-           <div class="box-text">
+           <div class="box-text" style="height: 50px;">
             <strong class="m-0 px-2" > #{{ epi.episode_number }} {{ epi.name }} - {{ epi.runtime }}Min</strong>
-            <p class="text-white px-2" style="word-break:break-all; font-size: .7em;" >{{ epi.overview }} <br>
-            <b style="font-size: 1.3em;" class="text-info" >{{ epi.vote_average }}</b>
-            </p>
-           </div>
+            <b style="font-size: 1em;" class="text-info" >{{ epi.vote_average }}</b>
+            </div>
+
+            <div style="height: 100px; overflow-y: auto;" class="p-1 box-text" >
+                <p class="text-white px-2" style="word-break:break-all; font-size: .8em;" >
+                 <i>{{ epi.overview }}</i> 
+                </p>
+            </div>
+           
         
         </div>
         
-    </div>
+        </div>
 
+</div>
 
 
 
@@ -85,8 +93,25 @@ onMounted( async () => {
 }
 
 .box-episodio{
-    height: 350px;
+    height: 330px;
 }
+
+
+    .box-text::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .box-text::-webkit-scrollbar-track {
+    background-color:  rgba(102, 51, 153, 0.082);
+    border-radius: 10px;
+    }
+
+    .box-text::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(102, 51, 153, 0.705);
+    border-radius: 10px;
+    }
+
 
 
 </style>

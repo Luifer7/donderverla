@@ -9,10 +9,11 @@
                 @click="getSeason(s)">
 
                   <strong style="font-size: .8em;" 
-                  class="m-auto text-center text-white m-1">T-{{s.season_number}} <small class="text-info fw-bold" ><i>- {{ s.air_date.slice(0, -6) }}</i></small> </strong>
+                  class="m-auto text-center text-white m-1">T-{{s.season_number}} 
+                  <small class="text-info fw-bold" ><i>- {{ s?.air_date?.slice(0, -6) }}</i></small> </strong>
                   
-                  <img  class="img-season"
-                       :src="`https://image.tmdb.org/t/p/w500/${s.poster_path}`" alt="">
+                  <img  class="img-season" v-if="s?.poster_path"
+                       :src="`https://image.tmdb.org/t/p/w500/${s?.poster_path}`" alt="">
                 </div>
                 
             </div>
@@ -45,7 +46,7 @@ const getSeason = (s) => {
 <style scoped>
 
 
-.box-temp{
+    .box-temp{
       overflow: auto;
     }
 
@@ -68,6 +69,21 @@ const getSeason = (s) => {
       height: 100%;
       border: 3px solid white; border-radius: 10px;
       object-fit: contain;
+    }
+
+    .box-temp::-webkit-scrollbar {
+    height: 13px;
+    }
+
+    .box-temp::-webkit-scrollbar-track {
+    background-color:  rgba(102, 51, 153, 0.082);
+    border-radius: 6px;
+    }
+
+    .box-temp::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(102, 51, 153, 0.534);
+    border-radius: 10px;
     }
 
 </style>
