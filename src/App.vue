@@ -12,16 +12,27 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   
-  <div class="text-center w-100 banner p-5 mb-3 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+  <div class="text-center w-100 banner mb-3 row m-auto">
 
-    <h3 class="text-white text-center m-auto">Mi espacio</h3>
-   
-    <h1 class="m-0 text-white text-center m-auto" ><i>¿DONDE VERLA?</i></h1>
-
-    <router-link to="/sobrenosotros" class="m-auto" >
-      <h4 class="m-0" >Sobre nosotros</h4>
-    </router-link>
-
+      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center" >
+        <i class="bi bi-house-heart text-white"> Mi espacio</i>
+      </div>
+      
+      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center" >
+        <router-link to="/" class="text-white text-decoration-none" >
+          <h2 class="m-0 text-white text-center" ><i>¿DÓNDE VERLA?</i></h2>
+      </router-link>
+      
+      </div>
+    
+      <div class="col-12 col-sm-4 d-flex align-items-center justify-content-center" >
+        <router-link to="/sobrenosotros" class="text-white fw-bold text-decoration-none" >
+          <i class="bi bi-info-circle">
+            Sobre nosotros
+          </i>
+      </router-link>
+      </div>
+    
   </div>
 
 
@@ -46,6 +57,7 @@ import { RouterLink, RouterView } from 'vue-router'
   background-image: url(../src/assets/img/banner.jpg);
   background-size: cover;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 150px;
 }
 
 .vistas-enter-from {

@@ -25,8 +25,8 @@ export function useSeries () {
             useBodega.seriesPopulares = res.data
         } catch (err) {
             Swal.fire({
-                icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top-start',
-                allowOutsideClick: false, confirmButtonText: 'solucionar!'
+                icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+                allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
               }).then((r)=>{
                 if (r.isConfirmed) {
                  getSeriesPopulares(Math.floor(Math.random() * 40), 'top_rated')   
@@ -37,7 +37,7 @@ export function useSeries () {
           
     }
 
-    getSeriesPopulares(Math.floor(Math.random() * 40), 'top_rated')
+    getSeriesPopulares(Math.floor(Math.random() * 40), 'popular')
 
     return {
         getSeriesPopulares

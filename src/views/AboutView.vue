@@ -45,16 +45,11 @@
           <SpinnerComponent></SpinnerComponent>
           </div>
 
-          <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
+          <ProovedoresComponent v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
 
-          <RepartoComponent :reparto="reparto" ></RepartoComponent>
-
-          <div v-if="spinner" class="w-100 text-center" >
-          <SpinnerComponent></SpinnerComponent>
-          </div>
-            
-          <ReviewsComppnent :reviews="reviews"></ReviewsComppnent>
-
+          <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
+  
+          <ReviewsComppnent v-if="!spinner" :reviews="reviews"></ReviewsComppnent>
     
           <!-- Galeria -->
         <div class="d-flex box-imagenes"  >
@@ -63,7 +58,7 @@
         </div>
 
 
-        <div class="w-100 text-center mt-5" >
+        <div class="w-100 text-center mt-5" v-if="!spinner" >
           <h4 class="text-white m-auto mb-4"> <i>Similares a <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
@@ -143,8 +138,8 @@ onMounted( async () => {
   
   } catch (error) {
     Swal.fire({
-      icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',
-      allowOutsideClick: false, confirmButtonText: 'solucionar!'
+      icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+      allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
     }).then((r)=>{
       if (r.isConfirmed) {
         spinner.value = true
@@ -155,6 +150,7 @@ onMounted( async () => {
   }
 
 })
+
 
 const getPasar = async (data) =>{
   let apiSimilares = `https://api.themoviedb.org/3/movie/${route.params.id}/similar?api_key=9f7031622a3c84ce82bbf384f262391a&page=${data}&language=es-MX`

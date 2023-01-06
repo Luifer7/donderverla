@@ -27,8 +27,8 @@ export function usePeliculas () {
             useBodega.peliculasPopulares = res.data
         } catch (err) {
             Swal.fire({
-                icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top-start',
-                allowOutsideClick: false, confirmButtonText: 'solucionar!'
+                icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+                allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
               }).then((r)=>{
                 if (r.isConfirmed) {
                  getPopular(Math.floor(Math.random() * 50), 'popular')   

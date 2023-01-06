@@ -3,32 +3,30 @@
       
     <div class="w-100">
 
-        <!-- Link BACK -->
-        <div class="w-100 text-center" >
-            <router-link class="text-decoration-none"  :to="{
-            name: 'pelicula', params: { pelicula: route.params.current, id: route.params.currentId}
-        }">
-          <i class="bi bi-arrow-left-circle-fill text-white h2 m-auto text-decoration-none"> 
-           <small class="m-2 text-info" > {{ route.params.current }}</small>
-          </i>
-        </router-link>
-        </div>
-
-        <div v-if="spinner" class="w-100 text-center" >
-          <SpinnerComponent></SpinnerComponent>
+          <!-- Link BACK -->
+          <div class="w-100 text-center" >
+              <router-link class="text-decoration-none"  :to="{
+              name: 'pelicula', params: { pelicula: route.params.current, id: route.params.currentId}
+          }">
+            <i class="bi bi-arrow-left-circle-fill text-white h2 m-auto text-decoration-none"> 
+            <small class="m-2 text-info" > {{ route.params.current }}</small>
+            </i>
+          </router-link>
           </div>
-       
+
           <!-- Titulo -->
-          <h2 class="mt-4 text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
+          <h2 v-if="pelicula?.release_date" class="mt-4 text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small class="h4" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h2>
 
-         
           <!-- Imagen y sinopsis -->
           <div class="row p-2 m-auto" >
             
             <div class="col-12 col-sm-4 col-md-4 p-2" >
-              <img v-if="pelicula?.poster_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
+              <img v-if="pelicula?.poster_path" height="300" 
+                   class="rounded w-100 img-thumbnail" 
+                   :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" 
+                   alt="imagen no disponible" >
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
@@ -41,23 +39,21 @@
           </div>
           
           </div>
-
       
-          <DetallesComponent :pelicula="pelicula" :director="director" :escritor="escritor" :genres="genres"></DetallesComponent>
+          <DetallesComponent v-if="!spinner" 
+          :pelicula="pelicula" :director="director" 
+          :escritor="escritor" :genres="genres">
+          </DetallesComponent>
 
-          <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
-
-          <div v-if="spinner" class="w-100 text-center" >
-          <SpinnerComponent></SpinnerComponent>
-          </div>
-
-          <RepartoComponent :reparto="reparto" ></RepartoComponent>
+          <ProovedoresComponent v-if="!spinner" :proovedores="proovedores"></ProovedoresComponent>
 
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
-            
-          <ReviewsComppnent :reviews="reviews"></ReviewsComppnent>
+
+          <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
+        
+          <ReviewsComppnent v-if="!spinner" :reviews="reviews"></ReviewsComppnent>
 
             <!-- Galeria -->
             <div class="d-flex box-imagenes"  >
@@ -128,8 +124,8 @@ onMounted( async () => {
     
   } catch (error) {
     Swal.fire({
-      icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',
-      allowOutsideClick: false, confirmButtonText: 'solucionar!'
+      icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+      allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
     }).then((r)=>{
       if (r.isConfirmed) {
        spinner.value = true

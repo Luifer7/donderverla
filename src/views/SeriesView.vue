@@ -35,7 +35,7 @@
             </div>
 
             <!-- DETALLES -->
-            <div class="w-100 row p-3" >
+            <div v-if="!spinner" class="w-100 row p-3" >
 
               <h4 class="mt-2 m-0 text-center text-white col-12" >
                   <i> 
@@ -66,19 +66,15 @@
             </div>
 
             <!-- PROOVEDORES -->
-            <ProovedoresComponent :proovedores="proovedores" ></ProovedoresComponent>
+            <ProovedoresComponent  v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
 
             <!-- TMPORADAS VOLVER UN COMPONENTE --> 
-            <TemporadasComponent :temporadas="contenido.seasons"></TemporadasComponent>
+            <TemporadasComponent v-if="!spinner" :temporadas="contenido.seasons"></TemporadasComponent>
             
             <!-- REPARTO SERIES -->
-            <RepartoSeries :reparto="reparto" ></RepartoSeries>
+            <RepartoSeries v-if="!spinner" :reparto="reparto" ></RepartoSeries>
 
-            <!-- SPINNER -->
-            <div v-if="spinner" class="w-100 text-center p-4" >
-            <SpinnerComponent></SpinnerComponent>
-            </div>
-
+           
               <!-- Galeria -->
             <div class="d-flex box-imagenes mt-4"  >
               <img class="img-thumbnail" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
@@ -145,8 +141,8 @@ onMounted( async () => {
 
     } catch (error) {
         Swal.fire({
-        icon: 'error', title: 'Ha ocurrido un error inesperado!', position: 'top',
-        allowOutsideClick: false, confirmButtonText: 'solucionar!'
+          icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+      allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
         }).then((r)=>{
         if (r.isConfirmed) {
         realoadData()   
