@@ -53,7 +53,12 @@ const router = createRouter({
       path: '/sobrenosotros',
       name: 'sobrenosotros',
       component: () => import('../views/SobreNosotrosView.vue')
-    }
+    },
+    {
+      path: '/:current/:currentId/genero/:genero/:id',
+      name: 'genero',
+      component: () => import('../views/GeneroView.vue')
+    },
   ],
 })
 

@@ -18,9 +18,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <i class="bi bi-house-heart text-white"> Mi espacio</i>
       </div>
       
-      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center" >
-        <router-link to="/" class="text-white text-decoration-none" >
-          <h2 class="m-0 text-white text-center" ><i>¿DÓNDE VERLA?</i></h2>
+      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center donde" >
+        <router-link to="/" class="text-decoration-none v" >
+          <h2 class="m-0  text-center" ><i>¿DÓNDE VERLA?</i></h2>
       </router-link>
       
       </div>
@@ -75,6 +75,14 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 .vistas-leave-active {
   transition: all 0.2s ease-in;
+}
+
+.donde .v{
+  font-weight: 600;
+  background-image: linear-gradient(to left, #553c9a, #b393d3);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 

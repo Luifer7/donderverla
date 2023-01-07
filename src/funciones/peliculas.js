@@ -40,6 +40,8 @@ export function usePeliculas () {
     }
     
     getPopular(Math.floor(Math.random() * 50), 'popular')
+
+   
     
     return {
         getPopular

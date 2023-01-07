@@ -62,7 +62,6 @@ onMounted(async() => {
     let api = `${person}${route.params.id}${key}${lenguage}`
     const res = await axios.get(api)
     persona.value = res.data
-
 })
 
 </script>

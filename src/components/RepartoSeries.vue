@@ -48,8 +48,6 @@ const getPersona =  (serie) => {
       max-height: 300px;
   }
 
-
-
   .img-border{
       border: 3px solid white;
   }

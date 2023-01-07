@@ -43,19 +43,17 @@
                   </i> 
               </h4>
 
-              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-center flex-wrap" >
-                <h5 class="m-0" ><i>Genero: </i> </h5> <strong class="m-0 fw-bold" v-for="g of contenido?.genres" :key="g.id" >{{g.name}}</strong>
-              </div>
+              <GeneroComponent :generos="contenido?.genres"></GeneroComponent>
 
               <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-center flex-wrap" >
-                <h5 class="m-0" >Episodios: <small class="fw-bold"> <i>{{contenido?.number_of_episodes}}</i> </small> </h5>
-                <h5 class="m-0" >Temporadas: <small class="fw-bold"> <i>{{ contenido?.number_of_seasons}}</i> </small></h5>
-                <h5 class="m-0" >Estado: <small class="fw-bold"> <i>{{ contenido?.status}}</i> </small> </h5>
+                <h5 class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </h5>
+                <h5 class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></h5>
+                <h5 class="m-0" >Estado: <small class="fw-bold text-info"> <i>{{ contenido?.status}}</i> </small> </h5>
               </div>
 
               <div class="p-3 text-white col-12 col-sm-4 d-flex gap-1 justify-content-start align-items-center flex-wrap" >
                 <h5 class="fw-bold m-0" >Ultimo episodio</h5>
-                {{contenido?.last_episode_to_air?.name}} ( {{contenido?.last_episode_to_air?.air_date}} )
+                <strong class="text-info" >{{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}} </strong>
               </div>
 
             </div>
@@ -96,6 +94,7 @@ import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import TemporadasComponent from "../components/TemporadasComponent.vue";
+import GeneroComponent from "../components/GeneroComponent.vue";
 
 
 const route = useRoute()
