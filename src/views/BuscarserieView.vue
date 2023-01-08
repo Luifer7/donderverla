@@ -4,6 +4,7 @@
             
       
         <div>
+
         <!-- Link BACK -->
         <div class="w-100 text-center mb-3" >
         <router-link class="text-decoration-none" to="/" >
@@ -16,7 +17,7 @@
 
         </div>
 
-        <form v-on:submit.prevent="buscarSerie(query)" class="container m-auto" >
+        <form v-on:submit.prevent="buscarSerie(query)" class="container m-auto form-outline" >
             <input v-model="query" type="text" class="form-control form-control-sm text-center"
              placeholder="Buscar serie">
         </form>
@@ -24,53 +25,60 @@
         <!-- GENEROS -->
         <div class="d-flex  flex-wrap gap-2 container m-auto mt-3 mb-3 m-auto" >
         
-            <span style="font-size: .8em;"  v-for="g of generos"  :key="g.id" 
+            <button style="font-size: .8em;"  v-for="g of generos"  :key="g.id" 
             @click="getForGenre(g)"
-            class="text-center text-dark fw-bold p-2 rounded bg-info genre" >{{ g.name }}</span>
+            class="text-center fw-bold p-2 rounded button-10" 
+            :class="mod === g.id ?'seleccionado' : ''"
+            >{{ g.name }}</button>
         </div>
 
-
-        <ButtonsSeries @change-mod="(p, m) => getSeriesPopulares(p, m)" :modd="useBodega.seriePeticion">
+        <!-- BOTONES CAMBIAR DE MODALIDAD -->
+        <ButtonsSeries @change-mod="(p, m) => {
+             getSeriesPopulares(p, m), clear()
+        }" 
+        :modd="useBodega.seriePeticion">
         </ButtonsSeries>
         
-
+        <!-- SERIES BUSQUEDA -->
         <div class="w-100">
 
-        <SeriesBusqueda
-        :series="series?.results"
-        :resultados="series"
-        :peticion="seriesPeticion"
-        @pasar-pagina="(n) => 
-        buscarSerieDos( n, seriesPeticion)"
-        ></SeriesBusqueda>
+            <SeriesBusqueda
+            :series="series?.results"
+            :resultados="series"
+            :peticion="seriesPeticion"
+            @pasar-pagina="(n) => 
+            buscarSerieDos( n, seriesPeticion)"
+            ></SeriesBusqueda>
 
         </div>
 
+        <!-- SERIES GENEROS -->
         <div class="w-100" >
 
-        <SeriesGeneros
-        :series="seriesGeneros?.results"
-        :resultados="seriesGeneros"
-        :peticion="seriesPeticionGeneros"
-        @pasar-paginaTwo="(n) => 
-        getForGenreTwo(n, idGenero)"
-        ></SeriesGeneros>
+            <SeriesGeneros
+            :series="seriesGeneros?.results"
+            :resultados="seriesGeneros"
+            :peticion="seriesPeticionGeneros"
+            @pasar-paginaTwo="(n) => 
+            getForGenreTwo(n, idGenero)"
+            ></SeriesGeneros>
 
         </div>
         
-    
         <div v-if="!useBodega.seriesPopulares" class="w-100 text-center p-4" >
         <SpinnerComponent></SpinnerComponent>
         </div>
 
+        <!-- SERIES MODALIDADES POPULAE, ETC... -->
         <div class="w-100">
 
             <SeriesModalidad
             :series="useBodega.seriesPopulares?.results"
             :resultados="useBodega.seriesPopulares"
             :peticion="useBodega.seriePeticion"
-            @pasar-pagina="(n) => 
-            getSeriesPopulares( n, useBodega.seriePeticion)"
+            @pasar-pagina="(n) =>{
+                 getSeriesPopulares( n, useBodega.seriePeticion)
+            }"
             ></SeriesModalidad>
         
         </div>
@@ -107,7 +115,6 @@ const seriesGeneros = ref([])
 const seriesPeticionGeneros = ref('') 
 const idGenero = ref('')
 
-
 const buscarSerie = async (q) => {
 
 let movie = `https://api.themoviedb.org/3/search/tv`
@@ -122,6 +129,7 @@ let api = `${movie}${key}${query}${lang}`
 
     seriesGeneros.value = []
     seriesPeticionGeneros.value = ''
+    useBodega.seriePeticion = ''
 }
 
 const buscarSerieDos = async (p, q) => {
@@ -143,7 +151,10 @@ onMounted( async() => {
     generos.value = res.data.genres
 })
 
+
+const mod = ref('')
 const getForGenre = async (g) => {
+    mod.value = g.id
     let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${g.id}`
     const res = await axios.get(api)
     seriesGeneros.value = res.data
@@ -152,6 +163,7 @@ const getForGenre = async (g) => {
 
     series.value = []
     seriesPeticion.value = ''
+    useBodega.seriePeticion = ''
 }
 
 const getForGenreTwo = async (n, id) => {
@@ -162,23 +174,57 @@ const getForGenreTwo = async (n, id) => {
 }
 
 
+const clear = () => {
+    series.value = []
+    seriesPeticion.value = ''
+    seriesGeneros.value = []
+    seriesPeticionGeneros.value = ''
+    mod.value = ''
+}
+
 </script>
 
 <style scoped>
-
-.genre{
-    cursor: pointer;
-    transition: .6s ease all;
-}
-.genre:hover{
-    transform: scale(.9);
-}
 
 .genre:active{
     transform: scale(1.1);
 }
 
 
+.button-10 {
+  transition: .6s ease all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  color: #fff;
+  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.button-10:hover {
+    transform: scale(.9);
+}
+.button-10:active {
+    transform: scale(1.1);
+}
+
+.seleccionado{
+    background: linear-gradient(180deg, #2556a0 0%, #27519e 100%);
+    color: white;
+}
 
 
 </style>

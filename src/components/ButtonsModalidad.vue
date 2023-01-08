@@ -84,4 +84,5 @@ const getModalidad = (page, mod) => {
 }
 
 
+
 </style>
