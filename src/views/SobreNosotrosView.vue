@@ -9,7 +9,7 @@
         </div>
 
         <div class="container p-3 text-justify mb-5 " >
-            <p class="text-justify fw-bold" > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis 
+            <p class="text-justify fw-bold text-white" > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis 
                 necessitatibus saepe, autem doloribus atque, pariatur, hic voluptatum 
                 doloremque quo obcaecati magnam. Et perferendis dolores autem nihil dolor 
                 perspiciatis, vel id beatae voluptatibus, tempora in quos earum quam quia quis quasi. 

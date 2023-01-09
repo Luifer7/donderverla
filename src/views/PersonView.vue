@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
-                <h5 class="m-0 text-white fw-bold">{{ persona.name }}</h5>
+                <h2 class="m-0 text-white fw-bold">{{ persona?.name }}</h2>
               <small class="text-white" >
               <i class="text-justify" >{{ persona?.biography }}</i>
             </small>
@@ -38,6 +38,17 @@
           
           </div>
 
+            <h3 class="text-center text-white fw-bold m-0 p-3 mb-2" >Filmografia</h3>
+          <div class="w-100" >
+            <PeliculasModalidad
+            :peliculas="personaPeliculas?.results"
+            :resultados="personaPeliculas"
+            :peticion="persona?.name"
+            @pasar-pagina="(n) => 
+            getPage(n)"
+            >
+            </PeliculasModalidad>
+          </div>
         
 
     </div>
@@ -46,26 +57,46 @@
 
 <script setup >
 import { onMounted, ref } from "@vue/runtime-core";
+import PeliculasModalidad from "../components/PeliculasModalidad.vue";
 import axios from "axios";
 import { useRoute } from "vue-router"
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 
 
 const route = useRoute()
-const persona = ref('')
+const persona = ref({})
+const personaPeliculas = ref({})
 const spinner = ref(true)
 
 onMounted(async() => {
+
     let person = `https://api.themoviedb.org/3/person/`
     let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
-    let lenguage = `&language=es-MX`
+    let lenguage = `&language=es-ES`
+
+    let movie = `https://api.themoviedb.org/3/discover/movie`
     
     let api = `${person}${route.params.id}${key}${lenguage}`
+    let apiPersonMovies = `${movie}${key}${lenguage}&with_cast=${route.params.id}`
+
     const res = await axios.get(api)
+    const resM = await axios.get(apiPersonMovies)
+
     persona.value = res.data
+    personaPeliculas.value = resM.data
+
     spinner.value = false
 
 })
+
+const getPage =async (n) => {
+    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let lenguage = `&language=es-ES`
+    let movie = `https://api.themoviedb.org/3/discover/movie`
+    let api = `${movie}${key}${lenguage}&with_cast=${route.params.id}&page=${n}`
+    const res = await axios.get(api)
+    personaPeliculas.value = res.data
+}
 
 </script>
 

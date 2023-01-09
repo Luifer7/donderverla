@@ -6,7 +6,7 @@
     <div class="container text-center" >
 
         <!-- CONTROLES -->
-        <div class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
+        <div v-if="peticion != ''" class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
             
             <h6 class="m-0 text-white"> <i>{{ peticion }}</i> </h6>
             

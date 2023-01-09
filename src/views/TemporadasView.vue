@@ -22,7 +22,7 @@
         <div class="col-12 col-sm-6" >
             <h4 class="text-white px-2 mb-2 m-0"> <i>{{ episodios?.name }}</i> 
             <small v-if="episodios.air_date" class="text-info m-2" >- {{ episodios?.air_date?.slice(0, -6) }}</small> </h4>
-            <p class="px-4 py-2 m-0 text-start text-dark fw-bold" style="font-size: .9em;" >
+            <p class="px-4 py-2 m-0 text-start text-white fw-bold" style="font-size: .9em;" >
                 {{ episodios?.overview }}
             </p>
         </div>
@@ -45,9 +45,9 @@
                  :src="`https://image.tmdb.org/t/p/w500${epi?.still_path}`" alt="">
            </div>
 
-           <div class="box-text" style="height: 50px;">
+           <div class="box-text text-info" style="height: 50px;">
             <strong class="m-0 px-2" > #{{ epi.episode_number }} {{ epi.name }} - {{ epi.runtime }}Min</strong>
-            <b style="font-size: 1em;" class="text-info" >{{ epi.vote_average }}</b>
+            <b style="font-size: 1em;">{{ epi.vote_average }}</b>
             </div>
 
             <div style="height: 100px; overflow-y: auto;" class="p-1 box-text" >

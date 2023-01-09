@@ -35,7 +35,7 @@ defineProps({
 })
 
 const getPersona =  (id, nombre) => {
-    console.log(nombre)
+   
     router.push( 
         { name: 'person', 
           params: { 

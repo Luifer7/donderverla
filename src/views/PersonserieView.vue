@@ -17,7 +17,7 @@
 
         </router-link>
         
-    </div>
+          </div>
 
         
           <!-- Imagen y sinopsis -->
@@ -38,7 +38,7 @@
           
           </div>
 
-
+         
     </div>
 
 
@@ -49,20 +49,30 @@
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router"
+import SeriesModalidad from "../components/SeriesModalidad.vue";
 
 
 const route = useRoute()
 const persona = ref('')
+const personaSerie = ref({})
 
 onMounted(async() => {
+
     let person = `https://api.themoviedb.org/3/person/`
     let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
-    let lenguage = `&language=es-MX`
+    let lenguage = `&language=es-ES`
+    let serie = `https://api.themoviedb.org/3/discover/tv`
     
     let api = `${person}${route.params.id}${key}${lenguage}`
+
     const res = await axios.get(api)
+
+
     persona.value = res.data
+
 })
+
+
 
 </script>
 

@@ -56,7 +56,7 @@ import { RouterLink, RouterView } from 'vue-router'
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap');
 
 .banner {
-  background-image: url(https://img.freepik.com/free-photo/astronauts-leaving-cabin-science-fiction-illustrations-digital-painting_456031-70.jpg?w=996&t=st=1673148774~exp=1673149374~hmac=5314ea3eaf4adbefeebdebdcefb9dd5d408f496d5feee1b6775d823cc08b8fbc);
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/dondeverla.appspot.com/o/ggghh.jpg?alt=media&token=cb4bf01a-a07e-4e95-8d19-27fed98e57e5);
   background-size: cover;
   background-position: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

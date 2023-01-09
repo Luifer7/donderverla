@@ -4,7 +4,7 @@
 <template>
 
 <div>
-    <div class="w-100 p-1 mb-5" >
+    <div class="w-100 p-1 mb-3" >
 
         <h3 class="text-center text-white m-2 p-2" ><i>Inicia tu búsqueda</i></h3>
         <div class="w-90 m-auto p-2 d-flex align-items-center justify-content-center gap-3" >
@@ -22,8 +22,38 @@
        
     </div>
 
-    <ButtonsModalidad @change-mod="(p, m) => getPopular(p, m)" :modd="useBodega.peticion" ></ButtonsModalidad>
- 
+    
+        <!-- GENEROS -->
+      <div class="d-flex  flex-wrap gap-2 container m-auto mt-3 mb-3 m-auto" >
+        
+        <button style="font-size: .8em;" v-for="g of generos"  :key="g.id" 
+        @click="getForGenre(g)"
+        class="text-center fw-bold p-2 rounded button-10" 
+        :class="mod === g.id ?'seleccionado' : ''"
+        >{{ g.name }} 
+        <span v-if="mod === g.id && spinnerButton" 
+        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+
+    </div>
+
+    <ButtonsModalidad @change-mod="(p, m) => {
+      getPopular(p, m), clear()
+      }" 
+      :modd="useBodega.peticion" >
+    </ButtonsModalidad>
+
+    <div class="w-100" >
+      <PeliculasModalidad
+      :peliculas="peliculasGeneros?.results"
+      :resultados="peliculasGeneros"
+      :peticion="peliculasPeticionesGeneros"
+      @pasar-pagina="(n) => 
+        getForGenreTwo( n, idGenero)"
+      >
+      </PeliculasModalidad>
+    </div>
+
     <div class="w-100">
 
         <PeliculasModalidad 
@@ -42,6 +72,8 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "@vue/runtime-core";
+import axios from "axios";
 import ButtonsModalidad from "../components/ButtonsModalidad.vue";
 import PeliculasModalidad from "../components/PeliculasModalidad.vue";
 import { usePeliculas } from "../funciones/peliculas";
@@ -49,6 +81,43 @@ import { useBodegaStore } from "../stores/bodega";
 
 const { getPopular } = usePeliculas()
 const useBodega = useBodegaStore()
+
+const generos = ref([])
+const mod = ref('')
+const idGenero = ref('')
+const spinnerButton = ref(null)
+
+const peliculasGeneros = ref([])
+const peliculasPeticionesGeneros = ref('')
+
+onMounted( async() => {
+    let api = `https://api.themoviedb.org/3/genre/movie/list?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES`
+    const res = await axios.get(api)
+    generos.value = res.data.genres
+})
+
+const getForGenre = async (g) => {
+    spinnerButton.value = true
+    mod.value = g.id
+    let api = `https://api.themoviedb.org/3/discover/movie?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${g.id}`
+    const res = await axios.get(api)
+    peliculasGeneros.value = res.data
+    peliculasPeticionesGeneros.value = g.name
+    spinnerButton.value = false
+    idGenero.value = g.id
+}
+
+const getForGenreTwo = async (n, id) => {
+  let api = `https://api.themoviedb.org/3/discover/movie?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${id}&page=${n}`
+    const res = await axios.get(api)
+    peliculasGeneros.value = res.data
+}
+
+const clear = () => {
+    peliculasGeneros.value = []
+    peliculasPeticionesGeneros.value = ''
+    mod.value = ''
+}
 
 
 
@@ -104,6 +173,47 @@ const useBodega = useBodegaStore()
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
 }
+
+.genre:active{
+    transform: scale(1.1);
+}
+
+
+.button-10 {
+  transition: .6s ease all;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  color: #fff;
+  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.button-10:hover {
+    transform: scale(.9);
+}
+.button-10:active {
+    transform: scale(1.1);
+}
+
+.seleccionado{
+    background: linear-gradient(180deg, #2556a0 0%, #27519e 100%);
+    color: white;
+}
+
 
 
 </style>

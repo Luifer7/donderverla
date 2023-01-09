@@ -25,11 +25,14 @@
         <!-- GENEROS -->
         <div class="d-flex  flex-wrap gap-2 container m-auto mt-3 mb-3 m-auto" >
         
-            <button style="font-size: .8em;"  v-for="g of generos"  :key="g.id" 
+            <button style="font-size: .8em;" v-for="g of generos"  :key="g.id" 
             @click="getForGenre(g)"
             class="text-center fw-bold p-2 rounded button-10" 
             :class="mod === g.id ?'seleccionado' : ''"
-            >{{ g.name }}</button>
+            >{{ g.name }} 
+            <span v-if="mod === g.id && spinnerButton" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+
         </div>
 
         <!-- BOTONES CAMBIAR DE MODALIDAD -->
@@ -153,7 +156,10 @@ onMounted( async() => {
 
 
 const mod = ref('')
+const spinnerButton = ref(null)
+
 const getForGenre = async (g) => {
+    spinnerButton.value = true
     mod.value = g.id
     let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${g.id}`
     const res = await axios.get(api)
@@ -161,6 +167,7 @@ const getForGenre = async (g) => {
     seriesPeticionGeneros.value = g.name
     idGenero.value = g.id
 
+    spinnerButton.value = false
     series.value = []
     seriesPeticion.value = ''
     useBodega.seriePeticion = ''
@@ -194,7 +201,7 @@ const clear = () => {
 .button-10 {
   transition: .6s ease all;
   display: flex;
-  flex-direction: column;
+  gap: 3px;
   align-items: center;
   padding: 6px 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;

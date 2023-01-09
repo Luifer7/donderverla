@@ -49,7 +49,7 @@
 
           <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
   
-          <ReviewsComppnent v-if="!spinner" :reviews="reviews"></ReviewsComppnent>
+         
     
           <!-- Galeria -->
         <div class="d-flex box-imagenes"  >
