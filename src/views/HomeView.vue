@@ -78,6 +78,7 @@ import ButtonsModalidad from "../components/ButtonsModalidad.vue";
 import PeliculasModalidad from "../components/PeliculasModalidad.vue";
 import { usePeliculas } from "../funciones/peliculas";
 import { useBodegaStore } from "../stores/bodega";
+import { keyApi } from "../funciones/key";
 
 const { getPopular } = usePeliculas()
 const useBodega = useBodegaStore()
@@ -91,7 +92,7 @@ const peliculasGeneros = ref([])
 const peliculasPeticionesGeneros = ref('')
 
 onMounted( async() => {
-    let api = `https://api.themoviedb.org/3/genre/movie/list?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES`
+    let api = `https://api.themoviedb.org/3/genre/movie/list${keyApi}&language=es-ES`
     const res = await axios.get(api)
     generos.value = res.data.genres
 })
@@ -99,7 +100,7 @@ onMounted( async() => {
 const getForGenre = async (g) => {
     spinnerButton.value = true
     mod.value = g.id
-    let api = `https://api.themoviedb.org/3/discover/movie?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${g.id}`
+    let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${g.id}`
     const res = await axios.get(api)
     peliculasGeneros.value = res.data
     peliculasPeticionesGeneros.value = g.name
@@ -108,7 +109,7 @@ const getForGenre = async (g) => {
 }
 
 const getForGenreTwo = async (n, id) => {
-  let api = `https://api.themoviedb.org/3/discover/movie?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${id}&page=${n}`
+  let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${id}&page=${n}`
     const res = await axios.get(api)
     peliculasGeneros.value = res.data
 }

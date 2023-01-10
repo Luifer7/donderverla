@@ -61,6 +61,7 @@ import PeliculasModalidad from "../components/PeliculasModalidad.vue";
 import axios from "axios";
 import { useRoute } from "vue-router"
 import SpinnerComponent from "../components/SpinnerComponent.vue";
+import { keyApi } from "../funciones/key";
 
 
 const route = useRoute()
@@ -71,7 +72,7 @@ const spinner = ref(true)
 onMounted(async() => {
 
     let person = `https://api.themoviedb.org/3/person/`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-ES`
 
     let movie = `https://api.themoviedb.org/3/discover/movie`
@@ -90,7 +91,7 @@ onMounted(async() => {
 })
 
 const getPage =async (n) => {
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-ES`
     let movie = `https://api.themoviedb.org/3/discover/movie`
     let api = `${movie}${key}${lenguage}&with_cast=${route.params.id}&page=${n}`

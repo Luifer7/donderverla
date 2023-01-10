@@ -4,12 +4,13 @@ import axios from "axios"
 import Swal from "sweetalert2";
 import { ref } from "vue"
 import { useBodegaStore } from '../stores/bodega';
+import {keyApi} from "./key";
 
 export function useSeries () {
     
     const useBodega = useBodegaStore()
 
-    let key = '?api_key=9f7031622a3c84ce82bbf384f262391a'
+    let key = keyApi
     let api = 'https://api.themoviedb.org/3/tv/'
     let modalidad = ref('')
     let page = ref('')
@@ -40,6 +41,6 @@ export function useSeries () {
     getSeriesPopulares(Math.floor(Math.random() * 40), 'popular')
 
     return {
-        getSeriesPopulares
+        getSeriesPopulares, keyApi
     }
 }

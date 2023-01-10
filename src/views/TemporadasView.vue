@@ -71,6 +71,7 @@
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import { keyApi } from "../funciones/key";
 
 const route = useRoute()
 
@@ -78,10 +79,9 @@ const episodios = ref({})
 
 onMounted( async () => {
     
-    let api = `https://api.themoviedb.org/3/tv/${route.params.currentId}/season/${route.params.numero}?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES` 
+    let api = `https://api.themoviedb.org/3/tv/${route.params.currentId}/season/${route.params.numero}${keyApi}&language=es-ES` 
     const res = await axios.get(api)
     episodios.value = res.data
-    //console.log(episodios.value)
 })
 
 </script>

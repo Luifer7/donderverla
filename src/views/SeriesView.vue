@@ -95,6 +95,7 @@ import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import TemporadasComponent from "../components/TemporadasComponent.vue";
 import GeneroComponent from "../components/GeneroComponent.vue";
+import { keyApi } from "../funciones/key";
 
 
 const route = useRoute()
@@ -111,7 +112,7 @@ const spinner = ref(true)
 onMounted( async () => {
 
     let series = `https://api.themoviedb.org/3/tv/`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-ES`
 
     let api = `${series}${route.params.id}${key}${lenguage}`
@@ -155,7 +156,7 @@ onMounted( async () => {
 const realoadData = async () => {
     
     let series = `https://api.themoviedb.org/3/tv/`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-MX`
 
     let api = `${series}${route.params.id}${key}${lenguage}`

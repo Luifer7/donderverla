@@ -39,6 +39,7 @@ import { ref } from "@vue/reactivity"
 import PeliculasModalidad from "../components/PeliculasModalidad.vue";
 import axios from "axios"
 import { useBodegaStore } from "../stores/bodega";
+import { keyApi } from "../funciones/key";
 
 
 const useBodega = useBodegaStore()
@@ -50,7 +51,7 @@ const peticion = ref('')
 const buscarPleicula = async (q) => {
 
     let movie = `https://api.themoviedb.org/3/search/movie`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lang = `&language=es-MX`
     let query = `&query='${q}'`
 
@@ -62,7 +63,7 @@ const buscarPleicula = async (q) => {
 }
 
 const pasarPage = async (n, q) => {
-    let api = `https://api.themoviedb.org/3/search/movie?api_key=9f7031622a3c84ce82bbf384f262391a&page=${n}&query=${q}&language=es-MX`
+    let api = `https://api.themoviedb.org/3/search/movie${keyApi}&page=${n}&query=${q}&language=es-MX`
     const res = await axios.get(api)
     peliculas.value = res.data
     peticion.value = q

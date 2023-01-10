@@ -3,19 +3,19 @@
 import axios from "axios"
 import Swal from "sweetalert2";
 import { ref } from "vue"
-
-
+import {keyApi} from "./key";
 
 import { useBodegaStore } from '../stores/bodega';
 
 export function usePeliculas () {
 
     const useBodega = useBodegaStore()
-    
-    let key = '?api_key=9f7031622a3c84ce82bbf384f262391a'
+
+    let key = keyApi
     let api = 'https://api.themoviedb.org/3/movie/'
     let modalidad = ref('') // for example
     let page = ref('')
+
     
     const getPopular = async (n, mod) => {
           
@@ -44,7 +44,7 @@ export function usePeliculas () {
    
     
     return {
-        getPopular
+        getPopular, keyApi
     }
 
 

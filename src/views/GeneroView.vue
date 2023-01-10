@@ -40,6 +40,7 @@ import SeriesBusqueda from "../components/SeriesBusqueda.vue";
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import { keyApi } from "../funciones/key";
 
 const route = useRoute()
 
@@ -47,14 +48,14 @@ const contenidoGenero = ref([])
 const contenidoGeneroPeticion = ref('')
 
 onMounted(async() => {
-    let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${route.params.id}`
+    let api = `https://api.themoviedb.org/3/discover/tv${keyApi}&language=es-ES&with_genres=${route.params.id}`
     const res = await axios.get(api)
     contenidoGenero.value = res.data
     contenidoGeneroPeticion.value = route.params.genero
 })
 
 const changePage = async (p) => {
-    let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${route.params.id}&page=${p}`
+    let api = `https://api.themoviedb.org/3/discover/tv${keyApi}&language=es-ES&with_genres=${route.params.id}&page=${p}`
     const res = await axios.get(api)
     contenidoGenero.value = res.data
 }

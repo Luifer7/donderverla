@@ -102,6 +102,7 @@ import { useSeries } from '../funciones/series';
 import { useBodegaStore } from "../stores/bodega";
 import { onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
+import { keyApi } from "../funciones/key";
 
 const useBodega = useBodegaStore()
 const { getSeriesPopulares } = useSeries()
@@ -121,7 +122,7 @@ const idGenero = ref('')
 const buscarSerie = async (q) => {
 
 let movie = `https://api.themoviedb.org/3/search/tv`
-let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+let key = keyApi
 let lang = `&language=es-MX`
 let query = `&query='${q}'`
 
@@ -138,7 +139,7 @@ let api = `${movie}${key}${query}${lang}`
 const buscarSerieDos = async (p, q) => {
 
 let movie = `https://api.themoviedb.org/3/search/tv`
-let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+let key = keyApi
 let lang = `&language=es-MX`
 let query = `&page=${p}&query='${q}'`
 
@@ -149,7 +150,7 @@ let api = `${movie}${key}${query}${lang}`
 }
 
 onMounted( async() => {
-    let api = `https://api.themoviedb.org/3/genre/tv/list?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES`
+    let api = `https://api.themoviedb.org/3/genre/tv/list${keyApi}&language=es-ES`
     const res = await axios.get(api)
     generos.value = res.data.genres
 })
@@ -161,7 +162,7 @@ const spinnerButton = ref(null)
 const getForGenre = async (g) => {
     spinnerButton.value = true
     mod.value = g.id
-    let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${g.id}`
+    let api = `https://api.themoviedb.org/3/discover/tv${keyApi}&language=es-ES&with_genres=${g.id}`
     const res = await axios.get(api)
     seriesGeneros.value = res.data
     seriesPeticionGeneros.value = g.name
@@ -174,7 +175,7 @@ const getForGenre = async (g) => {
 }
 
 const getForGenreTwo = async (n, id) => {
-    let api = `https://api.themoviedb.org/3/discover/tv?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-ES&with_genres=${id}&page=${n}`
+    let api = `https://api.themoviedb.org/3/discover/tv${keyApi}&language=es-ES&with_genres=${id}&page=${n}`
     const res = await axios.get(api)
     seriesGeneros.value = res.data
     

@@ -76,6 +76,7 @@ import RepartoComponent from "../components/RepartoComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import Swal from "sweetalert2";
+import { keyApi } from "../funciones/key";
 
 const route = useRoute()
 
@@ -94,7 +95,7 @@ onMounted( async () => {
   
   let n = Math.floor(Math.random() * 10)
   let movie = `https://api.themoviedb.org/3/movie`
-  let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+  let key = keyApi
   let lenguage = `&language=es-MX`
 
   let apitrailers = `${movie}/${route.params.id}/videos${key}`

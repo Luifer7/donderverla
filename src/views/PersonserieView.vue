@@ -50,6 +50,7 @@ import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router"
 import SeriesModalidad from "../components/SeriesModalidad.vue";
+import { keyApi } from "../funciones/key";
 
 
 const route = useRoute()
@@ -59,7 +60,7 @@ const personaSerie = ref({})
 onMounted(async() => {
 
     let person = `https://api.themoviedb.org/3/person/`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-ES`
     let serie = `https://api.themoviedb.org/3/discover/tv`
     

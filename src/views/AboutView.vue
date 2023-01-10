@@ -86,6 +86,7 @@ import YoutubeComponent from "../components/YoutubeComponent.vue";
 import PeliculasSimilares from "../components/PeliculasSimilares.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import Swal from "sweetalert2";
+import { keyApi } from "../funciones/key";
 
 const route = useRoute()
 const router = useRouter()
@@ -106,7 +107,7 @@ onMounted( async () => {
 
     let n = Math.floor(Math.random() * 10)
     let movie = `https://api.themoviedb.org/3/movie`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-MX`
 
     let apitrailers = `${movie}/${route.params.id}/videos${key}`
@@ -153,7 +154,7 @@ onMounted( async () => {
 
 
 const getPasar = async (data) =>{
-  let apiSimilares = `https://api.themoviedb.org/3/movie/${route.params.id}/similar?api_key=9f7031622a3c84ce82bbf384f262391a&page=${data}&language=es-MX`
+  let apiSimilares = `https://api.themoviedb.org/3/movie/${route.params.id}/similar${keyApi}&page=${data}&language=es-MX`
   const resSimilaresDos = await axios.get(apiSimilares)
   similares.value = resSimilaresDos.data
 }
@@ -167,7 +168,7 @@ const realoadData = async  () => {
 
     let n = Math.floor(Math.random() * 10)
     let movie = `https://api.themoviedb.org/3/movie`
-    let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
+    let key = keyApi
     let lenguage = `&language=es-MX`
 
     let apitrailers = `${movie}/${route.params.id}/videos${key}`
