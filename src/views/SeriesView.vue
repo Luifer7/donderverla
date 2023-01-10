@@ -23,38 +23,63 @@
               <img  v-if="serie?.poster_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${serie?.poster_path}`" alt="imagen no disponible" >
             </div>
 
-            <div class="col-12 col-sm-8 col-md-8 p-2" >
+            <div v-if="!spinner" class="col-12 col-sm-8 col-md-8 p-2" >
               <small class="text-white" >
               <i class="text-justify" >{{ serie?.overview }}</i>
+              
+              <GeneroComponent :generos="contenido?.genres"></GeneroComponent>
+
+              <!-- DETALLES -->
+              <div class="text-white col-6 col-sm-4 d-flex gap-2 justify-content-start align-items-center flex-wrap" >
+                <strong class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </strong>
+                <strong class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></strong>
+                 
+                <!-- ESTADO de la serie -->
+                <strong class="m-0" >Estado: 
+
+                  <small class="fw-bold w-100" v-if="contenido?.status === 'Returning Series'">
+                  <i class="text-info text-uppercase" >Habrá otra temporada</i></small>
+
+                  <small class="fw-bold w-100" v-if="contenido?.status === 'Planned'">
+                  <i class="text-info text-uppercase" >En planes</i></small>
+
+                  <small class="fw-bold w-100" v-if="contenido?.status === 'Canceled'">
+                  <i class="text-danger text-uppercase" >Cancelada</i></small>
+
+                  <small class="fw-bold w-100" v-if="contenido?.status === 'Ended'">
+                  <i class="text-info text-uppercase" >Finalizada</i></small>
+
+                  <small class="fw-bold w-100" v-if="contenido?.status === 'Production'">
+                  <i class="text-info text-uppercase" >En produccion</i></small>
+
+                </strong>
+                
+                <!-- Ultimo episodio -->
+                <strong class="m-0" >Ultimo episodio: <small class="fw-bold text-info"> <i>
+                  {{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}}
+                </i> </small> </strong>
+              </div>
             </small>
 
-            <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
+           
             
-          </div>
+            </div>
           
+            </div>
+
+            <div class="w-100" >
+              <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
             </div>
 
             <!-- DETALLES -->
             <div v-if="!spinner" class="w-100 row p-3" >
 
+              <!-- TAGLINE -->
               <h4 class="mt-2 m-0 text-center text-white col-12" >
                   <i> 
-                  <blockquote >{{ contenido?.tagline }}</blockquote>
+                  <blockquote >- {{ contenido?.tagline }}</blockquote>
                   </i> 
               </h4>
-
-              <GeneroComponent :generos="contenido?.genres"></GeneroComponent>
-
-              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-center flex-wrap" >
-                <h5 class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </h5>
-                <h5 class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></h5>
-                <h5 class="m-0" >Estado: <small class="fw-bold text-info"> <i>{{ contenido?.status}}</i> </small> </h5>
-              </div>
-
-              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-1 justify-content-start align-items-center flex-wrap" >
-                <h5 class="fw-bold m-0" >Ultimo episodio</h5>
-                <strong class="text-info" >{{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}} </strong>
-              </div>
 
             </div>
           
@@ -74,9 +99,9 @@
 
            
               <!-- Galeria -->
-            <div class="d-flex box-imagenes mt-4"  >
-              <img class="img-thumbnail" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
-              <img class="img-thumbnail" v-if="serie?.last_episode_to_air?.still_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
+            <div class="w-100 row mt-4 m-auto"  >
+              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
+              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.last_episode_to_air?.still_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
             </div>
        
 
@@ -121,9 +146,6 @@ onMounted( async () => {
     let apiCreditos = `${series}${route.params.id}/credits${key}`
     let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}${lenguage}`
 
-    //GET EPISODES 
-    // https://api.themoviedb.org/3/tv/19885/season/1?api_key=9f7031622a3c84ce82bbf384f262391a&language=es-MX
-
     try {
         const res = await axios.get(api)
         const resTrailers = await axios.get(apitrailers)
@@ -136,7 +158,7 @@ onMounted( async () => {
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
         contenido.value = resEpisodes.data
-       
+       console.log(contenido.value)
         spinner.value = false
 
     } catch (error) {

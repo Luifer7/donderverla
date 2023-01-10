@@ -2,7 +2,7 @@
 
 <template>
     
-    <div class="p-1 d-flexflex-wrap" >
+    <div class="p-1 px-3 d-flexflex-wrap" >
         <span v-for="tra of trailers" :key="tra.id" @click="vi(tra)" 
               class="d-flex align-items-start gap-1" 
               style="cursor:pointer;" >

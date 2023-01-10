@@ -25,22 +25,31 @@
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
+
               <small class="text-white" >
               <i class="text-justify" >{{ pelicula?.overview }}</i>
+
+              <div class="d-flex gap-2 flex-wrap mt-2 mb-1">
+              <strong v-for="g of genres" :key="g.id" class="text-info" >
+                {{ g.name }}
+              </strong>
+              </div>
+
+              <div class="mt-1 mb-2" v-if="director[0]?.name" >
+                <strong>Director: <strong class="text-info" >{{ director[0]?.name }}</strong> </strong>
+              </div>
+              <div class="mt-1 mb-2" v-if="pelicula?.runtime" >
+                <strong>Duracion: <strong class="text-info" >{{ pelicula?.runtime }} Min</strong> </strong>
+              </div>
+              
             </small>
-
-            <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
-            
-          </div>
+  
+            </div>
           
           </div>
 
-          
-          <DetallesComponent 
-          :pelicula="pelicula" :director="director" 
-          :escritor="escritor" :genres="genres"
-          ></DetallesComponent>
-            
+          <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
+               
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
@@ -52,9 +61,9 @@
          
     
           <!-- Galeria -->
-        <div class="d-flex box-imagenes"  >
-          <img class="img-thumbnail" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
-          <img class="img-thumbnail" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
+        <div class="row mt-4 w-100 m-auto"  >
+          <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
+          <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
         </div>
 
 
@@ -205,9 +214,10 @@ const realoadData = async  () => {
 <style scoped>
 
 .box-imagenes {
-  overflow: auto;
-  max-height: 300px;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  *overflow: auto;
+  *max-height: 300px;
+ /* box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px; */
+  margin-top: 40px;
 }
 
     .box-imagenes::-webkit-scrollbar {

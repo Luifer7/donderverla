@@ -2,8 +2,7 @@
 
 <template>
     
-              <div class="p-3 text-white col-12 col-sm-4 d-flex gap-3 justify-content-start align-items-start flex-wrap" >
-                <h5 class="m-0" ><i>Genero: </i> </h5> 
+              <div class="mt-2  mb-2 text-white d-flex gap-3 justify-content-start align-items-start flex-wrap" >
                 <strong class="m-0 fw-bold genero" v-for="g of generos" :key="g.id" 
                 @click="getForGenre(g)"
                 >{{g.name}}</strong>

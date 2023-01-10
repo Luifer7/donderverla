@@ -11,14 +11,6 @@
             
         </h4>
 
-        <div v-if="genres[0]?.name" class="d-flex m-3 align-items-start gap-2" >
-        <strong class="text-dark m-0">Genero: </strong>
-        <div class="d-flex gap-2 flex-wrap">
-            <strong v-for="g of genres" :key="g.id" class="text-info" >
-                {{ g.name }}
-            </strong>
-        </div>
-        </div>
 
         <div v-if="pelicula?.release_date" class="row w-100 p-3" >
             <strong class="text-dark col-6" >Año: <small class="text-white" >{{pelicula?.release_date?.slice(0, -6) }}</small></strong>
