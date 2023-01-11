@@ -2,32 +2,39 @@
 
 <template>
      
-    <div class="w-100">
+    <div class="w-100 mt-2">
 
-        <router-link to="/" >
+        <!-- Router back -->
+        <router-link to="/buscarpelicula" >
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
         </router-link>
 
+            <!-- SPINNER #1 -->
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
 
           <!-- Titulo -->
-          <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
-              <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
+          <h3 class="text-white d-flex text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+              <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
-
-          <!-- Imagen y sinopsis -->
+          
+          <!-- Imagen y sinopsis  MUCHOS DATOS-->
           <div class="row p-2 m-auto" >
             
+            <!-- POSTER -->
             <div class="col-12 col-sm-4 col-md-4 p-2" >
-              <img  v-if="pelicula?.poster_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
+              <img  v-if="pelicula?.poster_path" height="300" 
+              class="rounded w-100 img-thumbnail" 
+              :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
             </div>
 
+            <!-- sinopsis -->
             <div class="col-12 col-sm-8 col-md-8 p-2" >
 
               <small class="text-white" >
-              <i class="text-justify" >{{ pelicula?.overview }}</i>
+              <i class="text-justify fw-bold" 
+              style="font-size: .9em;" >{{ pelicula?.overview }}</i>
 
               <div class="d-flex gap-2 flex-wrap mt-2 mb-1">
               <strong v-for="g of genres" :key="g.id" class="text-info" >
@@ -41,6 +48,35 @@
               <div class="mt-1 mb-2" v-if="pelicula?.runtime" >
                 <strong>Duracion: <strong class="text-info" >{{ pelicula?.runtime }} Min</strong> </strong>
               </div>
+
+              <!-- RATING IMDB ETC.. -->
+              <div v-if="!spinner" class="d-flex gap-3">
+
+                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                  <img src="../assets/img/imdb.png" width="50" height="50" alt="">
+                  <strong class="m-1 h5" >{{ rating.imDb }}</strong>
+                </span>
+                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                  <img src="../assets/img/filmaffinity.png" width="30" height="25" alt="">
+                  <strong class="m-1 h5" >{{  rating.filmAffinity  }}</strong>
+                </span>
+                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                  <img src="../assets/img/tomato.png" width="35" height="35" alt="">
+                  <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
+                </span>
+                
+              </div>
+
+              <!-- STREAMING -->
+              <div class="d-flex gap-3 flex-wrap mt-1" >
+                <div v-for="prov of proovedores?.flatrate" :key="prov.id" >
+                  <span class="d-flex gap-1 align-items-center" >
+                    <img width="25" class="rounded-circle" 
+                    height="25" :src="`https://image.tmdb.org/t/p/w500/${prov.logo_path}`" alt=""> 
+                    <strong>{{ prov?.provider_name }}</strong>
+                  </span>
+                </div>
+              </div>
               
             </small>
   
@@ -49,7 +85,8 @@
           </div>
 
           <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
-               
+            
+          <!-- SPINNER #2 -->
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
@@ -58,17 +95,17 @@
 
           <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
   
-         
-    
-          <!-- Galeria -->
-        <div class="row mt-4 w-100 m-auto"  >
-          <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
-          <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
-        </div>
+
+            <!-- Galeria -->
+          <div class="row mt-4 w-100 m-auto"  >
+            <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
+            <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
+          </div>
 
 
-        <div class="w-100 text-center mt-5" v-if="!spinner" >
-          <h4 class="text-white m-auto mb-4"> <i>Similares a <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
+          <!-- RECOMENDACIONES -->
+          <div class="w-100 text-center mt-5" v-if="!spinner" >
+          <h4 class="text-white m-auto mb-4"> <i>Recomendaciones a partir de <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
           :peticion="'similares'"
@@ -77,7 +114,7 @@
           @pasar-page="(n) => 
           getPasar(n)"
           ></PeliculasSimilares>
-        </div>
+          </div>
       
     </div>
 
@@ -87,7 +124,6 @@
 import { onBeforeMount, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
-import ReviewsComppnent from "../components/ReviewsComppnent.vue";
 import DetallesComponent from "../components/DetallesComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import RepartoComponent from "../components/RepartoComponent.vue";
@@ -96,6 +132,7 @@ import PeliculasSimilares from "../components/PeliculasSimilares.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
+
 
 const route = useRoute()
 const router = useRouter()
@@ -109,22 +146,29 @@ const escritor = ref([])
 const reparto = ref([])
 const similares = ref([])
 const genres = ref([])
+const rating = ref({})
 
 const spinner = ref(true)
 
 onMounted( async () => {
 
-    let n = Math.floor(Math.random() * 10)
-    let movie = `https://api.themoviedb.org/3/movie`
-    let key = keyApi
-    let lenguage = `&language=es-MX`
+    let key = keyApi 
 
+    let find = `https://api.themoviedb.org/3/movie/${route.params.id}/external_ids${key}`
+    const imdbApi = await axios.get(find)
+
+    let n = 1
+    let movie = `https://api.themoviedb.org/3/movie`
+    let lenguage = `&language=es-ES`
+    let imdbid = imdbApi.data.imdb_id 
+       
     let apitrailers = `${movie}/${route.params.id}/videos${key}`
     let api = `${movie}/${route.params.id}${key}${lenguage}`
     let apireviews = `${movie}/${route.params.id}/reviews${key}${lenguage}`
     let apiproovedores = `${movie}/${route.params.id}/watch/providers${key}`
     let apiCreditos = `${movie}/${route.params.id}/credits${key}`
-    let apiSimilares = `${movie}/${route.params.id}/similar${key}&page=${n}${lenguage}`
+    let apiSimilares = `${movie}/${route.params.id}/recommendations${key}${lenguage}&page=${n}`
+    let apiImdb = `https://imdb-api.com/en/API/Ratings/k_8i45ej83/${imdbid}`
     
   try {
   
@@ -134,7 +178,9 @@ onMounted( async () => {
     const resProovedores = await axios.get(apiproovedores)
     const resCreditos = await axios.get(apiCreditos)
     const resSimilares = await axios.get(apiSimilares)
-
+    const resIMDB = await axios.get(apiImdb)
+    
+    rating.value = resIMDB.data
     pelicula.value = res.data
     genres.value = res.data.genres
     trailers.value = resTrailers.data.results
@@ -163,7 +209,7 @@ onMounted( async () => {
 
 
 const getPasar = async (data) =>{
-  let apiSimilares = `https://api.themoviedb.org/3/movie/${route.params.id}/similar${keyApi}&page=${data}&language=es-MX`
+  let apiSimilares = `https://api.themoviedb.org/3/movie/${route.params.id}/recommendations${keyApi}&page=${data}&language=es-MX`
   const resSimilaresDos = await axios.get(apiSimilares)
   similares.value = resSimilaresDos.data
 }
@@ -175,7 +221,7 @@ const netxPage = (data) => {
 // AFREGLA ERROR
 const realoadData = async  () => {
 
-    let n = Math.floor(Math.random() * 10)
+    let n = 1
     let movie = `https://api.themoviedb.org/3/movie`
     let key = keyApi
     let lenguage = `&language=es-MX`
@@ -185,7 +231,7 @@ const realoadData = async  () => {
     let apireviews = `${movie}/${route.params.id}/reviews${key}${lenguage}`
     let apiproovedores = `${movie}/${route.params.id}/watch/providers${key}`
     let apiCreditos = `${movie}/${route.params.id}/credits${key}`
-    let apiSimilares = `${movie}/${route.params.id}/similar${key}&page=${n}${lenguage}`
+    let apiSimilares = `${movie}/${route.params.id}/recommendations${key}&page=${n}${lenguage}`
 
     const res = await axios.get(api)
     const resTrailers = await axios.get(apitrailers)

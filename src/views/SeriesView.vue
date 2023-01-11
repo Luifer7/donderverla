@@ -134,6 +134,9 @@ const contenido = ref([])
 
 const spinner = ref(true)
 
+// IMDB DE WANDAVISION
+// https://api.themoviedb.org/3/find/tt9140560?api_key=9f7031622a3c84ce82bbf384f262391a&language=en-US&external_source=imdb_id
+
 onMounted( async () => {
 
     let series = `https://api.themoviedb.org/3/tv/`

@@ -3,40 +3,57 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-
-
-
+import BusquedaComponent from './components/BusquedaComponent.vue';
 
 </script>
 
 
 <template>
-  
-  <div class="text-center w-100 banner mb-3 row m-auto ">
 
-      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center" >
-        <i class="bi bi-house-heart text-white"> Mi espacio</i>
-      </div>
-      
-      <div class="col-12 col-sm-4  d-flex align-items-center justify-content-center donde" >
 
+  <div class="w-100 banner d-flex flex-column justify-content-between">
+
+    <div class="d-flex align-items-center justify-content-between mt-4" >
+
+      <div class="mx-3 mt-4 d-flex align-items-center justify-content-center donde" >
         <router-link to="/" class="text-decoration-none v" >
-          <h3 class="m-0  text-center" ><i>¿DÓNDE VERLA?</i></h3>
-      </router-link>
-      
+          <h3 class="m-0  text-center" ><i>DONDEVERLA</i></h3>
+        </router-link>
       </div>
-    
-     
-       <div class="col-12 col-sm-4 d-flex align-items-center justify-content-center" >
-        <router-link to="/sobrenosotros" class="text-white fw-bold text-decoration-none" >
-          <i class="bi bi-info-circle">
-            Sobre nosotros
-          </i>
-      </router-link>
-      </div>
-    
+
+        <i class="bi bi-menu-button-wide-fill mx-3 text-white  m-0 bg-dark border p-1 rounded"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" 
+        aria-controls="offcanvasTop" style="cursor:pointer;" >
+        <strong> Menu</strong>
+        </i>
+
+        <!-- canvas -->
+        <div class="offcanvas offcanvas-top canvas-menu" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+          <div class="offcanvas-header text-white">
+            <h5 id="offcanvasTopLabel" class="text-white fw-bold" >MENU</h5>
+            <button type="button" class="btn-close text-reset" 
+            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body d-flex align-items-center justify-content-evenly">
+
+                <router-link to="/buscarseries" class="text-decoration-none h5 text-white" >
+                    SERIES
+                </router-link>
+
+                <router-link to="/buscarpelicula" class="text-decoration-none h5 text-white" >
+                    PELICULAS
+                </router-link>
+
+          </div>
+        </div>
+
+    </div>
+
+    <BusquedaComponent></BusquedaComponent>
+
   </div>
 
+ 
 
   <router-view v-slot="{Component}" >
     <transition name="vistas" mode="out-in" >
@@ -60,7 +77,7 @@ import { RouterLink, RouterView } from 'vue-router'
   background-size: cover;
   background-position: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  height: 200px;
+  height: 130px;
 }
 
 .vistas-enter-from {
@@ -88,6 +105,10 @@ import { RouterLink, RouterView } from 'vue-router'
   -webkit-background-clip: text;
   font-family: 'Rubik Spray Paint', cursive;
   text-shadow: rgba(255, 255, 255, 0.849) 3px -24px 2px;
+}
+
+.canvas-menu{
+  background-color: rgba(12, 12, 12, 0.986);
 }
 
 

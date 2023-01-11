@@ -1,47 +1,34 @@
 
 <template>
 
-            
-      
+
         <div>
+   
+            <!-- GENEROS -->
+            <div class="d-flex mx-3 flex-wrap gap-2 m-auto mt-3 mb-3 align-items-center" >
+            
+                <button style="font-size: .8em;" v-for="g of generos"  :key="g.id" 
+                @click="getForGenre(g)"
+                class="text-center fw-bold p-2 rounded button-10" 
+                :class="mod === g.id ?'seleccionado' : ''"
+                >{{ g.name }} 
+                <span v-if="mod === g.id && spinnerButton" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
 
-        <!-- Link BACK -->
-        <div class="w-100 text-center mb-3" >
-        <router-link class="text-decoration-none" to="/" >
+            </div>
 
-        <i class="bi bi-arrow-left-circle-fill text-white h3 m-auto text-decoration-none"> 
-        <small class="m-2 text-info" >Home</small>
-        </i>
-
-        </router-link>
-
-        </div>
-
-        <form v-on:submit.prevent="buscarSerie(query)" class="container m-auto form-outline" >
+            <!-- BOTONES CAMBIAR DE MODALIDAD -->
+            <ButtonsSeries @change-mod="(p, m) => {
+                getSeriesPopulares(p, m), clear()
+            }" 
+            :modd="useBodega.seriePeticion">
+            </ButtonsSeries>
+        
+        <form v-on:submit.prevent="buscarSerie(query)" class="mb-3 mx-3 m-auto form-outline" >
             <input v-model="query" type="text" class="form-control form-control-sm text-center"
              placeholder="Buscar serie">
         </form>
 
-        <!-- GENEROS -->
-        <div class="d-flex  flex-wrap gap-2 container m-auto mt-3 mb-3 m-auto" >
-        
-            <button style="font-size: .8em;" v-for="g of generos"  :key="g.id" 
-            @click="getForGenre(g)"
-            class="text-center fw-bold p-2 rounded button-10" 
-            :class="mod === g.id ?'seleccionado' : ''"
-            >{{ g.name }} 
-            <span v-if="mod === g.id && spinnerButton" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            </button>
-
-        </div>
-
-        <!-- BOTONES CAMBIAR DE MODALIDAD -->
-        <ButtonsSeries @change-mod="(p, m) => {
-             getSeriesPopulares(p, m), clear()
-        }" 
-        :modd="useBodega.seriePeticion">
-        </ButtonsSeries>
-        
         <!-- SERIES BUSQUEDA -->
         <div class="w-100">
 
@@ -86,7 +73,7 @@
         
         </div>
 
-    </div>
+        </div>
 
 </template>
 

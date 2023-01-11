@@ -16,8 +16,11 @@ const seriesPopulares = ref(null)
 const seriePeticion = ref('')
 
 
+const resultadoBusqueda = ref({})
+
+
   return { 
-    peliculasPopulares, peticion, seriePeticion, seriesPopulares
+    peliculasPopulares, peticion, seriePeticion, seriesPopulares, resultadoBusqueda
   }
 
 })

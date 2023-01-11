@@ -3,7 +3,7 @@
 <template>
 
      
-<div class="container text-center" >
+<div class="px-3 text-center" >
 
      <!-- CONTROLES -->
         <div class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
@@ -27,12 +27,12 @@
         <!-- CONTENIDO -->
         <div class="row" >
 
-            <div style="height: 260px;" class="col-6 col-sm-4 col-md-3 col-xl-2 p-2" 
+            <div style="height: 300px;" class="col-6 col-sm-4 col-md-3 col-xl-2 p-2" 
                 v-for="p of peliculas" :key="p.id" @click="detalles(p)" >
                 
                 <div class="h-100 w-100 rounded box-pelicula"  >
 
-                    <div style="height: 200px;" class="mw-100" >
+                    <div style="height: 240px;" class="mw-100" >
                         <img :src="`https://image.tmdb.org/t/p/w500/${p.poster_path}`" 
                             class="w-100 h-100 img-thumbnail" style="object-fit: cover;" alt="no disponible">
                     </div>

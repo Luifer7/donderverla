@@ -45,8 +45,8 @@ const router = createRouter({
       component: () => import('../views/BuscarserieView.vue')
     },
     {
-      path: '/buscarpeliculas',
-      name: 'buscarpeliculas',
+      path: '/buscarpelicula',
+      name: 'buscarpelicula',
       component: () => import('../views/BuscarpeliculaView.vue')
     },
     {
@@ -58,6 +58,11 @@ const router = createRouter({
       path: '/:current/:currentId/genero/:genero/:id',
       name: 'genero',
       component: () => import('../views/GeneroView.vue')
+    },
+    {
+      path: '/busqueda/:modo/:query',
+      name: 'busqueda',
+      component: () => import('../views/BusquedaView.vue')
     },
   ],
 })
