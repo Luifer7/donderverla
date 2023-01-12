@@ -33,7 +33,7 @@
                 <div class="h-100 w-100 rounded box-pelicula"  >
 
                     <div style="height: 240px;" class="mw-100" >
-                        <img :src="`https://image.tmdb.org/t/p/w500/${p.poster_path}`" 
+                        <img v-if="p?.poster_path" :src="`https://image.tmdb.org/t/p/w500/${p?.poster_path}`" 
                             class="w-100 h-100 img-thumbnail" style="object-fit: cover;" alt="no disponible">
                     </div>
                 

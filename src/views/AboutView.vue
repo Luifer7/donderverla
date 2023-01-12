@@ -66,13 +66,13 @@
                 </span>
                 
               </div>
-
+              
               <!-- STREAMING -->
               <div class="d-flex gap-3 flex-wrap mt-1" >
                 <div v-for="prov of proovedores?.flatrate" :key="prov.id" >
                   <span class="d-flex gap-1 align-items-center" >
                     <img width="25" class="rounded-circle" 
-                    height="25" :src="`https://image.tmdb.org/t/p/w500/${prov.logo_path}`" alt=""> 
+                    height="25" :src="`https://image.tmdb.org/t/p/w500/${prov?.logo_path}`" alt=""> 
                     <strong>{{ prov?.provider_name }}</strong>
                   </span>
                 </div>
@@ -104,7 +104,7 @@
 
 
           <!-- RECOMENDACIONES -->
-          <div class="w-100 text-center mt-5" v-if="!spinner" >
+          <div  class="w-100 text-center mt-5" v-if="!spinner" >
           <h4 class="text-white m-auto mb-4"> <i>Recomendaciones a partir de <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
@@ -138,11 +138,10 @@ const route = useRoute()
 const router = useRouter()
 
 const pelicula = ref({})
+
 const trailers = ref({})
-const reviews = ref([])
 const proovedores = ref([])
 const director = ref([])
-const escritor = ref([])
 const reparto = ref([])
 const similares = ref([])
 const genres = ref([])

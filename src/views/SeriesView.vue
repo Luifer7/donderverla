@@ -24,45 +24,45 @@
             </div>
 
             <div v-if="!spinner" class="col-12 col-sm-8 col-md-8 p-2" >
-              <small class="text-white" >
-              <i class="text-justify" >{{ serie?.overview }}</i>
-              
-              <GeneroComponent :generos="contenido?.genres"></GeneroComponent>
 
-              <!-- DETALLES -->
-              <div class="text-white col-6 col-sm-4 d-flex gap-2 justify-content-start align-items-center flex-wrap" >
-                <strong class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </strong>
-                <strong class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></strong>
-                 
-                <!-- ESTADO de la serie -->
-                <strong class="m-0" >Estado: 
-
-                  <small class="fw-bold w-100" v-if="contenido?.status === 'Returning Series'">
-                  <i class="text-info text-uppercase" >Habrá otra temporada</i></small>
-
-                  <small class="fw-bold w-100" v-if="contenido?.status === 'Planned'">
-                  <i class="text-info text-uppercase" >En planes</i></small>
-
-                  <small class="fw-bold w-100" v-if="contenido?.status === 'Canceled'">
-                  <i class="text-danger text-uppercase" >Cancelada</i></small>
-
-                  <small class="fw-bold w-100" v-if="contenido?.status === 'Ended'">
-                  <i class="text-info text-uppercase" >Finalizada</i></small>
-
-                  <small class="fw-bold w-100" v-if="contenido?.status === 'Production'">
-                  <i class="text-info text-uppercase" >En produccion</i></small>
-
-                </strong>
+                <small class="text-white" >
+                <i class="text-justify" >{{ serie?.overview }}</i>
                 
-                <!-- Ultimo episodio -->
-                <strong class="m-0" >Ultimo episodio: <small class="fw-bold text-info"> <i>
-                  {{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}}
-                </i> </small> </strong>
-              </div>
-            </small>
+                <GeneroComponent :generos="contenido?.genres"></GeneroComponent>
 
-           
-            
+                <!-- DETALLES -->
+                <div class="text-white col-6 col-sm-4 d-flex gap-2 justify-content-start align-items-center flex-wrap" >
+                  <strong class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </strong>
+                  <strong class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></strong>
+                  
+                  <!-- ESTADO de la serie -->
+                  <strong class="m-0" >Estado: 
+
+                    <small class="fw-bold w-100" v-if="contenido?.status === 'Returning Series'">
+                    <i class="text-info text-uppercase" >Habrá otra temporada</i></small>
+
+                    <small class="fw-bold w-100" v-if="contenido?.status === 'Planned'">
+                    <i class="text-info text-uppercase" >En planes</i></small>
+
+                    <small class="fw-bold w-100" v-if="contenido?.status === 'Canceled'">
+                    <i class="text-danger text-uppercase" >Cancelada</i></small>
+
+                    <small class="fw-bold w-100" v-if="contenido?.status === 'Ended'">
+                    <i class="text-info text-uppercase" >Finalizada</i></small>
+
+                    <small class="fw-bold w-100" v-if="contenido?.status === 'Production'">
+                    <i class="text-info text-uppercase" >En produccion</i></small>
+
+                  </strong>
+                  
+                  <!-- Ultimo episodio -->
+                  <strong class="m-0" >Ultimo episodio: <small class="fw-bold text-info"> <i>
+                    {{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}}
+                  </i> </small> </strong>
+                </div>
+
+                </small>
+
             </div>
           
             </div>

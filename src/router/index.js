@@ -64,6 +64,11 @@ const router = createRouter({
       name: 'busqueda',
       component: () => import('../views/BusquedaView.vue')
     },
+    {
+      path: '/titulo/:modo/:titulo/:id',
+      name: 'titulo',
+      component: () => import('../views/BusquedatituloView.vue')
+    },
   ],
 })
 

@@ -21,7 +21,7 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
         </router-link>
       </div>
 
-        <i class="bi bi-menu-button-wide-fill mx-3 text-white  m-0 bg-dark border p-1 rounded"
+        <i class="bi bi-menu-button-wide-fill mx-3 text-white  m-0 bg-dark border px-2 py-1 rounded"
         data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" 
         aria-controls="offcanvasTop" style="cursor:pointer;" >
         <strong> Menu</strong>

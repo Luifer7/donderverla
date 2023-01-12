@@ -5,7 +5,9 @@
               <div class="mt-2  mb-2 text-white d-flex gap-3 justify-content-start align-items-start flex-wrap" >
                 <strong class="m-0 fw-bold genero" v-for="g of generos" :key="g.id" 
                 @click="getForGenre(g)"
-                >{{g.name}}</strong>
+                >
+                {{g.name}}
+                </strong>
               </div>
 
 

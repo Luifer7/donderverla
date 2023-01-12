@@ -8,12 +8,22 @@
             <i class="text-info">{{ route.params.query }}</i></i>
         </h3>
 
-        <div class="w-100 text-white fw-bold p-2 d-flex flex-column" >
-           <span v-for="r of useBodega.resultadoBusqueda.results" :key="r.id" >
-            {{ r.name }} {{ r.title }}
-            </span>
+        <div class="w-100" >
+
+            <TituloComponent
+            :titulos=" useBodega.resultadoBusqueda.results"
+            :resultados=" useBodega.resultadoBusqueda"
+            :peticion="current"
+            @next-page="(n) => {
+                pasarPagina(n)
+            }"
+            >
+
+            </TituloComponent>
+
         </div>
 
+        
     </div>
        
 </template>
@@ -24,6 +34,8 @@ import axios from "axios";
 import { useRoute } from "vue-router";
 import { keyApi } from "../funciones/key";
 import { useBodegaStore } from "../stores/bodega";
+import PeliculasModalidad from "../components/PeliculasModalidad.vue";
+import TituloComponent from "../components/TituloComponent.vue";
 
 const route = useRoute()
 const useBodega = useBodegaStore()
@@ -37,8 +49,14 @@ onMounted(async()=> {
    const res = await axios.get(api)
    useBodega.resultadoBusqueda = res.data
    current.value = route.params.query
-   
 })
+
+const pasarPagina = async (n) =>{
+   let key = keyApi
+   let api = `https://api.themoviedb.org/3/search/${route.params.modo}${key}&language=es-ES&query=${route.params.query}&page=${n}`
+   const res = await axios.get(api)
+   useBodega.resultadoBusqueda = res.data
+}
 
 
 
