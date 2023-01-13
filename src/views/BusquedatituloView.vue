@@ -168,12 +168,23 @@
 
             <!-- PROOVEDORES -->
             <ProovedoresComponent v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
-            <!-- REPARTO -->
-            <RepartoComponent v-if="!spinner && route.params.modo === 'movie'" :reparto="reparto" ></RepartoComponent>
+           
             <!-- TEMPORADAS -->
-            <TemporadasComponent v-if="!spinner" :temporadas="contenido.seasons"></TemporadasComponent>
-            <!-- REPARTO SERIES -->
-            <RepartoSeries v-if="!spinner && route.params.modo === 'tv'" :reparto="reparto" ></RepartoSeries>
+            <SliderTemporadas v-if="!spinner && route.params.modo === 'tv'" 
+            :temporadas="contenido.seasons"
+            :nombre="'Temporadas'">
+            </SliderTemporadas>
+            
+            <SliderRepartopeli v-if="!spinner && route.params.modo === 'movie'"
+            :reparto="reparto"
+            ></SliderRepartopeli>
+
+            <SliderReparto v-if="!spinner && route.params.modo === 'tv'"
+            :reparto="reparto"
+            :nombre="'Reparto'"
+            >
+            </SliderReparto>
+
 
               <!-- Galeria -->
             <div class="row mt-4 w-100 m-auto"  >
@@ -195,10 +206,10 @@ import { keyApi } from "../funciones/key";
 // import GeneroComponent from "../components/GeneroComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
-import RepartoComponent from "../components/RepartoComponent.vue";
-import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
-import TemporadasComponent from "../components/TemporadasComponent.vue";
+import SliderTemporadas from "../components/SliderTemporadas.vue";
+import SliderReparto from "../components/SliderReparto.vue";
+import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 
 const route = useRoute()
 

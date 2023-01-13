@@ -4,7 +4,7 @@
 <template>
     
     
-    <div class="container text-center" >
+    <div class="px-3  text-center" >
 
         <!-- CONTROLES -->
         <div v-if="peticion != ''" class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >

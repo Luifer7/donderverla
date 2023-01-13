@@ -113,13 +113,20 @@
             <!-- PROOVEDORES -->
             <ProovedoresComponent  v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
 
-            <!-- TMPORADAS VOLVER UN COMPONENTE --> 
-            <TemporadasComponent v-if="!spinner" :temporadas="contenido.seasons"></TemporadasComponent>
             
-            <!-- REPARTO SERIES -->
-            <RepartoSeries v-if="!spinner" :reparto="reparto" ></RepartoSeries>
+            <SliderTemporadas v-if="!spinner"
+            :temporadas="contenido"
+            :nombre="'Temporadas'">
+            </SliderTemporadas>
 
-           
+            
+            <SliderReparto v-if="!spinner"
+            :reparto="reparto"
+            :nombre="'Reparto'"
+            >
+            </SliderReparto>
+
+         
               <!-- Galeria -->
             <div class="w-100 row mt-4 m-auto"  >
               <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
@@ -138,11 +145,11 @@ import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
-import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
-import TemporadasComponent from "../components/TemporadasComponent.vue";
 import GeneroComponent from "../components/GeneroComponent.vue";
 import { keyApi } from "../funciones/key";
+import SliderTemporadas from "../components/SliderTemporadas.vue";
+import SliderReparto from "../components/SliderReparto.vue";
 
 
 const route = useRoute()
@@ -172,7 +179,6 @@ onMounted( async () => {
     let apitrailers = `${series}${route.params.id}/videos${key}`
     let apiproovedores = `${series}${route.params.id}/watch/providers${key}`
     let apiCreditos = `${series}${route.params.id}/credits${key}`
-    let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}${lenguage}`
     let imdb = `https://imdb-api.com/en/API/Ratings/k_8i45ej83/${imdbid}`
 
     try {
@@ -180,16 +186,15 @@ onMounted( async () => {
         const resTrailers = await axios.get(apitrailers)
         const resProovedores = await axios.get(apiproovedores)
         const resCreditos = await axios.get(apiCreditos)
-        const resEpisodes = await axios.get(apiEpisodes)
         const resIMDB = await axios.get(imdb)
 
         serie.value = res.data
         trailers.value = resTrailers.data.results
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
-        contenido.value = resEpisodes.data  
+        contenido.value = res.data.seasons  
         rating.value = resIMDB.data
-
+      
         spinner.value = false
 
     } catch (error) {

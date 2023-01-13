@@ -1,15 +1,14 @@
 
 
-
 <template>
 
     
-    <div class="w-100 mt-4 px-2 box-general-slider" >
+    <div class="w-100 mt-4 mb-5 px-2 box-general-slider" >
 
-         <h3 class="text-white px-2"> <i>{{nombre}}</i> </h3> 
+        <h3 class="text-white px-2 py-1"> <i>{{nombre}}</i> </h3> 
 
         <swiper
-        :slidesPerView="numeroSlides" :spaceBetween="10"
+        :slidesPerView="numeroSlides" :spaceBetween="8"
         :slidesPerGroup="numeroSlides" :loop="true"
         :loopFillGroupWithBlank="true"
         :pagination="{
@@ -19,15 +18,16 @@
         :modules="modules"
         class="mySwiper">
 
-            <swiper-slide v-for="titulo of titulos" :key="titulo.id" 
+            <swiper-slide v-for="titulo of temporadas" :key="titulo.id" 
             style="cursor:pointer;"
-            class="rounded box-slide" 
-            @click="getTitle(titulo)" >
+            class="rounded box-slide"
+            :class="titulo ? '': 'd-none'"
+            @click="getSeason(titulo)" >
 
-              <img :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
+              <img v-if="titulo?.poster_path" :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
                    class="rounded img-slide" alt="">
                    <span class="titulo text-white d-flex align-items-center justify-content-center flex-wrap">
-                    {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.vote_average }}</i>
+                   Temporada {{titulo?.season_number}}
                   </span>
             </swiper-slide>
       
@@ -45,6 +45,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation,Pagination } from "swiper";
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import { useRoute, useRouter } from 'vue-router';
 
 
 export default {
@@ -54,27 +55,29 @@ export default {
     SwiperSlide,
   },
     props: {
-    titulos: Object, nombre: String
+    temporadas: Object, nombre: String
   },
-  setup( props, {emit} ) {
+  setup() {
 
+    const route = useRoute()
+    const router = useRouter()
     const numeroSlides = ref(1)
 
     onMounted (() => {
       if (window.innerWidth <= 393) {
-          numeroSlides.value = 1   
-      }
-      if (window.innerWidth >= 450) {
           numeroSlides.value = 2   
       }
-      if (window.innerWidth >= 700 ) {
-          numeroSlides.value = 3  
+      if (window.innerWidth >= 450) {
+          numeroSlides.value = 3   
       }
-      if (window.innerWidth >= 900){
+      if (window.innerWidth >= 700 ) {
           numeroSlides.value = 4  
       }
-      if (window.innerWidth >= 1100){
+      if (window.innerWidth >= 900){
           numeroSlides.value = 5  
+      }
+      if (window.innerWidth >= 1100){
+          numeroSlides.value = 6  
       }
       window.addEventListener("resize", myEventHandler)
     })
@@ -86,30 +89,37 @@ export default {
     const myEventHandler = () => {
     
       if (window.innerWidth <= 393) {
-          numeroSlides.value = 1   
-      }
-      if (window.innerWidth >= 450) {
           numeroSlides.value = 2   
       }
-      if (window.innerWidth >= 700 ) {
-          numeroSlides.value = 3  
+      if (window.innerWidth >= 450) {
+          numeroSlides.value = 3   
       }
-      if (window.innerWidth >= 900){
+      if (window.innerWidth >= 700 ) {
           numeroSlides.value = 4  
       }
-      if (window.innerWidth >= 1100){
+      if (window.innerWidth >= 900){
           numeroSlides.value = 5  
+      }
+      if (window.innerWidth >= 1100){
+          numeroSlides.value = 6  
       }
 
     }
     
     //Emit del componente
-    const getTitle = (titulo) => {
-         emit('getTitle', titulo)
+    const getSeason = (titulo) => {
+
+        router.push({
+        name: 'temporada', 
+        params: {
+            current: route.params.serie || route.params.titulo, 
+            currentId: route.params.id, numero: titulo.season_number,
+        }
+    }) 
     }
 
     return {
-      modules: [Pagination, Navigation], getTitle, numeroSlides
+      modules: [Pagination, Navigation], getSeason, numeroSlides
     }
   
   }

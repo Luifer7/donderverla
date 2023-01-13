@@ -5,10 +5,10 @@
 <template>
     
     
-    <div class="container text-center" >
+    <div class="text-center px-3" >
 
         <!-- CONTROLES -->
-        <div v-if="peticion != ''" class="w-100 d-flex align-items-center justify-content-between gap-3 m-1" >
+        <div v-if="peticion != ''" class="w-100 d-flex align-items-center justify-content-between gap-3" >
             
             <h6 class="m-0 text-white"> <i>{{ peticion }}</i> </h6>
             

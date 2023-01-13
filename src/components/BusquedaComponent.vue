@@ -6,7 +6,7 @@
      v-on:submit.prevent="makeSearch(modoBusqueda, query)" >
         
         <button class=" btn-outline-dark btn-buscar p-2 text-info fw-bold dropdown-toggle" 
-        style="border: none; letter-spacing: 1px;"
+        style="border: none; letter-spacing: 2px;"
         type="button" data-bs-toggle="dropdown" aria-expanded="false">{{modoBusqueda}}</button>
 
         <ul class="dropdown-menu drop-box">
@@ -15,7 +15,7 @@
         </ul>
 
         <input required type="text" ref="input" v-model="query" placeholder="Buscar en dondeverla" 
-        class="form-control fw-bold p-2 text-center input-buscar" aria-label="Text input with dropdown button">
+        class="form-control fw-bold p-2  input-buscar" aria-label="Text input with dropdown button">
       
     </form>
 

@@ -1,7 +1,22 @@
 
 <template>
 
-  <div class="w-100 p-2" >
+  <div class="w-100 p-2">
+
+      <div class="w-100 mt-2" >
+
+        <SliderImdb
+        v-if="cines === {}"
+        :titulos="cines"
+        :nombre="'En cines'"
+        @getTitle="(titulo) => {
+        getEnCines(titulo)
+        }"
+        >
+
+        </SliderImdb>
+        
+      </div>
 
       <div class="w-100 mt-2" >
 
@@ -40,6 +55,7 @@ import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import SliderComponent from "../components/SliderComponent.vue";
+import SliderImdb from "../components/SliderImdb.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { keyApi } from "../funciones/key";
 
@@ -48,6 +64,8 @@ const router = useRouter()
 
 const titulos = ref({})
 const titulosTop = ref({})
+const cines = ref({})
+
 const spinner = ref(true)
 
 onMounted( async () => {
@@ -55,11 +73,16 @@ onMounted( async () => {
   try {
     
     let page = Math.floor(Math.random() * 50)
-    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}&page=${page}`)
-    const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}&page=${page}`)
+    let lenguage = `&language=es-ES`
+
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}${lenguage}&page=${page}`)
+    const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}${lenguage}&page=${page}`)
+    const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
 
     titulos.value = res.data.results
     titulosTop.value = resTop.data.results 
+    cines.value = enCineImdb.data.items
+
     spinner.value = false
   
   } catch (error) {
@@ -74,6 +97,27 @@ const getTitle = (titulo) => {
         pelicula: titulo.title, id: titulo.id 
       }
     })
+}
+
+const getEnCines = async (titulo) => {
+
+  let id = titulo.id
+  let lenguage = `&language=es-ES`
+  const res = await axios.get(`https://imdb-api.com/en/API/ExternalSites/k_8i45ej83/${id}`)
+  let idMovie = res.data.theMovieDb.id
+  let api = `https://api.themoviedb.org/3/${idMovie}${keyApi}${lenguage}`
+  const resMovie = await axios.get(api)
+
+  let newTitulo = resMovie.data.title
+  let newIdTitulo = resMovie.data.id
+
+  router.push({
+      name: 'pelicula', params: {
+        pelicula: newTitulo, id: newIdTitulo 
+      }
+    })
+
+
 }
 
 </script>

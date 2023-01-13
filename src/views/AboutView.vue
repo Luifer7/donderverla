@@ -98,8 +98,11 @@
 
           <ProovedoresComponent v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
 
-          <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
-  
+        
+          <SliderRepartopeli v-if="!spinner"
+            :reparto="reparto"
+            ></SliderRepartopeli>
+           
 
             <!-- Galeria -->
           <div class="row mt-4 w-100 m-auto"  >
@@ -132,10 +135,10 @@ import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import DetallesComponent from "../components/DetallesComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
-import RepartoComponent from "../components/RepartoComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import PeliculasSimilares from "../components/PeliculasSimilares.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
+import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
 

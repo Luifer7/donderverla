@@ -24,10 +24,10 @@
             class="rounded box-slide" 
             @click="getTitle(titulo)" >
 
-              <img :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
+              <img :src="`${titulo?.image}`" 
                    class="rounded img-slide" alt="">
                    <span class="titulo text-white d-flex align-items-center justify-content-center flex-wrap">
-                    {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.vote_average }}</i>
+                    {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.imDbRating }}</i>
                   </span>
             </swiper-slide>
       
@@ -39,10 +39,14 @@
 </template>
 
 <script>
+
+//Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+// import required modules
 import { Navigation,Pagination } from "swiper";
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
 
