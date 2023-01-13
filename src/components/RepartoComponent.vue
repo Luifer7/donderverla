@@ -46,7 +46,7 @@ const getPersona =  (id, nombre) => {
     router.push( 
         { name: 'person', 
           params: { 
-            current: route.params.pelicula, 
+            current: route.params.pelicula || route.params.titulo, 
             currentId: route.params.id, 
             id: id} 
         } )

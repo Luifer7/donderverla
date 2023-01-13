@@ -39,7 +39,11 @@ defineProps({
 })
 
 const getPersona =  (serie) => {
-  router.push( { name: 'personserie', params: { current: route.params.serie, currentId: route.params.id, person: serie.name, id: serie.id} 
+  router.push( { name: 'personserie', params: 
+        { current: route.params.serie || route.params.titulo, 
+          currentId: route.params.id, 
+          person: serie.name, 
+          id: serie.id} 
       } )
 }
 

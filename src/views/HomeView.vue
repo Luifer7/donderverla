@@ -1,68 +1,83 @@
 
-
-
 <template>
 
-  <div class="w-100" >
+  <div class="w-100 p-2" >
 
-        <div id="carouselExample" class="carousel slide">
+      <div class="w-100 mt-2" >
 
-          <div class="carousel-inner p-4">
-            
-              <div class="carousel-item active" v-for="d of data" :key="d.id" >
-              <img :src="`https://image.tmdb.org/t/p/w500/${d.path}`" 
-                class="d-block w-100" alt="..."> 
-              </div>
-
-          </div>
-
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+          <SliderComponent
+          :titulos="titulosTop"
+          :nombre="'Peliculas Top'"
+          @getTitle="(titulo) => {
+            getTitle(titulo)
+          }">
+          </SliderComponent>
         
-        </div>
+      </div>
+     
+      <div class="w-100 mt-2" >
+
+      <SliderComponent
+      :titulos="titulos"
+      :nombre="'Peliculas Populares'"
+      @getTitle="(titulo) => {
+        getTitle(titulo)
+      }"
+      >
+      </SliderComponent>
+
+      </div>
 
   </div>
   
+  
+
 
 </template>
 
-<script setup>
-import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
+<script setup >
+import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
+import { useRoute, useRouter } from "vue-router";
+import SliderComponent from "../components/SliderComponent.vue";
+import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { keyApi } from "../funciones/key";
 
-const data = ref([
-  {id: 1, path: '/r9PkFnRUIthgBp2JZZzD380MWZy.jpg'},
-  {id: 2, path: '/s16H6tpK2utvwDtzZ8Qy4qm5Emw.jpg'},
-  {id: 3, path: '/zrnzWEQSJ0jtufPGR4SEnB6s1q1.jpg'},
-  {id: 4, path: '/53BC9F2tpZnsGno2cLhzvGprDYS.jpg'},
-  {id: 5, path: '/7dm64SW5L5CCg47kAEAcdCGaq5i.jpg'}, 
-])
-const current = ref()
+const route = useRoute()
+const router = useRouter()
+
+const titulos = ref({})
+const titulosTop = ref({})
+const spinner = ref(true)
 
 onMounted( async () => {
 
-  let key = keyApi
-  let mode = `https://api.themoviedb.org/3/movie/popular${keyApi}` 
-  const res = await axios.get(mode)
-  //data.value = res.data.results
+  try {
+    
+    let page = Math.floor(Math.random() * 50)
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}&page=${page}`)
+    const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}&page=${page}`)
+
+    titulos.value = res.data.results
+    titulosTop.value = resTop.data.results 
+    spinner.value = false
+  
+  } catch (error) {
+    console.log(error)  
+  }
+   
 })
 
-
-
+const getTitle = (titulo) => {
+    router.push({
+      name: 'pelicula', params: {
+        pelicula: titulo.title, id: titulo.id 
+      }
+    })
+}
 
 </script>
 
-
-<style scoped>
-
+<style>
 
 </style>

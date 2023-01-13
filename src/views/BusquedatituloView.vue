@@ -14,6 +14,16 @@
             </router-link>
             <!-- ROuter LINK -->
 
+           <!-- 
+             <iframe width="400" height="320" 
+            src='https://www.youtube.com/embed/0unm2b73c_A' 
+              title="YouTube video player" 
+              frameborder="0"
+              autoplay clipboard-write encrypted-media gyroscope picture-in-picture
+              allowfullscreen>
+            </iframe>
+            -->
+
             <!-- SPINNER #1 -->
             <div v-if="spinner" class="w-100 text-center" >
              <SpinnerComponent></SpinnerComponent>
@@ -52,7 +62,12 @@
                         </i>
 
                         <!-- GENEROS PARA AMBAS -->
-                        <GeneroComponent :generos="titulo?.genres"></GeneroComponent>
+                       <!--  <GeneroComponent :generos="titulo?.genres"></GeneroComponent> -->
+                        <div class="mt-2  mb-2 text-white d-flex gap-3 justify-content-start align-items-start flex-wrap" >
+                          <strong class="m-0 fw-bold genero" v-for="g of titulo?.genres" :key="g.id">
+                          {{g.name}}
+                          </strong>
+                        </div>
 
                           <!-- DETALLES SI ES SERIE-->
                         <div v-if="titulo?.number_of_episodes" class="text-white col-6 col-sm-4 d-flex gap-2 justify-content-start align-items-center flex-wrap" >
@@ -94,7 +109,7 @@
                         </div>
 
                         <!-- Rating PARA AMBAS -->
-                        <div v-if="spinner"  class="d-flex gap-3">
+                        <div v-if="!spinner"  class="d-flex gap-3">
 
                             <span class="rounded text-white fw-bold d-flex align-items-center" > 
                             <img src="../assets/img/imdb.png" width="50" height="50" alt="">
@@ -108,6 +123,11 @@
                             <img src="../assets/img/tomato.png" width="35" height="35" alt="">
                             <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
                             </span>
+                            <span class="rounded text-white fw-bold d-flex align-items-center my-1" > 
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/1280px-Tmdb.new.logo.svg.png" 
+                            width="30" height="23" alt="">
+                            <strong class="m-1 h5" >{{ titulo.vote_average }}</strong>
+                          </span>
 
                         </div>
 
@@ -150,7 +170,9 @@
             <ProovedoresComponent v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
             <!-- REPARTO -->
             <RepartoComponent v-if="!spinner && route.params.modo === 'movie'" :reparto="reparto" ></RepartoComponent>
-              <!-- REPARTO SERIES -->
+            <!-- TEMPORADAS -->
+            <TemporadasComponent v-if="!spinner" :temporadas="contenido.seasons"></TemporadasComponent>
+            <!-- REPARTO SERIES -->
             <RepartoSeries v-if="!spinner && route.params.modo === 'tv'" :reparto="reparto" ></RepartoSeries>
 
               <!-- Galeria -->
@@ -170,12 +192,13 @@ import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router";
 import { keyApi } from "../funciones/key";
-import GeneroComponent from "../components/GeneroComponent.vue";
+// import GeneroComponent from "../components/GeneroComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import RepartoComponent from "../components/RepartoComponent.vue";
 import RepartoSeries from "../components/RepartoSeries.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
+import TemporadasComponent from "../components/TemporadasComponent.vue";
 
 const route = useRoute()
 
@@ -188,6 +211,7 @@ const director = ref([])
 const reparto = ref([])
 const similares = ref([])
 const rating = ref({})
+const contenido = ref([])
 
 const spinner = ref(true)
 
@@ -206,7 +230,7 @@ onMounted( async ()=> {
    let creditos = `${url}${route.params.modo}/${route.params.id}/credits${key}`
    let apiproovedores = `${url}${route.params.modo}/${route.params.id}/watch/providers${key}`
    let apitrailers = `${url}${route.params.modo}/${route.params.id}/videos${key}`
-
+   let apiEpisodes = `${url}${route.params.modo}/${route.params.id}${key}&language=es-ES`
 
    //PETICIONES
    const res = await axios.get(api)
@@ -214,8 +238,8 @@ onMounted( async ()=> {
    const resCreditos = await axios.get(creditos) 
    const resProovedores = await axios.get(apiproovedores)
    const resTrailers = await axios.get(apitrailers)
+   const resEpisodes = await axios.get(apiEpisodes)
    
-
    //RESPUESTAS
    titulo.value = res.data
    rating.value = resIMDB.data
@@ -223,6 +247,7 @@ onMounted( async ()=> {
    proovedores.value = resProovedores.data.results.CO
    trailers.value = resTrailers.data.results
    reparto.value = resCreditos.data.cast
+   contenido.value = resEpisodes.data
    
    spinner.value = false
 
@@ -230,6 +255,15 @@ onMounted( async ()=> {
 
 </script>
 
-<style>
+<style scoped >
+
+.genero {
+    transition: .6s ease all;
+    cursor: pointer;
+    color: #0dcaf0;
+}
+.genero:hover {
+  color: #0e9bb8;
+}
 
 </style>

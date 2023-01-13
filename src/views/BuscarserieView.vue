@@ -106,8 +106,6 @@ const seriesGeneros = ref([])
 const seriesPeticionGeneros = ref('') 
 const idGenero = ref('')
 
-console.log(useBodega.peliculasPopulares)
-
 const buscarSerie = async (q) => {
 
 let movie = `https://api.themoviedb.org/3/search/tv`

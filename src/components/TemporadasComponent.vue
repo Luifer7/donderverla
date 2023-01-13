@@ -36,7 +36,8 @@ const getSeason = (s) => {
     router.push({
         name: 'temporada', 
         params: {
-            current: route.params.serie, currentId: route.params.id, numero: s.season_number,
+            current: route.params.serie || route.params.titulo, 
+            currentId: route.params.id, numero: s.season_number,
         }
     }) 
 }

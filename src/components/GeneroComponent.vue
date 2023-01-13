@@ -28,7 +28,7 @@ const getForGenre = (g) => {
     router.push( 
         { name: 'genero', 
           params: { 
-            current: route.params.pelicula || route.params.serie , 
+            current: route.params.pelicula || route.params.serie || route.params.titulo, 
             currentId: route.params.id, 
             genero: g.name,
             id: g.id} 

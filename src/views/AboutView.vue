@@ -52,17 +52,22 @@
               <!-- RATING IMDB ETC.. -->
               <div v-if="!spinner" class="d-flex gap-3">
 
-                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                <span v-if="rating.imDb" class="rounded text-white fw-bold d-flex align-items-center" > 
                   <img src="../assets/img/imdb.png" width="50" height="50" alt="">
                   <strong class="m-1 h5" >{{ rating.imDb }}</strong>
                 </span>
-                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                <span v-if="rating.imDb" class="rounded text-white fw-bold d-flex align-items-center" > 
                   <img src="../assets/img/filmaffinity.png" width="30" height="25" alt="">
                   <strong class="m-1 h5" >{{  rating.filmAffinity  }}</strong>
                 </span>
-                <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                <span v-if="rating.imDb" class="rounded text-white fw-bold d-flex align-items-center" > 
                   <img src="../assets/img/tomato.png" width="35" height="35" alt="">
                   <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
+                </span>
+                <span class="rounded text-white fw-bold d-flex align-items-center my-1" > 
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/1280px-Tmdb.new.logo.svg.png" 
+                  width="30" height="23" alt="">
+                  <strong class="m-1 h5" >{{ pelicula.vote_average }}</strong>
                 </span>
                 
               </div>
@@ -105,7 +110,8 @@
 
           <!-- RECOMENDACIONES -->
           <div  class="w-100 text-center mt-5" v-if="!spinner" >
-          <h4 class="text-white m-auto mb-4"> <i>Recomendaciones a partir de <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
+          <h4 class="text-white m-auto mb-4">
+            <i>Recomendaciones a partir de <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
           :peticion="'similares'"
@@ -173,7 +179,6 @@ onMounted( async () => {
   
     const res = await axios.get(api)
     const resTrailers = await axios.get(apitrailers)
-    const resReviews = await axios.get(apireviews)
     const resProovedores = await axios.get(apiproovedores)
     const resCreditos = await axios.get(apiCreditos)
     const resSimilares = await axios.get(apiSimilares)
@@ -183,10 +188,8 @@ onMounted( async () => {
     pelicula.value = res.data
     genres.value = res.data.genres
     trailers.value = resTrailers.data.results
-    reviews.value = resReviews.data.results
     proovedores.value = resProovedores.data.results.CO
     director.value = resCreditos.data.crew.filter(field => field.job === 'Director')
-    escritor.value = resCreditos.data.crew.filter(field => field.job === 'Writer')
     reparto.value = resCreditos.data.cast
     similares.value = resSimilares.data
     spinner.value = false
@@ -234,7 +237,6 @@ const realoadData = async  () => {
 
     const res = await axios.get(api)
     const resTrailers = await axios.get(apitrailers)
-    const resReviews = await axios.get(apireviews)
     const resProovedores = await axios.get(apiproovedores)
     const resCreditos = await axios.get(apiCreditos)
     const resSimilares = await axios.get(apiSimilares)
@@ -242,7 +244,6 @@ const realoadData = async  () => {
     pelicula.value = res.data
     genres.value = res.data.genres
     trailers.value = resTrailers.data.results
-    reviews.value = resReviews.data.results
     proovedores.value = resProovedores.data.results.CO
     director.value = resCreditos.data.crew.filter(field => field.job === 'Director')
     escritor.value = resCreditos.data.crew.filter(field => field.job === 'Writer')
@@ -259,9 +260,6 @@ const realoadData = async  () => {
 <style scoped>
 
 .box-imagenes {
-  *overflow: auto;
-  *max-height: 300px;
- /* box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px; */
   margin-top: 40px;
 }
 

@@ -2,7 +2,7 @@
 
 <template>
     
-    <div class="w-100" >
+    <div class="w-100 mt-3" >
 
           <!-- Link BACK -->
           <div class="w-100 text-center mb-3" >

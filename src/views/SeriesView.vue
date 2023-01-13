@@ -62,6 +62,28 @@
                 </div>
 
                 </small>
+                   <!-- Rating PARA AMBAS -->
+                   <div v-if="!spinner"  class="d-flex gap-3">
+
+                      <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                      <img src="../assets/img/imdb.png" width="50" height="50" alt="">
+                      <strong class="m-1 h5" >{{ rating.imDb }}</strong>
+                      </span>
+                      <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                      <img src="../assets/img/filmaffinity.png" width="30" height="25" alt="">
+                      <strong class="m-1 h5" >{{  rating.filmAffinity  }}</strong>
+                      </span>
+                      <span class="rounded text-white fw-bold d-flex align-items-center" > 
+                      <img src="../assets/img/tomato.png" width="35" height="35" alt="">
+                      <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
+                      </span>
+                      <span class="rounded text-white fw-bold d-flex align-items-center my-1" > 
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/1280px-Tmdb.new.logo.svg.png" 
+                      width="30" height="23" alt="">
+                      <strong class="m-1 h5" >{{ serie.vote_average }}</strong>
+                      </span>
+
+                    </div>
 
             </div>
           
@@ -131,11 +153,10 @@ const trailers = ref({})
 const proovedores = ref([])
 const reparto = ref([])
 const contenido = ref([])
+const rating = ref({})
 
 const spinner = ref(true)
 
-// IMDB DE WANDAVISION
-// https://api.themoviedb.org/3/find/tt9140560?api_key=9f7031622a3c84ce82bbf384f262391a&language=en-US&external_source=imdb_id
 
 onMounted( async () => {
 
@@ -143,11 +164,16 @@ onMounted( async () => {
     let key = keyApi
     let lenguage = `&language=es-ES`
 
+    let find = `${series}/${route.params.id}/external_ids${key}`
+    const imdbApi = await axios.get(find)
+    let imdbid = imdbApi.data.imdb_id 
+
     let api = `${series}${route.params.id}${key}${lenguage}`
     let apitrailers = `${series}${route.params.id}/videos${key}`
     let apiproovedores = `${series}${route.params.id}/watch/providers${key}`
     let apiCreditos = `${series}${route.params.id}/credits${key}`
     let apiEpisodes = `https://api.themoviedb.org/3/tv/${route.params.id}${key}${lenguage}`
+    let imdb = `https://imdb-api.com/en/API/Ratings/k_8i45ej83/${imdbid}`
 
     try {
         const res = await axios.get(api)
@@ -155,13 +181,15 @@ onMounted( async () => {
         const resProovedores = await axios.get(apiproovedores)
         const resCreditos = await axios.get(apiCreditos)
         const resEpisodes = await axios.get(apiEpisodes)
+        const resIMDB = await axios.get(imdb)
 
         serie.value = res.data
         trailers.value = resTrailers.data.results
         proovedores.value = resProovedores.data.results.CO
         reparto.value = resCreditos.data.cast
-        contenido.value = resEpisodes.data
-       console.log(contenido.value)
+        contenido.value = resEpisodes.data  
+        rating.value = resIMDB.data
+
         spinner.value = false
 
     } catch (error) {

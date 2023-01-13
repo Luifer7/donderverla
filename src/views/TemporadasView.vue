@@ -5,7 +5,7 @@
 
 <div>
       <!-- Link BACK SIRVE PARA TOOOOODO -->
-        <div class="w-100 text-center mb-3" >
+        <div class="w-100 text-center mb-3 mt-2" >
             <router-link class="text-decoration-none"  :to="{
             name: 'serie', params: { serie: route.params.current, id: route.params.currentId}}">
 
