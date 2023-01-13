@@ -5,7 +5,7 @@
 
 <div>
       <!-- Link BACK SIRVE PARA TOOOOODO -->
-        <div class="w-100 text-center mb-3 mt-2" >
+        <div class="w-100 text-center mb-3 mt-3" >
             <router-link class="text-decoration-none"  :to="{
             name: 'serie', params: { serie: route.params.current, id: route.params.currentId}}">
 
@@ -17,50 +17,34 @@
         
         </div>
     
-        <div class="w-100 row text-center">
+        <div class="w-100 row m-auto">
 
-        <div class="col-12 col-sm-6" >
-            <h4 class="text-white px-2 mb-2 m-0"> <i>{{ episodios?.name }}</i> 
-            <small v-if="episodios.air_date" class="text-info m-2" >- {{ episodios?.air_date?.slice(0, -6) }}</small> </h4>
-            <p class="px-4 py-2 m-0 text-start text-white fw-bold" style="font-size: .9em;" >
+        <div class="col-12 col-sm-8 mb-1" >
+            <h4 class="text-info px-2 mb-2 m-0"> <i>{{ episodios?.name }}</i></h4>
+            <p class="px-1 py-2 m-0 text-start text-white fw-bold" style="font-size: .9em;" >
                 {{ episodios?.overview }}
             </p>
+            <strong v-if="episodios.air_date" class="text-white px-1" >Emitida:
+            <small class="text-info" >{{ episodios?.air_date?.slice(0, -6) }}</small>
+            </strong> 
         </div>
 
-        <div class="col-12 col-sm-6">
-            <img v-if="episodios?.poster_path" class="img-thumbnail img-season" 
+        <div class="col-12 col-sm-4 col-md-4 p3-2">
+            <img v-if="episodios?.poster_path" height="300" class="img-thumbnail w-100 rounded" 
             :src="`https://image.tmdb.org/t/p/w500${episodios?.poster_path}`" alt="">
         </div>
       
         </div>
 
-        <div class="w-100 mt-3 row m-auto" >
-        <h3 class="text-center mt-2 text-white fw-bold mb-3">Episodios</h3>
-        
-        <div class="col-12 col-sm-6 col-lg-4  box-episodio"
-             v-for="epi of episodios?.episodes" :key="epi.id" >
+        <div class="w-100 mt-5" >
+            <h3 class="text-center m-0 text-white" ><i>Eposodios</i></h3>
+            <EpisodiosComponent
+        :episodios="episodios?.episodes"
+        >
+        </EpisodiosComponent>
 
-           <div style="height: 160px; width: 100%;" >
-            <img v-if="epi?.still_path" class="img-thumbnail" style="width: 100%; height: 100%;"
-                 :src="`https://image.tmdb.org/t/p/w500${epi?.still_path}`" alt="">
-           </div>
-
-           <div class="box-text text-info" style="height: 50px;">
-            <strong class="m-0 px-2" > #{{ epi.episode_number }} {{ epi.name }} - {{ epi.runtime }}Min</strong>
-            <b style="font-size: 1em;">{{ epi.vote_average }}</b>
-            </div>
-
-            <div style="height: 100px; overflow-y: auto;" class="p-1 box-text" >
-                <p class="text-white px-2" style="word-break:break-all; font-size: .8em;" >
-                 <i>{{ epi.overview }}</i> 
-                </p>
-            </div>
-           
-        
         </div>
-        
-        </div>
-
+    
 </div>
 
 
@@ -68,6 +52,7 @@
 </template>
 
 <script setup>
+import EpisodiosComponent from "../components/EpisodiosComponent.vue";
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router";
@@ -82,6 +67,7 @@ onMounted( async () => {
     let api = `https://api.themoviedb.org/3/tv/${route.params.currentId}/season/${route.params.numero}${keyApi}&language=es-ES` 
     const res = await axios.get(api)
     episodios.value = res.data
+    console.log(episodios.value)
 })
 
 </script>

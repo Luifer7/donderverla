@@ -20,6 +20,17 @@
 
       <div class="w-100 mt-2" >
 
+        <SliderComponent
+        :titulos="tendencias"
+        :nombre="'Tendencias'"
+        @getTitle="(titulo) => {
+          getTitle(titulo)
+        }">
+        </SliderComponent>
+      </div>
+
+      <div class="w-100 mt-2" >
+
           <SliderComponent
           :titulos="titulosTop"
           :nombre="'Peliculas Top'"
@@ -65,6 +76,7 @@ const router = useRouter()
 const titulos = ref({})
 const titulosTop = ref({})
 const cines = ref({})
+const tendencias = ref({})
 
 const spinner = ref(true)
 
@@ -74,14 +86,15 @@ onMounted( async () => {
     
     let page = Math.floor(Math.random() * 50)
     let lenguage = `&language=es-ES`
-
     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}${lenguage}&page=${page}`)
     const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}${lenguage}&page=${page}`)
+    const resTendencias = await axios.get(`https://api.themoviedb.org/3/trending/movie/week${keyApi}${lenguage}`)
     const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
 
     titulos.value = res.data.results
     titulosTop.value = resTop.data.results 
     cines.value = enCineImdb.data.items
+    tendencias.value  = resTendencias.data.results
 
     spinner.value = false
   

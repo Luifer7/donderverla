@@ -15,7 +15,7 @@
           </div>
 
           <!-- Titulo -->
-          <h3 class="text-white d-flex text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+          <h3 class="text-white d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
 
@@ -60,6 +60,11 @@
                     <img src="../assets/img/tomato.png" width="35" height="35" alt="">
                     <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
                   </span>
+                  <span class="rounded text-white fw-bold d-flex align-items-center my-1" > 
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/1280px-Tmdb.new.logo.svg.png" 
+                  width="30" height="23" alt="">
+                  <strong class="m-1 h5" >{{ pelicula.vote_average }}</strong>
+                </span>
 
                   </div>
 
@@ -91,7 +96,11 @@
           <SpinnerComponent></SpinnerComponent>
           </div>
 
-          <RepartoComponent v-if="!spinner" :reparto="reparto" ></RepartoComponent>
+         
+          
+          <SliderRepartopeli v-if="!spinner"
+            :reparto="reparto"
+            ></SliderRepartopeli>
         
           
             <!-- Galeria -->
@@ -111,9 +120,9 @@ import axios from "axios";
 import { useRoute } from "vue-router";
 import DetallesComponent from "../components/DetallesComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
-import RepartoComponent from "../components/RepartoComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
+import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
 

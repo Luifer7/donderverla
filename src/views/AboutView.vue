@@ -15,7 +15,7 @@
           </div>
 
           <!-- Titulo -->
-          <h3 class="text-white d-flex text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+          <h3 class="text-white d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
           
@@ -76,8 +76,8 @@
               <div class="d-flex gap-3 flex-wrap mt-1" >
                 <div v-for="prov of proovedores?.flatrate" :key="prov.id" >
                   <span class="d-flex gap-1 align-items-center" >
-                    <img width="25" class="rounded-circle" 
-                    height="25" :src="`https://image.tmdb.org/t/p/w500/${prov?.logo_path}`" alt=""> 
+                    <img width="30" class="rounded-circle" style="object-fit:cover;"
+                    height="30" :src="`https://image.tmdb.org/t/p/w500/${prov?.logo_path}`" alt=""> 
                     <strong>{{ prov?.provider_name }}</strong>
                   </span>
                 </div>
@@ -90,6 +90,21 @@
           </div>
 
           <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
+
+           <!-- DETALLES -->
+           <div v-if="!spinner" class="w-100 row p-3" >
+
+            <!-- TAGLINE -->
+            <h4 class="mt-2 m-0 text-center text-white col-12" >
+                <i> 
+                <blockquote >- {{ pelicula?.tagline }}</blockquote>
+                </i> 
+            </h4>
+
+          </div>
+
+
+
             
           <!-- SPINNER #2 -->
           <div v-if="spinner" class="w-100 text-center" >
@@ -113,7 +128,7 @@
 
           <!-- RECOMENDACIONES -->
           <div  class="w-100 text-center mt-5" v-if="!spinner" >
-          <h4 class="text-white m-auto mb-4">
+          <h4 class="text-white m-auto mb-4 px-2">
             <i>Recomendaciones a partir de <strong class="text-info" >{{ route.params.pelicula }}</strong> </i></h4>
           <PeliculasSimilares
           :peliculas="similares?.results"
@@ -172,7 +187,6 @@ onMounted( async () => {
        
     let apitrailers = `${movie}/${route.params.id}/videos${key}`
     let api = `${movie}/${route.params.id}${key}${lenguage}`
-    let apireviews = `${movie}/${route.params.id}/reviews${key}${lenguage}`
     let apiproovedores = `${movie}/${route.params.id}/watch/providers${key}`
     let apiCreditos = `${movie}/${route.params.id}/credits${key}`
     let apiSimilares = `${movie}/${route.params.id}/recommendations${key}${lenguage}&page=${n}`

@@ -32,32 +32,32 @@
 
                 <!-- DETALLES -->
                 <div class="text-white col-6 col-sm-4 d-flex gap-2 justify-content-start align-items-center flex-wrap" >
-                  <strong class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{contenido?.number_of_episodes}}</i> </small> </strong>
-                  <strong class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ contenido?.number_of_seasons}}</i> </small></strong>
+                  <strong class="m-0" >Episodios: <small class="fw-bold text-info"> <i>{{serie?.number_of_episodes}}</i> </small> </strong>
+                  <strong class="m-0" >Temporadas: <small class="fw-bold text-info"> <i>{{ serie?.number_of_seasons}}</i> </small></strong>
                   
                   <!-- ESTADO de la serie -->
                   <strong class="m-0" >Estado: 
 
-                    <small class="fw-bold w-100" v-if="contenido?.status === 'Returning Series'">
+                    <small class="fw-bold w-100" v-if="serie?.status === 'Returning Series'">
                     <i class="text-info text-uppercase" >Habrá otra temporada</i></small>
 
-                    <small class="fw-bold w-100" v-if="contenido?.status === 'Planned'">
+                    <small class="fw-bold w-100" v-if="serie?.status === 'Planned'">
                     <i class="text-info text-uppercase" >En planes</i></small>
 
-                    <small class="fw-bold w-100" v-if="contenido?.status === 'Canceled'">
+                    <small class="fw-bold w-100" v-if="serie?.status === 'Canceled'">
                     <i class="text-danger text-uppercase" >Cancelada</i></small>
 
-                    <small class="fw-bold w-100" v-if="contenido?.status === 'Ended'">
+                    <small class="fw-bold w-100" v-if="serie?.status === 'Ended'">
                     <i class="text-info text-uppercase" >Finalizada</i></small>
 
-                    <small class="fw-bold w-100" v-if="contenido?.status === 'Production'">
+                    <small class="fw-bold w-100" v-if="serie?.status === 'Production'">
                     <i class="text-info text-uppercase" >En produccion</i></small>
 
                   </strong>
                   
                   <!-- Ultimo episodio -->
                   <strong class="m-0" >Ultimo episodio: <small class="fw-bold text-info"> <i>
-                    {{contenido?.last_episode_to_air?.name}} - {{contenido?.last_episode_to_air?.air_date.slice(0, -6)}}
+                    {{serie?.last_episode_to_air?.name}} - {{serie?.last_episode_to_air?.air_date.slice(0, -6)}}
                   </i> </small> </strong>
                 </div>
 
@@ -99,7 +99,7 @@
               <!-- TAGLINE -->
               <h4 class="mt-2 m-0 text-center text-white col-12" >
                   <i> 
-                  <blockquote >- {{ contenido?.tagline }}</blockquote>
+                  <blockquote >- {{ serie?.tagline }}</blockquote>
                   </i> 
               </h4>
 
@@ -194,7 +194,7 @@ onMounted( async () => {
         reparto.value = resCreditos.data.cast
         contenido.value = res.data.seasons  
         rating.value = resIMDB.data
-      
+
         spinner.value = false
 
     } catch (error) {

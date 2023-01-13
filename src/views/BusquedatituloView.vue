@@ -30,12 +30,12 @@
             </div>
 
             <!-- Titulo  por si pelicula-->
-            <h3 v-if=" titulo?.title" class="text-white d-flex text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+            <h3 v-if=" titulo?.title" class="text-white d-flex flex-wrap text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ titulo?.title }}</i> <small v-if="titulo?.release_date" class="h5 m-0" >({{ titulo?.release_date?.slice(0, -6)}})</small>
             </h3>
 
               <!-- Titulo  por si SERIE-->
-            <h3 v-if=" titulo?.name" class="text-white d-flex text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+            <h3 v-if=" titulo?.name" class="text-white d-flex flex-wrap px-2 text-center gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ titulo?.name }}</i> <small v-if="titulo?.first_air_date" class="h5 m-0" >({{ titulo?.first_air_date?.slice(0, -6)}})</small>
             </h3>
 
