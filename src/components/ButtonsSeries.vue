@@ -2,25 +2,26 @@
 
 <template>
     
-    <div class="d-flex flex-wrap mt-2 mx-2 mb-3 align-items-center justify-content-start gap-2 p-2" >
+    <div class="d-flex flex-wrap mt-2 mx-2 mb-3 
+    align-items-center justify-content-start gap-2 p-2" >
 
-        <button class="fw-bold button-10" 
+        <button class="fw-bold btn btn-sm btn-outline-info" 
         @click="getModalidad(Math.floor(Math.random() * 50), 'top_rated')" 
-        :class="modd === 'top_rated' ?'seleccionado':''"
+        :class="modd === 'top_rated' ?'currentColor':''"
         >
         Top Rated
         </button>
 
-        <button class="fw-bold button-10"
+        <button class="fw-bold btn btn-sm btn-outline-info"
         @click="getModalidad(Math.floor(Math.random() * 50), 'popular')"
-        :class="modd === 'popular' ?'seleccionado':''"
+        :class="modd === 'popular' ?'currentColor':''"
         >
         Populares
         </button>
 
-        <button class="fw-bold button-10"
+        <button class="fw-bold btn btn-sm btn-outline-info"
         @click="getModalidad(Math.floor(Math.random() * 30), 'on_the_air')"
-        :class="modd === 'on_the_air' ?'seleccionado':''"
+        :class="modd === 'on_the_air' ?'currentColor':''"
         >
         En emisión
         </button>
@@ -50,39 +51,16 @@ const getModalidad = (page, mod) => {
 
 <style scoped>
 
-.button-10 {
-  transition: .6s ease all;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6px 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-  border-radius: 6px;
-  border: none;
 
-  color: #fff;
-  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
-  background-origin: border-box;
-  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+.currentColor {
+    background: linear-gradient(109.6deg, rgb(11, 145, 122) 11.2%, rgb(11, 132, 145) 91.1%);
+        color: white;
+        border: none;
+        letter-spacing: 1px;
 }
 
-.button-10:focus {
-  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
-  outline: 0;
-}
-.button-10:hover {
-    transform: scale(.9);
-}
-.button-10:active {
-    transform: scale(1.1);
-}
-
-.seleccionado{
-    background: linear-gradient(180deg, #2556a0 0%, #27519e 100%);
-    color: white;
+.normalColor {
+    background-color: rgba(27, 88, 158, 0.884);
 }
 
 

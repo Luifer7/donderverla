@@ -4,80 +4,116 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import BusquedaComponent from './components/BusquedaComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
 
 </script>
 
 
 <template>
 
+    <!-- HEADER -->
+    <div class="w-100 banner d-flex flex-column justify-content-between">
 
-  <div class="w-100 banner d-flex flex-column justify-content-between">
+      <div class="bgbg kenburns-right" ></div>
 
-    <div class="d-flex align-items-center justify-content-between mt-4" >
+      <div class="d-flex align-items-center justify-content-between mt-4 t" >
 
-        <div class="mx-3 mt-4 d-flex align-items-center justify-content-center donde" >
-          <router-link to="/" class="text-decoration-none v" >
-            <h3 class="m-0  text-center" ><i>DONDEVERLA</i></h3>
-          </router-link>
-        </div>
-
-        <i class="bi bi-menu-button-wide-fill mx-3 text-white  m-0 bg-dark border px-2 py-1 rounded"
-        data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" 
-        aria-controls="offcanvasTop" style="cursor:pointer;" >
-        <strong> Menu</strong>
-        </i>
-
-        <!-- canvas -->
-        <div class="offcanvas offcanvas-top canvas-menu" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-          <div class="offcanvas-header text-white">
-            <h5 id="offcanvasTopLabel" class="text-white fw-bold" >MENU</h5>
-            <button type="button" class="btn-close text-reset" 
-            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <div class="mx-3 mt-4 d-flex align-items-center justify-content-center donde" >
+            <router-link to="/" class="text-decoration-none v" >
+              <h3 class="m-0  text-center tracking-in-expand" ><i>DONDEVERLA</i></h3>
+            </router-link>
           </div>
-          <div class="offcanvas-body d-flex align-items-center justify-content-evenly">
 
-                <router-link to="/buscarseries" class="text-decoration-none h5 link" >
-                    SERIES
-                </router-link>
+          <i class="bi bi-menu-button-wide-fill mx-3 text-white menu m-0 px-2 py-1 fw-bold rounded"
+          data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" 
+          aria-controls="offcanvasTop" style="cursor:pointer;" >
+          Menu
+          </i>
 
-                <router-link to="/buscarpelicula" class="text-decoration-none h5 link" >
-                    PELICULAS
-                </router-link>
+          <!-- canvas -->
+          <div class="offcanvas offcanvas-top canvas-menu" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas-header text-white">
+              <h4 id="offcanvasTopLabel" class="text-white fw-bold" >MENU</h4>
+              <button type="button" class="btn-close text-reset" 
+              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex align-items-center justify-content-evenly">
 
+                  <router-link to="/buscarseries" class="text-decoration-none h5 link" >
+                      SERIES
+                  </router-link>
+
+                  <router-link to="/buscarpelicula" class="text-decoration-none h5 link" >
+                      PELICULAS
+                  </router-link>
+
+            </div>
           </div>
-        </div>
+
+      </div>
 
     </div>
+    <!-- HEADER -->
+    <BusquedaComponent class="busqueda" ></BusquedaComponent>
 
-    <BusquedaComponent></BusquedaComponent>
-
-  </div>
-
- 
-
-  <router-view v-slot="{Component}" >
-    <transition name="vistas" mode="out-in" >
+    <router-view v-slot="{Component}" >
+      <transition name="vistas" mode="out-in" >
               <component :is="Component" />
-    </transition>
-  </router-view>
+      </transition>
+    </router-view>
   
 
-  <div class="w-100 p-5  text-center text-white" >
-      <small>By: Luis Fernando Cordero Torres - Powered: VUE3</small>
-  </div>
+    <div class="w-100 mt-5" >
+        <FooterComponent></FooterComponent>
+    </div>
 
 </template>
+
+
 
 <style scoped>
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap');
 
 .banner {
-  background-image: url(https://firebasestorage.googleapis.com/v0/b/dondeverla.appspot.com/o/ggghh.jpg?alt=media&token=cb4bf01a-a07e-4e95-8d19-27fed98e57e5);
   background-size: cover;
   background-position: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  height: 130px;
+  height: 150px;
+  position: relative;
+  overflow: auto;
+}
+
+.banner::-webkit-scrollbar {
+        display: none;
+    }
+
+    .banner::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    .banner::-webkit-scrollbar-thumb {
+        display: none;
+    }
+
+.t{
+  z-index: 1;
+}
+
+.busqueda{
+  position: absolute;
+  top: 110px;
+  margin-bottom: 0;
+}
+
+.bgbg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/dondeverla.appspot.com/o/ggghh.jpg?alt=media&token=cb4bf01a-a07e-4e95-8d19-27fed98e57e5);
+    background-size: cover;
+    background-position: center;
 }
 
 .vistas-enter-from {
@@ -105,14 +141,42 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
   -webkit-background-clip: text;
   font-family: 'Rubik Spray Paint', cursive;
   text-shadow: rgba(255, 255, 255, 0.849) 3px -24px 2px;
+  transition: .6s ease all;
 }
+
+.donde:hover .v {
+  transform: scale(.9);
+}
+
+.donde:active .v {
+  transform: scale(1.1);
+}
+
+.menu {
+  background: transparent;
+  border: 1px solid rgba(245, 245, 245, 0.596);
+  transition: .5s ease all;
+  background-color: black;
+
+}
+
+.menu:hover {
+  border: 1px solid transparent;
+  background-color: transparent;
+  transform: scale(.9);
+}
+.menu:active {
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
 
 .canvas-menu{
   background-color: rgba(7, 7, 7, 0.986);
 }
 
 .link{
-  transition: .6s ease all;
+  transition: .3s ease all;
   color: beige;
   position: relative;
 }
@@ -120,28 +184,101 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
 .link::before {
   content: "";
   position: absolute;
-  width: 5px;
+  width: 4px;
   height: 90%;
+  bottom: 0;
   left: -10px;
-  background-color: yellow;
+  background-color: rgb(241, 241, 13);
   border-radius: 10px;
-  transition: .4s ease-in all;
+  transition: .3s ease-in all;
 }
 
 .link:hover::before {
-  height: 10%;
+  height: 12%;
   left: 0;
-  bottom: 0;
+  bottom: -2px;
   width: 100%;
 }
 
-
-
-
-
-@media (min-width: 1024px) {
-  
-
+.router-link-active::before {
+    transition: .3s ease all;
+    position: absolute;
+    content: '';
+    height: 12%;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
 }
+
+
+.tracking-in-expand:active {
+	-webkit-animation: tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+
+ @-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.kenburns-right {
+	-webkit-animation: kenburns-right 7s ease-out both;
+	        animation: kenburns-right 7s ease-in-out alternate-reverse both infinite;
+}
+
+
+ @-webkit-keyframes kenburns-right {
+  0% {
+    -webkit-transform: scale(1) translate(0, 0);
+            transform: scale(1) translate(0, 0);
+    -webkit-transform-origin: 84% 50%;
+            transform-origin: 84% 50%;
+  }
+  100% {
+    -webkit-transform: scale(1.25) translateX(20px);
+            transform: scale(1.25) translateX(20px);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+  }
+}
+@keyframes kenburns-right {
+  0% {
+    -webkit-transform: scale(1) translate(0, 0);
+            transform: scale(1) translate(0, 0);
+    -webkit-transform-origin: 84% 50%;
+            transform-origin: 84% 50%;
+  }
+  100% {
+    -webkit-transform: scale(1.25) translateX(20px);
+            transform: scale(1.25) translateX(20px);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+  }
+}
+
+
+
 
 </style>

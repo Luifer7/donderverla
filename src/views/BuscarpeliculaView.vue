@@ -5,15 +5,19 @@
       <div>
     
             <!-- GENEROS -->
-          <div class="d-flex flex-wrap gap-2 px-2 m-auto mt-3 mb-3 m-auto" >
+          <div class="d-flex flex-wrap gap-2 px-2 
+                      m-auto mt-3 mb-3 m-auto" >
             
-            <button style="font-size: .8em;" v-for="g of generos"  :key="g.id" 
+            <button style="font-size: .8em;" 
+            v-for="g of generos"  :key="g.id" 
             @click="getForGenre(g)"
-            class="text-center fw-bold p-2 rounded btn btn-sm btn-outline-info btnbtn" 
+            class="text-center fw-bold p-2 rounded 
+                   btn btn-sm btn-outline-info btnbtn" 
             :class="mod === g.id ?'seleccionado' : ''"
             >{{ g.name }} 
             <span v-if="mod === g.id && spinnerButton" 
-            class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            class="spinner-border spinner-border-sm" 
+            role="status" aria-hidden="true"></span>
             </button>
     
           </div>
@@ -191,14 +195,18 @@
     }
     
     .seleccionado{
+        transition: .8s ease all;
         background: linear-gradient(109.6deg, rgb(11, 145, 122) 11.2%, rgb(11, 132, 145) 91.1%);
         color: white;
         border: none;
         letter-spacing: 1px;
     }
 
+    .btnbtn{
+      transition: .8s ease all;
+    }
+
     .btnbtn:hover{
-      transition: .7s ease all;
       border: none;
     }
     

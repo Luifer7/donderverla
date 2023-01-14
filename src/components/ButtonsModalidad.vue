@@ -2,16 +2,19 @@
 
 <template>
     
-    <div class="d-flex flex-wrap mt-2 mb-3 align-items-center justify-content-start gap-2 p-2" >
+    <div class="d-flex flex-wrap mt-2 mb-3 
+                align-items-center justify-content-start 
+                gap-2 p-2" >
 
-        <button class="fw-bold btn btn-sm btn-outline-info" 
+        <button 
+        class="fw-bold btn btn-sm btn-outline-info" 
         @click="getModalidad(Math.floor(Math.random() * 50), 'top_rated')" 
         :class="modd === 'top_rated' ?'currentColor':''"
         >
             Top Rated
         </button>
 
-        <button class="fw-bold btn btn-sm btn-outline-info"
+        <button class="fw-bold btn btn-sm btn-outline-info btn-no"
         @click="getModalidad(Math.floor(Math.random() * 50), 'popular')"
         :class="modd === 'popular' ?'currentColor':''"
         >
@@ -68,23 +71,7 @@ const getModalidad = (page, mod) => {
 }
 
 
-/* CSS */
-.button-10 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6px 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-  border-radius: 6px;
-  border: none;
 
-  color: #fff;
-  background-origin: border-box;
-  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
 
 
 

@@ -104,11 +104,11 @@ onMounted( async () => {
     const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}${lenguage}&page=${page}`)
     const resTendencias = await axios.get(`https://api.themoviedb.org/3/trending/movie/day${keyApi}${lenguage}`)
     const resPerson = await axios.get(`https://api.themoviedb.org/3/trending/person/week${keyApi}${lenguage}&page=${pp}`)
-    const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
+    //const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
 
     titulos.value = res.data.results
     titulosTop.value = resTop.data.results 
-    cines.value = enCineImdb.data.items
+    //cines.value = enCineImdb.data.items
     tendencias.value  = resTendencias.data.results
     person.value = resPerson.data.results
 
