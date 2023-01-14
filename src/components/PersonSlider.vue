@@ -1,6 +1,7 @@
 
 
 
+
 <template>
 
     
@@ -19,16 +20,20 @@
         :modules="modules"
         class="mySwiper">
 
-            <swiper-slide v-for="titulo of titulos" :key="titulo.id" 
-            style="cursor:pointer;"
+            <swiper-slide v-for="titulo of persona" :key="titulo.id" 
+            style="cursor:pointer;" 
+            :data="`${titulo?.gender === 2 ? 'Conocido por:' : 'Conocida por:'} 
+                    ${titulo.known_for[0]?.original_title},
+                    ${titulo.known_for[1]?.original_title}
+                    y ${titulo.known_for[2]?.original_title}`"
             class="rounded box-slide" 
-            @click="getTitle(titulo)" >
+            @click="getPerson(titulo)" >
 
-              <img :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
+              <img v-if="titulo?.profile_path" :src="`https://image.tmdb.org/t/p/w500/${titulo?.profile_path}`" 
                    class="rounded img-slide" alt="">
                    
                    <span class="titulo text-white d-flex align-items-center justify-content-center flex-wrap">
-                    {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.vote_average }}</i>
+                    {{titulo.name}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.popularity}}</i>
                   </span>
             </swiper-slide>
       
@@ -46,6 +51,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation,Pagination } from "swiper";
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import { useRoute, useRouter } from 'vue-router';
 
 
 export default {
@@ -55,11 +61,13 @@ export default {
     SwiperSlide,
   },
     props: {
-    titulos: Object, nombre: String
+    persona: Object, nombre: String
   },
-  setup( props, {emit} ) {
+  setup() {
 
     const numeroSlides = ref(1)
+    const route = useRoute()
+    const router = useRouter()
 
     onMounted (() => {
       if (window.innerWidth <= 393) {
@@ -105,12 +113,18 @@ export default {
     }
     
     //Emit del componente
-    const getTitle = (titulo) => {
-         emit('getTitle', titulo)
+    const getPerson = (titulo) => {
+        router.push( 
+        { name: 'person', 
+          params: { 
+            current: 'home', 
+            currentId: '0', 
+            id: titulo.id} 
+        } )
     }
 
     return {
-      modules: [Pagination, Navigation], getTitle, numeroSlides
+      modules: [Pagination, Navigation], getPerson, numeroSlides
     }
   
   }
@@ -171,6 +185,26 @@ export default {
   position: relative;
 }
 
+.box-slide::before {
+    content: attr(data);
+    position: absolute;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: start;
+    letter-spacing: 2px;
+    padding-left: 8px;
+    padding-top: 10px;
+    background-color: rgba(0, 0, 0, 0.932);
+    width: 100%;
+    color: #fff;
+    height: 0;
+    transition: .6s ease all;
+    opacity: 0;
+}
+.box-slide:hover::before {
+   height: 100%;
+   opacity: 1;
+}
 
 .titulo {
   position: absolute;

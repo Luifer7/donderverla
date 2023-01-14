@@ -55,6 +55,9 @@ const makeSearch = async (m, q) => {
         }
     })
 }
+onMounted(() => {
+    input.value.focus()
+})
 
 </script>
 

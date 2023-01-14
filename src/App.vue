@@ -15,11 +15,11 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
 
     <div class="d-flex align-items-center justify-content-between mt-4" >
 
-      <div class="mx-3 mt-4 d-flex align-items-center justify-content-center donde" >
-        <router-link to="/" class="text-decoration-none v" >
-          <h3 class="m-0  text-center" ><i>DONDEVERLA</i></h3>
-        </router-link>
-      </div>
+        <div class="mx-3 mt-4 d-flex align-items-center justify-content-center donde" >
+          <router-link to="/" class="text-decoration-none v" >
+            <h3 class="m-0  text-center" ><i>DONDEVERLA</i></h3>
+          </router-link>
+        </div>
 
         <i class="bi bi-menu-button-wide-fill mx-3 text-white  m-0 bg-dark border px-2 py-1 rounded"
         data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" 
@@ -36,11 +36,11 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
           </div>
           <div class="offcanvas-body d-flex align-items-center justify-content-evenly">
 
-                <router-link to="/buscarseries" class="text-decoration-none h5 text-white" >
+                <router-link to="/buscarseries" class="text-decoration-none h5 link" >
                     SERIES
                 </router-link>
 
-                <router-link to="/buscarpelicula" class="text-decoration-none h5 text-white" >
+                <router-link to="/buscarpelicula" class="text-decoration-none h5 link" >
                     PELICULAS
                 </router-link>
 
@@ -108,8 +108,35 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
 }
 
 .canvas-menu{
-  background-color: rgba(12, 12, 12, 0.986);
+  background-color: rgba(7, 7, 7, 0.986);
 }
+
+.link{
+  transition: .6s ease all;
+  color: beige;
+  position: relative;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 90%;
+  left: -10px;
+  background-color: yellow;
+  border-radius: 10px;
+  transition: .4s ease-in all;
+}
+
+.link:hover::before {
+  height: 10%;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+
+
 
 
 @media (min-width: 1024px) {

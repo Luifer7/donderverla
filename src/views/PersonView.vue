@@ -5,9 +5,21 @@
     <div class="w-100 mt-3" >
 
           <!-- Link BACK -->
-          <div class="w-100 text-center mb-3" >
+          <div v-if="rutaBack != 'home'" class="w-100 text-center mb-3" >
             <router-link class="text-decoration-none"  :to="{
             name: 'pelicula', params: { pelicula: route.params.current, id: route.params.currentId}}">
+
+          <i class="bi bi-arrow-left-circle-fill text-white h2 m-auto text-decoration-none"> 
+           <small class="m-2 text-info" > {{ route.params.current }}</small>
+          </i>
+
+        </router-link>
+        
+          </div>
+
+           <!-- Link BACK  PARA HOME-->
+           <div v-if="rutaBack === 'home'" class="w-100 text-center mb-3" >
+            <router-link class="text-decoration-none" to="/">
 
           <i class="bi bi-arrow-left-circle-fill text-white h2 m-auto text-decoration-none"> 
            <small class="m-2 text-info" > {{ route.params.current }}</small>
@@ -69,8 +81,11 @@ const persona = ref({})
 const personaPeliculas = ref({})
 const spinner = ref(true)
 
+const rutaBack = ref('')
+
 onMounted(async() => {
 
+    rutaBack.value = route.params.current
     let person = `https://api.themoviedb.org/3/person/`
     let key = keyApi
     let lenguage = `&language=es-ES`
