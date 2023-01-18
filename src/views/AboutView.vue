@@ -2,20 +2,31 @@
 
 <template>
      
-    <div class="w-100 mt-2">
+    <div class="w-100 mt-2 box-vista">
 
-        <!-- Router back -->
-        <router-link to="/buscarpelicula" >
+      <div class="w-100 d-flex justify-content-between mt-3 mb-2" >
+
+          <!-- Router back -->
+          <router-link to="/buscarpelicula" >
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
         </router-link>
+        
+          <AgregarFavorito
+         
+          class="mx-3"
+          :titulo="pelicula"
+          ></AgregarFavorito>
 
+      </div>
+      
+        
             <!-- SPINNER #1 -->
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
 
           <!-- Titulo -->
-          <h3 class="text-white d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
+          <h3 class="text-white px-2 d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
           </h3>
           
@@ -23,10 +34,13 @@
           <div class="row p-2 m-auto" >
             
             <!-- POSTER -->
-            <div class="col-12 col-sm-4 col-md-4 p-2" >
+            <div class="col-12 col-sm-4 col-md-4 p-2">
               <img  v-if="pelicula?.poster_path" height="300" 
               class="rounded w-100 img-thumbnail" 
-              :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" alt="imagen no disponible" >
+              :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" 
+              alt="imagen no disponible">
+            
+
             </div>
 
             <!-- sinopsis -->
@@ -82,7 +96,8 @@
                   </span>
                 </div>
               </div>
-              
+
+                  
             </small>
   
             </div>
@@ -156,7 +171,7 @@ import SpinnerComponent from "../components/SpinnerComponent.vue";
 import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
-
+import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -276,6 +291,10 @@ const realoadData = async  () => {
 
 <style scoped>
 
+.box-vista{
+  min-height: 100vh;
+}
+
 .box-imagenes {
   margin-top: 40px;
 }
@@ -294,5 +313,16 @@ const realoadData = async  () => {
     background-color: rgba(102, 51, 153, 0.534);
     border-radius: 10px;
     }
+
+    .box-box{
+      position: absolute;
+      width: 100%;
+      height: 50px;
+      border: 1px solid red;
+      top: 7px;
+      border-radius: 10px;
+
+    }
+
 
 </style>

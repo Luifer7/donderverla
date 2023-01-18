@@ -2,9 +2,16 @@
 
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import BusquedaComponent from './components/BusquedaComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import LoginComponent from './components/register/LoginComponent.vue';
+import { useAuth } from './funciones/Auth';
+import { useBodegaStore } from './stores/bodega';
+
+const { logout, getFav } = useAuth()
+const route = useRoute()
+const useBodega = useBodegaStore()
 
 </script>
 
@@ -33,35 +40,62 @@ import FooterComponent from './components/FooterComponent.vue';
           <!-- canvas -->
           <div class="offcanvas offcanvas-top canvas-menu" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
             <div class="offcanvas-header text-white">
-              <h4 id="offcanvasTopLabel" class="text-white fw-bold" >MENU</h4>
-              <button type="button" class="btn-close text-reset" 
-              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <h4 id="offcanvasTopLabel"  class="text-white fw-bold" >MENU</h4>
+
+              <i data-bs-dismiss="offcanvas" aria-label="Close"
+               class="bi bi-x h4"></i>
+
+              <i class="fw-bold text-danger" style="cursor:pointer;"
+               @click="logout()" >cerrar sesion</i>
+
             </div>
+
             <div class="offcanvas-body d-flex align-items-center justify-content-evenly">
 
                   <router-link to="/buscarseries" class="text-decoration-none h5 link" >
-                      SERIES
+                      Series
                   </router-link>
 
                   <router-link to="/buscarpelicula" class="text-decoration-none h5 link" >
-                      PELICULAS
+                      Peliculas
+                  </router-link>
+
+                  <router-link :to="{
+                  name: 'perfil', 
+                  params: { user: useBodega.currentUser?.displayName || 'user', 
+                  id: useBodega.currentUser?.uid || 'null'}}"
+                  v-show="useBodega.isLogin"
+                  class="text-decoration-none text-capitalize h5 link" >
+                      {{ useBodega.currentUser?.displayName }}
+                  </router-link>
+
+                  <router-link to="/login"
+                  v-show="!useBodega.isLogin"
+                  class="text-decoration-none text-capitalize h5 link" >
+                     Login
                   </router-link>
 
             </div>
+
           </div>
 
       </div>
 
     </div>
     <!-- HEADER -->
+
+    <!-- BUSQUEDA COMPONENTE -->
     <BusquedaComponent class="busqueda" ></BusquedaComponent>
 
+    <!-- VISTAS -->
     <router-view v-slot="{Component}" >
       <transition name="vistas" mode="out-in" >
               <component :is="Component" />
       </transition>
     </router-view>
   
+
+    <LoginComponent v-if="useBodega.isLogin === false" ></LoginComponent>
 
     <div class="w-100 mt-5" >
         <FooterComponent></FooterComponent>

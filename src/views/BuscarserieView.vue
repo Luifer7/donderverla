@@ -29,23 +29,6 @@
             :modd="useBodega.seriePeticion">
             </ButtonsSeries>
         
-        <form v-on:submit.prevent="buscarSerie(query)" class="mb-3 mx-3 m-auto form-outline" >
-            <input v-model="query" type="text" class="form-control form-control-sm text-center"
-             placeholder="Buscar serie">
-        </form>
-
-        <!-- SERIES BUSQUEDA -->
-        <div class="w-100">
-
-            <SeriesBusqueda
-            :series="series?.results"
-            :resultados="series"
-            :peticion="seriesPeticion"
-            @pasar-pagina="(n) => 
-            buscarSerieDos( n, seriesPeticion)"
-            ></SeriesBusqueda>
-
-        </div>
 
         <!-- SERIES GENEROS -->
         <div class="w-100" >
@@ -111,35 +94,6 @@ const seriesGeneros = ref([])
 const seriesPeticionGeneros = ref('') 
 const idGenero = ref('')
 
-const buscarSerie = async (q) => {
-
-let movie = `https://api.themoviedb.org/3/search/tv`
-let key = keyApi
-let lang = `&language=es-MX`
-let query = `&query='${q}'`
-
-let api = `${movie}${key}${query}${lang}`
-    seriesPeticion.value = q
-    const res = await axios.get(api)
-    series.value = res.data
-
-    seriesGeneros.value = []
-    seriesPeticionGeneros.value = ''
-    useBodega.seriePeticion = ''
-}
-
-const buscarSerieDos = async (p, q) => {
-
-let movie = `https://api.themoviedb.org/3/search/tv`
-let key = keyApi
-let lang = `&language=es-MX`
-let query = `&page=${p}&query='${q}'`
-
-let api = `${movie}${key}${query}${lang}`
-    seriesPeticion.value = q
-    const res = await axios.get(api)
-    series.value = res.data
-}
 
 onMounted( async() => {
     let api = `https://api.themoviedb.org/3/genre/tv/list${keyApi}&language=es-ES`

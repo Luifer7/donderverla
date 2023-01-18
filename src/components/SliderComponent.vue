@@ -30,6 +30,12 @@
                    <span class="titulo text-white d-flex align-items-center justify-content-center flex-wrap">
                     {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.vote_average }}</i>
                   </span>
+
+                  <TituloFavorito
+                  :titulo="titulo"
+                  >
+                  </TituloFavorito>
+
             </swiper-slide>
       
         </swiper>
@@ -46,6 +52,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation,Pagination } from "swiper";
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import TituloFavorito from "./users/TituloFavorito.vue";
 
 
 export default {
@@ -53,7 +60,8 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-  },
+    TituloFavorito
+},
     props: {
     titulos: Object, nombre: String
   },
@@ -188,5 +196,6 @@ export default {
 .box-slide:active {
   transform: scale(1.1);
 }
+
 
 </style>

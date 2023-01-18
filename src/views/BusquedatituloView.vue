@@ -3,9 +3,11 @@
 <template>
 
     <div class="w-100 mt-2" >
-            
-            <!-- Router back -->
-            <router-link :to="{
+
+      <div class="w-100 d-flex justify-content-between mt-3 mb-2" >
+
+          <!-- Router back -->
+          <router-link :to="{
                 name: 'busqueda', params: {
                     modo: route.params.modo, query: route.params.titulo
                 }
@@ -13,16 +15,16 @@
             <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
             </router-link>
             <!-- ROuter LINK -->
+                     
+          <AgregarFavorito
+         
+         class="mx-3"
+         :titulo="titulo"
+         ></AgregarFavorito>
 
-           <!-- 
-             <iframe width="400" height="320" 
-            src='https://www.youtube.com/embed/0unm2b73c_A' 
-              title="YouTube video player" 
-              frameborder="0"
-              autoplay clipboard-write encrypted-media gyroscope picture-in-picture
-              allowfullscreen>
-            </iframe>
-            -->
+      </div>
+            
+          
 
             <!-- SPINNER #1 -->
             <div v-if="spinner" class="w-100 text-center" >
@@ -210,6 +212,7 @@ import SpinnerComponent from "../components/SpinnerComponent.vue";
 import SliderTemporadas from "../components/SliderTemporadas.vue";
 import SliderReparto from "../components/SliderReparto.vue";
 import SliderRepartopeli from "../components/SliderRepartopeli.vue";
+import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 
 const route = useRoute()
 

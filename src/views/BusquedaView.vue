@@ -4,7 +4,7 @@
 
     <div class="w-100 mt-5" >
 
-        <h3 class="mx-4 fw-bold text-white"> <i>BUSQUEDA 
+        <h3 class="mx-4 fw-bold text-white"> <i>BUSQUEDA
             <i class="text-info">{{ route.params.query }}</i></i>
         </h3>
 

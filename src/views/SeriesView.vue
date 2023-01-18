@@ -3,9 +3,20 @@
 
     <div class="w-100">
 
-            <router-link to="/buscarseries" >
+      <div class="w-100 d-flex justify-content-between mt-3 mb-2" >
+
+        <router-link to="/buscarseries" >
                 <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
             </router-link>
+
+            <AgregarFavorito
+         
+         class="mx-3"
+         :titulo="serie"
+         ></AgregarFavorito>
+
+      </div>
+           
 
             <div v-if="spinner" class="w-100 text-center p-4" >
             <SpinnerComponent></SpinnerComponent>
@@ -150,6 +161,7 @@ import GeneroComponent from "../components/GeneroComponent.vue";
 import { keyApi } from "../funciones/key";
 import SliderTemporadas from "../components/SliderTemporadas.vue";
 import SliderReparto from "../components/SliderReparto.vue";
+import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 
 
 const route = useRoute()

@@ -15,12 +15,19 @@ const peticion = ref('')
 const seriesPopulares = ref(null)
 const seriePeticion = ref('')
 
-
 const resultadoBusqueda = ref({})
+
+////////AUTH/////////
+const currentUser = ref({})
+const isLogin = ref(null)
+
+/////// FAV //////
+const favoritos = ref([])
 
 
   return { 
-    peliculasPopulares, peticion, seriePeticion, seriesPopulares, resultadoBusqueda
+    peliculasPopulares, peticion, seriePeticion, seriesPopulares, 
+    resultadoBusqueda, currentUser, isLogin, favoritos
   }
 
 })

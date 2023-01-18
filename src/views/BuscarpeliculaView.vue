@@ -2,8 +2,8 @@
 
 <template>
 
-      <div>
-    
+      <div class="box-vista" >
+     
             <!-- GENEROS -->
           <div class="d-flex flex-wrap gap-2 px-2 
                       m-auto mt-3 mb-3 m-auto" >
@@ -111,6 +111,9 @@
     
     <style scoped>
     
+    .box-vista{
+      min-height: 100vh;
+    }
     
     
     /* CSS */

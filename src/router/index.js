@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
+    },
+    {
       path: '/serie/:serie/:id',
       name: 'serie',
       component: () => import('../views/SeriesView.vue')
@@ -70,9 +75,14 @@ const router = createRouter({
       component: () => import('../views/BusquedatituloView.vue')
     },
     {
-      path: '/perfil',
+      path: '/perfil/:user/:id',
       name: 'perfil',
       component: () => import('../views/PerfilView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
     },
   ],
 })
