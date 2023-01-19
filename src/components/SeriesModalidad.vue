@@ -29,7 +29,7 @@
             <div style="height: 320px;" class="col-6 col-sm-4 col-md-3 col-xl-2 p-2" 
                  v-for="p of series" :key="p.id" @click="detalles(p)" >
                 
-                <div class="h-100 w-100 rounded box-pelicula"  >
+                <div class="h-100 w-100 rounded box-pelicula">
 
                     <div v-if="p?.poster_path" style="height: 260px;" class="mw-100" >
                         <img :src="`https://image.tmdb.org/t/p/w500/${p?.poster_path}`" 
@@ -40,7 +40,11 @@
                     class="m-0 text-white d-flex align-items-center justify-content-center"> 
                         <i style="font-size: .7em; word-break: break-all;" class="fw-bold"  >{{ p.name }}</i>
                     </div>
-                
+
+                    <TituloFavorito
+                    :titulo="p"
+                    ></TituloFavorito>
+                    
                 </div>
             
             </div>
@@ -54,6 +58,7 @@
 
 <script setup >
 import { useRoute, useRouter } from "vue-router"
+import TituloFavorito from "./users/TituloFavorito.vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -82,6 +87,7 @@ const detalles = (p) => {
     cursor: pointer;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     transition: .6s ease all;
+    position: relative;
 }
 .box-pelicula:hover{
     transform: scale(.9);

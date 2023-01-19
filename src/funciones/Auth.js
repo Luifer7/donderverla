@@ -75,7 +75,6 @@ const getFav = async () => {
 })
 
   useBodega.favoritos = fav.filter(field => field.userid === useBodega.currentUser?.uid)
-  console.log(useBodega.favoritos)
 }
 
 getFav()

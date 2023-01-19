@@ -4,12 +4,18 @@
 
     <div class="w-100 mt-3 p-3 d-flex flex-column">
             
-       <h3 class="text-white fw-bold px-2" >PERFIL en desarrollo</h3>
-
-       <div class="text-white py-4 px-2 " >
+       <div class="text-white py-3 px-2 " >
         
-       <h4 class="text-warning fw-bold" >Titulos favoritos</h4>
-        {{ useBodega.favoritos }}
+       <h4 class="text-warning fw-bold" >Titulos favoritos <strong class="text-info" >(Sección en desarrollo)</strong></h4>
+        
+        <div class="w-100">
+            <ul class="list-group py-3 list-unstyled" >
+                <li v-for="gg of useBodega.favoritos" :key="gg.id" class="list-item my-1" >
+                    {{ gg.titulo }} {{ gg.imagen }}
+                </li>
+            </ul>
+        </div>
+        
        </div>
 
     </div>

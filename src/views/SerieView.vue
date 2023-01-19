@@ -30,9 +30,13 @@
            <!-- Imagen y sinopsis -->
             <div class="row p-2 m-auto" >
             
-            <div class="col-12 col-sm-4 col-md-4 p-2" >
-              <img  v-if="serie?.poster_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${serie?.poster_path}`" alt="imagen no disponible" >
-            </div>
+          
+              <!-- POSTER -->
+              <PosterComponent
+            :imagen="serie?.poster_path"
+            >
+            </PosterComponent>
+          
 
             <div v-if="!spinner" class="col-12 col-sm-8 col-md-8 p-2" >
 
@@ -162,6 +166,7 @@ import { keyApi } from "../funciones/key";
 import SliderTemporadas from "../components/SliderTemporadas.vue";
 import SliderReparto from "../components/SliderReparto.vue";
 import AgregarFavorito from "../components/users/AgregarFavorito.vue";
+import PosterComponent from "../components/PosterComponent.vue";
 
 
 const route = useRoute()

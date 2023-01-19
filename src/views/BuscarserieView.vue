@@ -70,7 +70,6 @@ import { ref } from "@vue/reactivity";
 import axios from "axios";
 import ButtonsSeries from "../components/ButtonsSeries.vue";
 import SeriesModalidad from "../components/SeriesModalidad.vue";
-import SeriesBusqueda from "../components/SeriesBusqueda.vue";
 import SeriesGeneros from "../components/SeriesGeneros.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { useSeries } from '../funciones/series';

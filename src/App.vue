@@ -43,9 +43,9 @@ const useBodega = useBodegaStore()
               <h4 id="offcanvasTopLabel"  class="text-white fw-bold" >MENU</h4>
 
               <i data-bs-dismiss="offcanvas" aria-label="Close"
-               class="bi bi-x h4"></i>
+               class="bi bi-x h2 fw-bold m-0 text-danger close" ></i>
 
-              <i class="fw-bold text-danger" style="cursor:pointer;"
+              <i class="fw-bold text-danger close"
                @click="logout()" >cerrar sesion</i>
 
             </div>
@@ -109,6 +109,17 @@ const useBodega = useBodegaStore()
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap');
 
+.close {
+  cursor: pointer;
+  transition: .6s ease all;
+}
+
+.close:hover{
+  transform: scale(.9);
+}
+.close:active {
+  transform: scale(1.2);
+}
 .banner {
   background-size: cover;
   background-position: center;

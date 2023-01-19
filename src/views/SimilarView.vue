@@ -17,6 +17,9 @@
           <!-- Titulo -->
           <h3 class="text-white d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
+              <AgregarFavorito class="mx-3" :titulo="pelicula"
+          ></AgregarFavorito>
+  
           </h3>
 
           <!-- Imagen y sinopsis -->
@@ -125,6 +128,7 @@ import SpinnerComponent from "../components/SpinnerComponent.vue";
 import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
+import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 
 const route = useRoute()
 

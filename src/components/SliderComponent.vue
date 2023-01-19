@@ -4,7 +4,7 @@
 <template>
 
     
-    <div class="w-100 mt-4 px-2 box-general-slider" >
+      <div class="w-100 mt-4 px-2 box-general-slider" >
 
          <h3 class="text-white px-2"> <i>{{nombre}}</i> </h3> 
 

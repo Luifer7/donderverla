@@ -16,12 +16,11 @@
             </router-link>
             <!-- ROuter LINK -->
                      
-          <AgregarFavorito
-         
+         <AgregarFavorito
          class="mx-3"
          :titulo="titulo"
          ></AgregarFavorito>
-
+          
       </div>
             
           
@@ -44,13 +43,11 @@
             <!-- POSTERS, SERIES, PELICULAS, DETALLES CAJA GENERAL -->
             <div v-if="!spinner" class="row p-2 m-auto" >
 
-                <!-- POSTER POR SI AMBOS -->
-                <div class="col-12 col-sm-4 col-md-4 p-2" >
-                    <img  v-if="titulo?.poster_path" height="300" 
-                    class="rounded w-100 img-thumbnail" 
-                    :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
-                    alt="imagen no disponible">
-                </div>
+        
+              <!-- POSTER POR SI AMBOS -->
+              <PosterComponent :imagen="titulo?.poster_path">
+              </PosterComponent>
+
 
                 <!-- SINOPSIS Y DEMAS -->
                 <div class="col-12 col-sm-8 col-md-8 p-2" >
@@ -213,6 +210,7 @@ import SliderTemporadas from "../components/SliderTemporadas.vue";
 import SliderReparto from "../components/SliderReparto.vue";
 import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import AgregarFavorito from "../components/users/AgregarFavorito.vue";
+import PosterComponent from "../components/PosterComponent.vue";
 
 const route = useRoute()
 

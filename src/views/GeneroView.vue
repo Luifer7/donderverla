@@ -36,7 +36,6 @@
 </template>
 
 <script setup >
-import SeriesBusqueda from "../components/SeriesBusqueda.vue";
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from "vue-router";

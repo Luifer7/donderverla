@@ -45,7 +45,7 @@
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" v-model="email" id="form3Example3" class="form-control form-control-md"
+                    <input type="email" ref="input" v-model="email" id="form3Example3" class="form-control form-control-md"
                     placeholder="Ingresa una cuenta de email valido" />
                     <label class="form-label text-white fw-bold" for="form3Example3">Email</label>
                 </div>
@@ -73,8 +73,8 @@
                   
                     </button>
                     <p class="medium fw-bold mt-2 text-white pt-1 mb-0">Ya Tienes Cuenta? 
-                     <router-link to="/login" class="link-success" >
-                      Login
+                     <router-link to="/login" class="link-info" >
+                      INICIA SESIÓN
                      </router-link> 
                      </p>
                 </div>
@@ -101,6 +101,7 @@
 
 <script setup >
 import { ref } from '@vue/reactivity';
+import { onMounted } from '@vue/runtime-core';
 import { useAuth } from '../funciones/Auth';
 
 
@@ -109,6 +110,12 @@ const { createUser, spinnerAuth } = useAuth()
 const email = ref('')
 const password = ref('')
 const displayName = ref('')
+
+const input = ref(null)
+
+onMounted(()=>{
+  input.value.focus()
+})
 
 </script>
 

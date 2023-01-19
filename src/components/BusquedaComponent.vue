@@ -2,12 +2,13 @@
 
 <template>
     
-    <form class="input-group w-100 m-0 f" 
+    <form class="input-group w-100 m-0 formulario" 
      v-on:submit.prevent="makeSearch(modoBusqueda, query)" >
         
         <button class=" btn-outline-dark btn-buscar p-2 text-info fw-bold dropdown-toggle" 
         style="border: none; letter-spacing: 2px;"
-        type="button" data-bs-toggle="dropdown" aria-expanded="false">{{modoBusqueda}}</button>
+        type="button" data-bs-toggle="dropdown" aria-expanded="false">{{modoBusqueda}}
+        </button>
 
         <ul class="dropdown-menu drop-box">
           <li><a class="dropdown-item text-info bg-transparent item fw-bold" @click="getModoBusqueda('tv')" >tv</a></li>
@@ -15,8 +16,12 @@
         </ul>
 
         <input required type="text" ref="input" v-model="query" placeholder="Buscar en dondeverla" 
-        class="form-control fw-bold p-2  input-buscar" aria-label="Text input with dropdown button">
-      
+        class="form-control fw-bold p-2  input-buscar">
+
+        <div class="p-0 m-0 lupa" >
+            <i class="bi bi-search text-white" @click="makeSearch(modoBusqueda, query)" ></i>
+        </div>
+
     </form>
 
 </template>
@@ -90,6 +95,29 @@ input:focus {
 
 .item{
     cursor: pointer;
+}
+
+.formulario {
+    position: relative;
+}
+
+.lupa {
+    position: absolute;
+    right: 15px;
+    top: 15%;
+    cursor: pointer;
+    transition: .6s ease all;
+    z-index: 100;
+}
+.lupa:hover {
+transform: scale(.8);
+}
+.lupa:active {
+    transform: scale(1.4);
+}
+.bi-search {
+    font-size: 20px;
+
 }
 
 </style>

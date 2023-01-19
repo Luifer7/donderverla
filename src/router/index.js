@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/pelicula/:pelicula/:id',
       name: 'pelicula',
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/PeliculaView.vue')
     },
     {
       path: '/register',
@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/serie/:serie/:id',
       name: 'serie',
-      component: () => import('../views/SeriesView.vue')
+      component: () => import('../views/SerieView.vue')
     },
     {
       path: '/similar/:current/:currentId/:pelicula/:id',

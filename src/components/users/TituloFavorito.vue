@@ -9,7 +9,7 @@
         <i :class="gg.id == titulo.id 
            ?'bi bi-bookmark-star-fill text-warning h1 m-0'
            :'d-none'"></i>
-      </div>
+        </div>
     
       </div>
     
@@ -34,6 +34,7 @@ defineProps({
 .favorito {
   position: absolute;
   top: 0; left: 0;
+  z-index: 100;
 }
 
 .select {

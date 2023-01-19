@@ -14,6 +14,8 @@
           </i>
 
         </router-link>
+          
+        <input type="text"  class="opacity-0" ref="input">
         
           </div>
 
@@ -37,7 +39,10 @@
           <div class="row p-2 m-auto" >
             
             <div class="col-12 col-sm-4 col-md-4 p-2" >
-              <img  v-if="persona?.profile_path" height="300" class="rounded w-100 img-thumbnail" :src="`https://image.tmdb.org/t/p/w500/${persona?.profile_path}`" alt="imagen no disponible" >
+              <img  v-if="persona?.profile_path" height="300" 
+              class="rounded w-100 img-thumbnail" 
+              :src="`https://image.tmdb.org/t/p/w500/${persona?.profile_path}`" 
+              alt="imagen no disponible" >
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 p-2" >
@@ -75,6 +80,7 @@ import { useRoute } from "vue-router"
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { keyApi } from "../funciones/key";
 
+const input = ref('')
 
 const route = useRoute()
 const persona = ref({})
@@ -84,7 +90,7 @@ const spinner = ref(true)
 const rutaBack = ref('')
 
 onMounted(async() => {
-
+    input.value.focus()
     rutaBack.value = route.params.current
     let person = `https://api.themoviedb.org/3/person/`
     let key = keyApi

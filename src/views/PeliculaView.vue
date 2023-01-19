@@ -11,16 +11,12 @@
           <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
         </router-link>
         
-          <AgregarFavorito
-         
-          class="mx-3"
-          :titulo="pelicula"
+          <AgregarFavorito class="mx-3" :titulo="pelicula"
           ></AgregarFavorito>
 
-      </div>
+        </div>
       
-        
-            <!-- SPINNER #1 -->
+          <!-- SPINNER #1 -->
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
           </div>
@@ -28,20 +24,16 @@
           <!-- Titulo -->
           <h3 class="text-white px-2 d-flex text-center flex-wrap gap-2 align-items-center justify-content-center" style="font-size: 1.8em;" > 
               <i>{{ pelicula?.title }}</i> <small v-if="pelicula?.release_date" class="h5 m-0" >({{ pelicula?.release_date?.slice(0, -6)}})</small>
+            
           </h3>
           
           <!-- Imagen y sinopsis  MUCHOS DATOS-->
           <div class="row p-2 m-auto" >
             
             <!-- POSTER -->
-            <div class="col-12 col-sm-4 col-md-4 p-2">
-              <img  v-if="pelicula?.poster_path" height="300" 
-              class="rounded w-100 img-thumbnail" 
-              :src="`https://image.tmdb.org/t/p/w500/${pelicula?.poster_path}`" 
-              alt="imagen no disponible">
-            
-
-            </div>
+            <PosterComponent
+            :imagen="pelicula?.poster_path">
+            </PosterComponent>
 
             <!-- sinopsis -->
             <div class="col-12 col-sm-8 col-md-8 p-2" >
@@ -172,6 +164,7 @@ import SliderRepartopeli from "../components/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
 import AgregarFavorito from "../components/users/AgregarFavorito.vue";
+import PosterComponent from "../components/PosterComponent.vue";
 
 const route = useRoute()
 const router = useRouter()

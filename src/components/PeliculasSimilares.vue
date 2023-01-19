@@ -41,7 +41,12 @@
                     class="m-0 text-white d-flex align-items-center justify-content-center"> 
                         <i style="font-size: .7em; word-break: break-all;" class="fw-bold"  >{{ p.title }}</i>
                     </div>
-                
+
+                    <TituloFavorito
+                    :titulo="p"
+                    ></TituloFavorito>
+
+        
                 </div>
             
             </div>
@@ -55,6 +60,7 @@
 
 <script setup >
 import { useRouter } from "vue-router"
+import TituloFavorito from "./users/TituloFavorito.vue";
 
 const router = useRouter()
 
@@ -81,6 +87,7 @@ const detalles = (p) => {
     cursor: pointer;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     transition: .6s ease all;
+    position: relative;
 }
 .box-pelicula:hover{
     transform: scale(.9);

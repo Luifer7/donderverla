@@ -16,9 +16,7 @@
             :peticion="current"
             @next-page="(n) => {
                 pasarPagina(n)
-            }"
-            >
-
+            }">
             </TituloComponent>
 
         </div>

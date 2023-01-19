@@ -3,7 +3,9 @@
 
   <div class="w-100 p-2">
 
-      <div class="w-100 mt-2" >
+      <!-- 
+
+             <div class="w-100 mt-2" >
         <SliderImdb
         v-if="cines === {}"
         :titulos="cines"
@@ -17,12 +19,14 @@
         
       </div>
 
+       -->
+
       <!-- SLIDER TENDENCIAS -->
       <div class="w-100 mt-2" >
 
         <SliderComponent
         :titulos="tendencias"
-        :nombre="'Peliculas en Tendencias'"
+        :nombre="'Te recomendamos'"
         @getTitle="(titulo) => {
           getTitle(titulo)
         }">
@@ -74,6 +78,7 @@
 <script setup >
 import { onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
 import PersonSlider from "../components/PersonSlider.vue";
 import SliderComponent from "../components/SliderComponent.vue";
@@ -101,7 +106,7 @@ onMounted( async () => {
     let lenguage = `&language=es-ES`
     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}${lenguage}&page=${page}`)
     const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}${lenguage}&page=${page}`)
-    const resTendencias = await axios.get(`https://api.themoviedb.org/3/trending/movie/day${keyApi}${lenguage}`)
+    const resTendencias = await axios.get(`https://api.themoviedb.org/3/trending/movie/day${keyApi}${lenguage}&page=${pp}`)
     const resPerson = await axios.get(`https://api.themoviedb.org/3/trending/person/week${keyApi}${lenguage}&page=${pp}`)
     //const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
 
@@ -114,7 +119,17 @@ onMounted( async () => {
     spinner.value = false
   
   } catch (error) {
-    console.log(error)  
+    Swal.fire({
+      icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',
+      allowOutsideClick: false, confirmButtonText: 'solucionar!', confirmButtonColor: '#00b347'
+    }).then((r)=>{
+      if (r.isConfirmed) {
+       spinner.value = true
+       realoadData()   
+       Swal.fire({icon: 'success', title: 'solucionado!', timer: 1000, showConfirmButton: false })     
+      }
+    })
+  
   }
    
 })
@@ -127,26 +142,34 @@ const getTitle = (titulo) => {
     })
 }
 
-const getEnCines = async (titulo) => {
+const realoadData = async () => {
 
-  let id = titulo.id
-  let lenguage = `&language=es-ES`
-  const res = await axios.get(`https://imdb-api.com/en/API/ExternalSites/k_8i45ej83/${id}`)
-  let idMovie = res.data.theMovieDb.id
-  let api = `https://api.themoviedb.org/3/${idMovie}${keyApi}${lenguage}`
-  const resMovie = await axios.get(api)
+  try {
+    
+    let page = Math.floor(Math.random() * 50)
+    let pp = Math.floor(Math.random() * 10)
+    let lenguage = `&language=es-ES`
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular${keyApi}${lenguage}&page=${page}`)
+    const resTop = await axios.get(`https://api.themoviedb.org/3/movie/top_rated${keyApi}${lenguage}&page=${page}`)
+    const resTendencias = await axios.get(`https://api.themoviedb.org/3/trending/movie/day${keyApi}${lenguage}&page=${pp}`)
+    const resPerson = await axios.get(`https://api.themoviedb.org/3/trending/person/week${keyApi}${lenguage}&page=${pp}`)
+    //const enCineImdb = await axios.get('https://imdb-api.com/en/API/InTheaters/k_8i45ej83')
 
-  let newTitulo = resMovie.data.title
-  let newIdTitulo = resMovie.data.id
+    titulos.value = res.data.results
+    titulosTop.value = resTop.data.results 
+    //cines.value = enCineImdb.data.items
+    tendencias.value  = resTendencias.data.results
+    person.value = resPerson.data.results
 
-  router.push({
-      name: 'pelicula', params: {
-        pelicula: newTitulo, id: newIdTitulo 
-      }
-    })
-
+    spinner.value = false
+  
+  } catch (error) {
+    console.log(error)
+  }
 
 }
+
+
 
 </script>
 
