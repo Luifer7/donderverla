@@ -17,26 +17,7 @@
             <div  class="col-md-8 col-lg-6 col-xl-4 p-2 m-auto">
                 <form v-on:submit.prevent="createUser(email, password, displayName)" >
 
-                  <!-- SOCIALNETWORK -->
-                <!-- 
-                   <div class="d-flex m-auto flex-row align-items-center 
-                justify-content-center justify-content-lg-center">
-                    <p class="text-white fw-bold mb-0 me-3">Sign in with</p>
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                    <i class="bi bi-facebook"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                    <i class="bi bi-twitter"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                    <i class="bi bi-linkedin"></i>
-                    </button>
-                </div>
-                 -->
-                 
-
+        
                 <div class="divider d-flex align-items-center my-4">
                     <h4 class="text-center text-white fw-bold mx-3 mb-1">
                       Crea tu cuenta de usuario
@@ -45,23 +26,32 @@
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" ref="input" v-model="email" id="form3Example3" class="form-control form-control-md"
+                    <input type="email" ref="input" 
+                    v-model="email" id="emailRegister" 
+                    class="form-control form-control-md"
+                    required
                     placeholder="Ingresa una cuenta de email valido" />
-                    <label class="form-label text-white fw-bold" for="form3Example3">Email</label>
+                    <label class="form-label text-white fw-bold" for="emailRegister">Email</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-3">
-                    <input type="password" v-model="password" id="form3Example4" class="form-control form-control-md"
+                    <input type="password" 
+                    v-model="password" id="passwordRegister" 
+                    required
+                    class="form-control form-control-md"
                     placeholder="Contraseña valida (minimo 6 digitos)" />
-                    <label class="form-label text-white fw-bold" for="form3Example4">Password</label>
+                    <label class="form-label text-white fw-bold" for="passwordRegister">Password</label>
                 </div>
 
-                 <!-- Password input -->
+                 <!-- DISNPLAYNAME input -->
                  <div class="form-outline mb-3">
-                    <input maxlength="9" type="text" v-model="displayName" id="form3Example5" class="form-control form-control-md"
+                    <input maxlength="9" minlength="4" 
+                    type="text" v-model="displayName" 
+                    required
+                    id="displaynameRegister" class="form-control form-control-md"
                     placeholder="Crea tu nombre de usuario" />
-                    <label class="form-label text-white fw-bold" for="form3Example5">Username</label>
+                    <label class="form-label text-white fw-bold" for="displaynameRegister">Username</label>
                 </div>
 
         

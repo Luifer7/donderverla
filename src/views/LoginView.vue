@@ -22,16 +22,18 @@
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" ref="input" v-model="email" id="form3Example3" class="form-control form-control-md"
+                    <input type="email" ref="input" v-model="email" id="emailLogin" 
+                    class="form-control form-control-md"
+                    required
                     placeholder="Ingresa una cuenta de email valido" />
-                    <label class="form-label text-white fw-bold" for="form3Example3">Email</label>
+                    <label class="form-label text-white fw-bold" for="emailLogin">Email</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-3">
-                    <input type="password" v-model="password" id="form3Example4" class="form-control form-control-md"
+                    <input type="password" v-model="password" id="passwordLogin" class="form-control form-control-md"
                     placeholder="Contraseña valida (minimo 6 digitos)" />
-                    <label class="form-label text-white fw-bold" for="form3Example4">Password</label>
+                    <label class="form-label text-white fw-bold" for="passwordLogin">Password</label>
                 </div>
 
                 <div v-if="spinnerAuth" class="text-center w-100">
@@ -44,6 +46,7 @@
                         <router-link to="/register" class="text-info" >
                             REGISTRATE
                         </router-link>
+                       
                     </p>
                 </div>
 

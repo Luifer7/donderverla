@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword,
          updateProfile, signOut, signInWithEmailAndPassword
         } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { auth, db } from "../../firebase"
@@ -27,7 +28,7 @@ export function useAuth() {
     spinnerAuth.value = true
     router.push('/')
     } catch (error) {
-    console.log(error)
+      getErrors(error)
     }
 }
 
@@ -38,9 +39,90 @@ const login = async (email, password) => {
   router.push('/')
   spinnerAuth.value = false
  } catch (error) {
-  console.log(error)
+  getErrors(error)
  }
 }
+
+
+const getErrors = (error) => {
+ 
+  //email invalido
+  if (error.code === 'auth/invalid-email') {
+    Swal.fire({
+      icon: 'info', title: 'Formato de correo invalido',
+      html: `<strong class="text-dark fw-bold">
+             Prueba de la forma: ejemplo@ejemplo.ejemplo 😀</strong>`,
+             allowOutsideClick: false
+    }).then((r) => {
+      if (r.isConfirmed) {
+        spinnerAuth.value = true
+      }
+    })
+  }
+
+  // contraseña corta
+  if (error.code === 'auth/weak-password') {
+    Swal.fire({
+      icon: 'info', title: 'Contraseña débil',
+      html: `<strong class="text-dark fw-bold">
+             Tu contraseña debe tener minimo 6 caracteres 😀</strong>`,
+             allowOutsideClick: false
+    }).then((r) => {
+      if (r.isConfirmed) {
+        spinnerAuth.value = true
+      }
+    })
+  }
+
+  // auth/email-already-in-use
+  if (error.code === 'auth/email-already-in-use') {
+    Swal.fire({
+      icon: 'info', title: 'Este correo ya se encuentra registrado',
+      html: `<strong class="text-dark fw-bold">
+             Intenta con uno diferente 😀</strong>`,
+             allowOutsideClick: false
+    }).then((r) => {
+      if (r.isConfirmed) {
+        spinnerAuth.value = true
+      }
+    })
+  }
+
+  // auth/user-not-found
+  if (error.code === 'auth/user-not-found') {
+    Swal.fire({
+      icon: 'info', title: 'Este correo no esta registrado',
+      html: `<strong class="text-dark fw-bold">
+             Intenta con uno diferente o registrate gratis..
+             </strong>`,
+             allowOutsideClick: false, showDenyButton: true, denyButtonText: 'Registrarme'
+    }).then((r) => {
+      if (r.isConfirmed) {
+        spinnerAuth.value = true
+      }
+      if (r.isDenied) {
+        spinnerAuth.value = true
+        router.push('/register')
+      }
+    })
+  }
+
+  // auth/wrong-password
+  if (error.code === 'auth/wrong-password') {
+    Swal.fire({
+      icon: 'info', title: 'Contraseña incorrecta',
+      html: `<strong class="text-dark fw-bold">
+             Intenta con una diferente 😀</strong>`,
+             allowOutsideClick: false
+    }).then((r) => {
+      if (r.isConfirmed) {
+        spinnerAuth.value = true
+      }
+    })
+  }
+
+}
+
 
 const logout = async () => {
  
