@@ -144,8 +144,10 @@
          
               <!-- Galeria -->
             <div class="w-100 row mt-4 m-auto"  >
-              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
-              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.last_episode_to_air?.still_path" :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
+              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.backdrop_path" 
+              :src="`https://image.tmdb.org/t/p/w500/${serie?.backdrop_path}`" alt="imagen no disponible" >
+              <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.last_episode_to_air?.still_path" 
+              :src="`https://image.tmdb.org/t/p/w500/${serie?.last_episode_to_air?.still_path}`" alt="imagen no disponible" >
             </div>
        
 

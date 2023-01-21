@@ -27,8 +27,17 @@
               <img :src="`https://image.tmdb.org/t/p/w500/${titulo?.poster_path}`" 
                    class="rounded img-slide" alt="">
                    
-                   <span class="titulo text-white d-flex align-items-center justify-content-center flex-wrap">
-                    {{titulo.title}} <i class="bi bi-star px-2 m-1 text-warning ">{{ titulo.vote_average }}</i>
+                   <span 
+                   class="titulo text-white 
+                          d-flex align-items-center 
+                          justify-content-center 
+                          flex-wrap px-1">
+                    {{titulo.title}} 
+                  <small 
+                  class="mx-2 fw-bold text-warning ">
+                  {{ titulo.vote_average }}
+                  </small>
+                  
                   </span>
 
                   <TituloFavorito

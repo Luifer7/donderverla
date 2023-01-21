@@ -2,7 +2,8 @@
 <template>
     
      <div class="fav-box" >
-    <button style="height: 30px;"
+
+    <button style="height: 30px;" v-if="spinner"
     @click="addFav(titulo)"
     :class="idCurrent[0]?.id == titulo.id ?'d-none':
     'btn btn-warning btn-sm text-dark fw-bold d-flex align-items-center gap-1'">
@@ -13,6 +14,10 @@
     <i class="bi bi-star-fill h3 m-0 opacity-0"
     :class="idCurrent[0]?.id != titulo.id ?'d-none': 'text-warning opacity-100'">
     </i>
+
+    <div v-if="!spinner" class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+    </div>
 
     </div>
 
@@ -36,9 +41,10 @@ defineProps({
 })
 
 const idCurrent = ref('')
+const spinner = ref(true)
 
 const addFav = async (titulo) => {
-   
+   spinner.value = false
     try {
       const docRef = await addDoc(collection(db, "favoritos"), {
         titulo: route.params.pelicula || route.params.serie || route.params.titulo ,
@@ -77,7 +83,7 @@ const getFav = async () => {
 
   useBodega.favoritos = fav.filter(field => field.userid === useBodega.currentUser?.uid)
   idCurrent.value =  useBodega.favoritos.filter(field => field.id == route.params.id)
-
+  spinner.value = true
 }
 
 getFav()
