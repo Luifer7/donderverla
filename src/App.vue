@@ -7,9 +7,12 @@ import BusquedaComponent from './components/BusquedaComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
 import LoginComponent from './components/register/LoginComponent.vue';
 import { useAuth } from './funciones/Auth';
+import { useFavoritos } from './funciones/Favoritos';
 import { useBodegaStore } from './stores/bodega';
 
-const { logout, getFav } = useAuth()
+
+const { logout } = useAuth()
+const { getFav } = useFavoritos()
 const route = useRoute()
 const useBodega = useBodegaStore()
 

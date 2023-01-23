@@ -5,14 +5,14 @@
 
     <button style="height: 30px;" v-if="spinner"
     @click="addFav(titulo)"
-    :class="idCurrent[0]?.id == titulo.id ?'d-none':
+    :class="idCurrent[0]?.tituloId == titulo.id ?'d-none':
     'btn btn-warning btn-sm text-dark fw-bold d-flex align-items-center gap-1'">
     Agregar a mi lista
     <i class="bi bi-bookmark-star-fill text-dark h4 m-0"></i>
     </button>
     
     <i class="bi bi-star-fill h3 m-0 opacity-0"
-    :class="idCurrent[0]?.id != titulo.id ?'d-none': 'text-warning opacity-100'">
+    :class="idCurrent[0]?.tituloId != titulo.id ?'d-none': 'text-warning opacity-100'">
     </i>
 
     <div v-if="!spinner" class="spinner-border text-warning" role="status">
@@ -44,13 +44,27 @@ const idCurrent = ref('')
 const spinner = ref(true)
 
 const addFav = async (titulo) => {
-   spinner.value = false
+    
+    spinner.value = false
+    let modo = ''
+
+    if (route.name === 'pelicula') {
+      modo = 'movie'
+    }
+    if (route.name === 'serie') {
+      modo = 'tv'
+    }
+    if (route.params.modo) {
+      modo = route.params.modo
+    }
+
     try {
       const docRef = await addDoc(collection(db, "favoritos"), {
         titulo: route.params.pelicula || route.params.serie || route.params.titulo ,
-        id: route.params.id,
+        tituloId: route.params.id,
         userid: useBodega.currentUser?.uid,
-        imagen: titulo.backdrop_path
+        imagen: titulo.backdrop_path,
+        modalidad: modo 
     })
     getFav()
     } catch (error) {
@@ -66,7 +80,7 @@ const addFav = async (titulo) => {
             }
           })
       }
-    }
+    } 
    
 }
 
@@ -82,7 +96,7 @@ const getFav = async () => {
 })
 
   useBodega.favoritos = fav.filter(field => field.userid === useBodega.currentUser?.uid)
-  idCurrent.value =  useBodega.favoritos.filter(field => field.id == route.params.id)
+  idCurrent.value =  useBodega.favoritos.filter(field => field.tituloId == route.params.id)
   spinner.value = true
 }
 

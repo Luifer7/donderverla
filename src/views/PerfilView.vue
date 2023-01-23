@@ -28,35 +28,62 @@
         </div>
 
        <div class="text-white py-3 mt-3 px-2" >
-        
-       <h4 class="text-warning fw-bold">
+    
+        <h4 class="text-warning fw-bold">
         Mi Lista 
         <i class="bi bi-star-fill"></i>
         </h4>
-        
-        <div class="w-100 py-2">
-            <ul class="list-group py-3 list-unstyled" >
 
-                <li v-for="favorito of useBodega.favoritos" :key="favorito.id" 
-                    class="list-item my-1 py-4 titulo-favorito rounded" 
-                    :style="bgImage(favorito?.imagen)" style="object-fit: cover;"
-                    @click="getTitulo(favorito)">
-                    
-                    <img class="rounded-circle mx-2" 
-                    width="70" height="70" 
-                    v-if="favorito?.imagen" 
-                    style="object-fit: cover; border: 4px solid royalblue;"
-                    :src="`https://image.tmdb.org/t/p/w500/${favorito?.imagen}`"
-                    alt="imagen no disponible" >
-
-                    <h2 class="mb-1 fw-bold m-0 text-white"
-                    style="text-shadow: 5px 2px 3px #000000;"
-                    >{{ favorito.titulo }}</h2>
-                    
-                </li>
-
-            </ul>
+        <div  class="text-center" v-if="!spinner" >
+            <SpinnerComponent></SpinnerComponent>
         </div>
+
+            <div class="w-100 py-2">
+                <ul class="list-group py-3 list-unstyled" >
+
+                    <li v-for="favorito of useBodega.favoritos" :key="favorito.id" 
+                        class="list-item my-1 py-4 titulo-favorito rounded" 
+                        :style="bgImage(favorito?.imagen)" style="object-fit: cover;"
+                    >
+                        
+                        <img class="rounded-circle mx-2" 
+                        width="70" height="70" 
+                        v-if="favorito?.imagen" 
+                        style="object-fit: cover; border: 4px solid royalblue;"
+                        :src="`https://image.tmdb.org/t/p/w500/${favorito?.imagen}`"
+                        alt="imagen no disponible">
+
+                        <h3 class="mb-1 fw-bold m-0 px-2 text-white"
+                        style="text-shadow: 5px 2px 3px #000000;"
+                        >{{ favorito.titulo }}</h3>
+                          
+                        <div @click="getTitulo(favorito)" 
+                        class="fw-bold btn-see-more d-flex
+                        align-items-center justify-content-center">
+
+                        <i class="bi bi-three-dots h1 m-0 text-white fw-bold"></i>
+                        </div>
+
+                        <div @click="deleteFav(favorito.id)" 
+                            class="fw-bold btn-delete d-flex 
+                            align-items-center justify-content-center">
+
+                            <i v-if="spinnerDelete" class="bi bi-trash-fill h2 m-0 text-white fw-bold"></i>
+
+                            <div v-if="!spinnerDelete && favorito.id === spinnerId" 
+                                class="spinner-border spinner-border-sm text-white" 
+                                role="status">
+
+                                <span class="visually-hidden">Loading...</span>
+                            
+                            </div>
+                        
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
         
        </div>
 
@@ -70,10 +97,13 @@
 import { useRoute, useRouter } from "vue-router";
 import { useBodegaStore } from "../stores/bodega";
 import format from 'date-fns/format'
+import SpinnerComponent from "../components/SpinnerComponent.vue";
+import { ref } from "@vue/reactivity";
+import { useFavoritos } from "../funciones/Favoritos";
 
+const {  spinner, spinnerDelete, spinnerId, deleteFav } = useFavoritos()
 const route = useRoute()
 const router = useRouter()
-
 const useBodega = useBodegaStore()
 
  const bgImage = (imagen) => {
@@ -88,10 +118,9 @@ const useBodega = useBodegaStore()
  }
 
  const getTitulo = (favorito) => {
-    
     router.push({
         name: 'titulo', params: {
-            titulo: favorito.titulo, modo: 'movie', id: favorito.id
+            titulo: favorito.titulo, modo: favorito.modalidad, id: favorito.tituloId
         }
     })
  
@@ -106,17 +135,62 @@ const useBodega = useBodegaStore()
 .titulo-favorito{
     display: flex;
     align-items: center;
-    transition: .9s ease all;
-    cursor: pointer;
+    transition: .5s ease all;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    position: relative;
 }
 
 .titulo-favorito:hover{
-    transform: scale(.9);
-    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 4px;
 }
-.titulo-favorito:active{
+
+
+.btn-see-more {
+    transition: .6s ease all;
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    width: 55px;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 100;
+}
+.btn-delete{
+    transition: .6s ease all;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 55px;
+    height: 45px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 100;
+}
+
+ .btn-delete:hover  {
+    background: linear-gradient(109.6deg, rgba(184, 22, 22, 0.678) 11.2%, rgba(5, 5, 5, 0.747) 91.1%); ;
+    border: 2px solid white;
+}
+.btn-see-more:hover {
+    background: linear-gradient(109.6deg, rgba(22, 87, 184, 0.678) 11.2%, rgba(5, 5, 5, 0.747) 91.1%); ;
+    border: 2px solid white;
+}
+
+.bi-three-dots, .bi-trash-fill{
+    transition: .6s ease all;
+}
+.bi-three-dots:hover, .bi-trash-fill:hover{
+    transform: scale(.8);
+}
+.bi-three-dots:active, .bi-trash-fill:active{
     transform: scale(1.1);
 }
+
+
 
 </style>

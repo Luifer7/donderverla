@@ -6,7 +6,7 @@
 
     <div class="favorito">
         <div v-for="gg of useBodega.favoritos" :key="gg.id" >
-        <i :class="gg.id == titulo.id 
+        <i :class="gg.tituloId == titulo.id 
            ?'bi bi-bookmark-star-fill text-warning h1 m-0'
            :'d-none'"></i>
         </div>

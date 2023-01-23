@@ -1,9 +1,12 @@
 
+
+import { async } from "@firebase/util";
 import { createUserWithEmailAndPassword, 
          onAuthStateChanged,
-         updateProfile, signOut, signInWithEmailAndPassword
+         updateProfile, signOut, 
+         signInWithEmailAndPassword
         } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+
 import Swal from "sweetalert2";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -13,9 +16,9 @@ import { useBodegaStore } from "../stores/bodega";
 export function useAuth() {
 
   const router = useRouter()
-  const route = useRoute()
   const useBodega = useBodegaStore()
   const spinnerAuth = ref(true)
+  
 
   const createUser = async (email, password, displayName) => {
     spinnerAuth.value = false
@@ -42,8 +45,7 @@ const login = async (email, password) => {
   getErrors(error)
  }
 }
-
-
+//Erros login y register
 const getErrors = (error) => {
  
   //email invalido
@@ -123,7 +125,7 @@ const getErrors = (error) => {
 
 }
 
-
+//Cerrar sesion
 const logout = async () => {
  
   try {
@@ -145,24 +147,9 @@ onAuthStateChanged(auth, (user) => {
   }
 })
 
-const getFav = async () => {
-  
-  const q = query(collection(db, "favoritos"));
-  let fav = []
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    fav.push({
-      id: doc.id, ...doc.data()
-    })
-})
-
-  useBodega.favoritos = fav.filter(field => field.userid === useBodega.currentUser?.uid)
-}
-
-getFav()
 
     return {
-        login, spinnerAuth, logout, createUser, getFav
+        login, spinnerAuth, logout, createUser 
     }
 
 }
