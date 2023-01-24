@@ -96,6 +96,10 @@
           
           </div>
 
+          <component :is="SliderTrailer" 
+          :trailersEsp="trailersEs"
+          />
+
           <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
 
            <!-- DETALLES -->
@@ -152,7 +156,7 @@
 </template>
 
 <script setup >
-import { onBeforeMount, onMounted, ref } from "@vue/runtime-core";
+import { defineAsyncComponent, onBeforeMount, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import DetallesComponent from "../components/DetallesComponent.vue";
@@ -166,12 +170,15 @@ import { keyApi } from "../funciones/key";
 import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 import PosterComponent from "../components/PosterComponent.vue";
 
+const SliderTrailer = defineAsyncComponent(() =>  import('../components/sliders/SliderTrailer.vue'))
+
 const route = useRoute()
 const router = useRouter()
 
 const pelicula = ref({})
 
 const trailers = ref({})
+const trailersEs = ref({})
 const proovedores = ref([])
 const director = ref([])
 const reparto = ref([])
@@ -194,6 +201,7 @@ onMounted( async () => {
     let imdbid = imdbApi.data.imdb_id 
        
     let apitrailers = `${movie}/${route.params.id}/videos${key}`
+    let apitrailersEs = `${movie}/${route.params.id}/videos${key}&language=es-MX`
     let api = `${movie}/${route.params.id}${key}${lenguage}`
     let apiproovedores = `${movie}/${route.params.id}/watch/providers${key}`
     let apiCreditos = `${movie}/${route.params.id}/credits${key}`
@@ -204,6 +212,7 @@ onMounted( async () => {
   
     const res = await axios.get(api)
     const resTrailers = await axios.get(apitrailers)
+    const resTrailersEs = await axios.get(apitrailersEs)
     const resProovedores = await axios.get(apiproovedores)
     const resCreditos = await axios.get(apiCreditos)
     const resSimilares = await axios.get(apiSimilares)
@@ -213,12 +222,13 @@ onMounted( async () => {
     pelicula.value = res.data
     genres.value = res.data.genres
     trailers.value = resTrailers.data.results
+    trailersEs.value = resTrailersEs.data.results
     proovedores.value = resProovedores.data.results.CO
     director.value = resCreditos.data.crew.filter(field => field.job === 'Director')
     reparto.value = resCreditos.data.cast
     similares.value = resSimilares.data
     spinner.value = false
-  
+
   } catch (error) {
     Swal.fire({
       icon: 'info', html: `<strong>Ha ocurrido un error inesperado</strong>`, position: 'top',

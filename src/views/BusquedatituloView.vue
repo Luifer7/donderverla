@@ -175,10 +175,10 @@
 
             </div>
 
-       
-                      <!-- TRAILER EN ESPAÑOL -->
+            <!-- 
+                          
             <div class="px-3 my-3 rounded w-100 trailer-es"  v-if="trailerEs" >
-                <iframe style="width: 100%; height: 100%;" class="rounded" 
+                <iframe style="width: 100%; height: 100%;" class="rounded img-thumbnail" 
                       :src="`https://www.youtube.com/embed/${trailerEs}`" 
                       title="YouTube video player" frameborder="0"
                       autoplay clipboard-write encrypted-media SameSite=None
@@ -186,14 +186,20 @@
                       allowfullscreen>
                 </iframe>
             </div>
-  
 
+             -->
+            
+            <!-- TRAILER EN ESPAÑOL -->
+            <component :is="SliderTrailer" 
+            :trailersEsp="trailerEs"
+            />
+  
             <!-- COMPONENT YPUTUBE -->
             <component :is="Youtube"
             :trailers="trailers"
             />
 
-              <!-- SPINNER #1 -->
+            <!-- SPINNER #1 -->
             <div v-if="spinner" class="w-100 text-center mt-5" >
              <SpinnerComponent></SpinnerComponent>
             </div>
@@ -250,6 +256,7 @@ import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { format } from "date-fns/esm";
 import localeEs from 'date-fns/locale/es'
 
+const SliderTrailer = defineAsyncComponent(()=> import('../components/sliders/SliderTrailer.vue') )
 const SliderTemporadas = defineAsyncComponent(()=> import('../components/sliders/SliderTemporadas.vue'))
 const SliderRepartoPeli = defineAsyncComponent(()=> import('../components/sliders/SliderRepartopeli.vue'))
 const SliderRepartoSeries = defineAsyncComponent(()=> import('../components/sliders/SliderRepartoseries.vue'))
@@ -257,6 +264,7 @@ const AgregarFavorito = defineAsyncComponent(()=> import('../components/users/Ag
 const Poster = defineAsyncComponent(() => import('../components/PosterComponent.vue'))
 const Youtube = defineAsyncComponent(() => import('../components/YoutubeComponent.vue'))
 const ProovedoresComponent = defineAsyncComponent(()=> import('../components/ProovedoresComponent.vue'))
+
 
 const route = useRoute()
 
@@ -304,12 +312,12 @@ onMounted( async ()=> {
    director.value = resCreditos.data.crew.filter(field => field.job === 'Director')
    proovedores.value = resProovedores.data.results.CO
    trailers.value = resTrailers.data.results
-   trailerEs.value = resTrailerEs.data?.results[0]?.key
+   trailerEs.value = resTrailerEs.data?.results
    reparto.value = resCreditos.data.cast
    contenido.value = resEpisodes.data
      
    spinner.value = false
-   
+
 })
 
 
@@ -324,9 +332,6 @@ const formatDate = (date) => {
 
 <style scoped >
 
-.trailer-es{
-  height: 400px;
-}
 
 .genero {
     transition: .6s ease all;
@@ -337,11 +342,6 @@ const formatDate = (date) => {
   color: #0e9bb8;
 }
 
-@media (max-width: 575px) {
-  .trailer-es{
-  height: 250px;
-  }
 
-}
 
 </style>

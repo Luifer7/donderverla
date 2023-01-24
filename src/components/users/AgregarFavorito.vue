@@ -22,7 +22,7 @@
     <span class="visually-hidden">Loading...</span>
     </div>
 
-    </div>
+  </div>
 
 </template>
 
@@ -31,7 +31,7 @@ import { addDoc,  collection, query, where, getDocs  } from "firebase/firestore"
 import { useBodegaStore } from "../../stores/bodega";
 import { db, auth } from "../../../firebase";
 import { useRoute, useRouter } from "vue-router";
-import { onBeforeMount, onMounted, ref } from "@vue/runtime-core";
+import { ref } from "@vue/runtime-core";
 import Swal from "sweetalert2";
 
 const useBodega = useBodegaStore()
@@ -63,27 +63,45 @@ const addFav = async (titulo) => {
 
     try {
       const docRef = await addDoc(collection(db, "favoritos"), {
-        titulo: route.params.pelicula || route.params.serie || route.params.titulo ,
-        tituloId: route.params.id,
-        userid: useBodega.currentUser?.uid,
-        imagen: titulo.backdrop_path,
-        modalidad: modo 
+      titulo: route.params.pelicula || route.params.serie || route.params.titulo ,
+      tituloId: route.params.id,
+      userid: useBodega.currentUser?.uid,
+      imagen: titulo.backdrop_path,
+      modalidad: modo 
     })
+
     getFav()
+    
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    })
+    Toast.fire({
+    icon: 'success',
+    title: 'Agregado correctamente!'
+    }
+    )
+
     } catch (error) {
       if (error.code === 'invalid-argument') {
-          Swal.fire({
-            icon: 'info', 
-            html: `<strong class="text-dark fw-bold" >Debes estar registrado 
-                    o haber iniciado sesión para crear tu lista</strong>`, 
-            confirmButtonText: 'Iniciar Sesión', showCancelButton: true,
-          }).then((r)=> {
-            if (r.isConfirmed) {
-              router.push('/login')
-            }
-          })
+      Swal.fire({
+      icon: 'info', 
+      html: `<strong class="text-dark fw-bold" >Debes estar registrado o haber iniciado sesión para crear tu lista</strong>`, 
+      confirmButtonText: 'Iniciar Sesión', showCancelButton: true,
+      }).then((r)=> {
+      if (r.isConfirmed) {
+          router.push('/login')
       }
-    } 
+      })
+    }
+} 
    
 }
 

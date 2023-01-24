@@ -15,7 +15,7 @@
           <li><a class="dropdown-item text-info bg-transparent item fw-bold" @click="getModoBusqueda('movie')" >movie</a></li>
         </ul>
 
-        <input required type="text" ref="input" v-model="query" placeholder="Buscar en dondeverla" 
+        <input type="text" ref="input" v-model="query" placeholder="Buscar en dondeverla" 
         class="form-control fw-bold p-2  input-buscar">
 
         <div class="p-0 m-0 lupa" >
@@ -30,6 +30,7 @@
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
 import { keyApi } from "../funciones/key";
 import { useBodegaStore } from "../stores/bodega";
@@ -49,17 +50,40 @@ const getModoBusqueda = (m) => {
 
 const makeSearch = async (m, q) => {
     
+    if (q != '') {
+    
     let key = keyApi
     let api = `https://api.themoviedb.org/3/search/${m}${key}&language=es-ES&query=${q}`
     const res = await axios.get(api)
     useBodega.resultadoBusqueda = res.data
-   
+    
     router.push({
-        name: 'busqueda', params: {
-            modo: m, query: q
+    name: 'busqueda', params: {
+    modo: m, query: q
         }
     })
+
+    } else {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'info',
+        title: 'El campo está vacio'
+        })
+    }
+
 }
+
 onMounted(() => {
     input.value.focus()
 })

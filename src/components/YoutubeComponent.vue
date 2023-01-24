@@ -4,7 +4,7 @@
     
     <div class="p-1 px-3 d-flexflex-wrap" >
         <span v-for="tra of trailers" :key="tra.id" @click="videoTrailer(tra)" 
-              class="d-flex align-items-start gap-1" 
+              class="d-flex align-items-start gap-1 col-6" 
               style="cursor:pointer;" >
             <i class="bi bi-youtube h4 text-danger m-0"></i>
             <strong class="link-yt" >{{ tra?.name }} <small>({{ tra?.iso_639_1 }}) </small> </strong>
