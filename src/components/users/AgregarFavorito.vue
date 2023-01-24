@@ -1,8 +1,9 @@
 
 <template>
     
-     <div class="fav-box" >
+  <div class="fav-box" >
 
+    <!-- Boton de favortio -->
     <button style="height: 30px;" v-if="spinner"
     @click="addFav(titulo)"
     :class="idCurrent[0]?.tituloId == titulo.id ?'d-none':
@@ -11,10 +12,12 @@
     <i class="bi bi-bookmark-star-fill text-dark h4 m-0"></i>
     </button>
     
+    <!-- estrella de favorito -->
     <i class="bi bi-star-fill h3 m-0 opacity-0"
     :class="idCurrent[0]?.tituloId != titulo.id ?'d-none': 'text-warning opacity-100'">
     </i>
 
+    <!-- Spinner -->
     <div v-if="!spinner" class="spinner-border text-warning" role="status">
     <span class="visually-hidden">Loading...</span>
     </div>

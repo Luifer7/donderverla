@@ -3,7 +3,7 @@
 <template>
     
     <div class="p-1 px-3 d-flexflex-wrap" >
-        <span v-for="tra of trailers" :key="tra.id" @click="vi(tra)" 
+        <span v-for="tra of trailers" :key="tra.id" @click="videoTrailer(tra)" 
               class="d-flex align-items-start gap-1" 
               style="cursor:pointer;" >
             <i class="bi bi-youtube h4 text-danger m-0"></i>
@@ -20,7 +20,7 @@ defineProps({
     trailers: Object
 })
 
-const vi =  (data) => {
+const videoTrailer =  (data) => {
             Swal.fire({
               html:`<iframe width="400" height="320" src='https://www.youtube.com/embed/${data.key}' 
               title="YouTube video player" frameborder="0"

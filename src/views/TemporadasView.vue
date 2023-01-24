@@ -37,7 +37,7 @@
         </div>
 
         <div class="w-100 mt-5" >
-            <h3 class="text-center m-0 text-white" ><i>Eposodios</i></h3>
+            <h3 class="text-center m-0 text-white" ><i>Episodios</i></h3>
             <EpisodiosComponent
         :episodios="episodios?.episodes"
         >
@@ -65,9 +65,12 @@ const episodios = ref({})
 onMounted( async () => {
     
     let api = `https://api.themoviedb.org/3/tv/${route.params.currentId}/season/${route.params.numero}${keyApi}&language=es-ES` 
-    const res = await axios.get(api)
-    episodios.value = res.data
-    console.log(episodios.value)
+    try {
+        const res = await axios.get(api)
+        episodios.value = res.data       
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 </script>

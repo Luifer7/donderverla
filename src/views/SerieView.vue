@@ -5,34 +5,34 @@
 
       <div class="w-100 d-flex justify-content-between mt-3 mb-2" >
 
-        <router-link to="/buscarseries" >
+            <router-link to="/buscarseries" >
                 <i class="bi bi-arrow-left-circle-fill text-white h1 m-4"></i>
             </router-link>
 
-            <AgregarFavorito
-         
-         class="mx-3"
-         :titulo="serie"
-         ></AgregarFavorito>
+            <!-- Componente agregar a favoritos -->
+            <component :is="agregarFavoritos" 
+             class="mx-3"
+             :titulo="serie"
+            />
 
       </div>
            
 
-            <div v-if="spinner" class="w-100 text-center p-4" >
-            <SpinnerComponent></SpinnerComponent>
-            </div>
+      <div v-if="spinner" class="w-100 text-center p-4" >
+        <SpinnerComponent></SpinnerComponent>
+      </div>
 
-         <!-- Titulo -->
-            <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
-              <i>{{ serie?.name }}</i> <small v-if="serie?.first_air_date" class="h5" >({{ serie?.first_air_date?.slice(0, -6)}})</small>
-            </h3>
+      <!-- Titulo -->
+      <h3 class="text-white d-flex text-center flex-column gap-1 align-items-center justify-content-center m-2" style="font-size: 1.8em;" > 
+          <i>{{ serie?.name }}</i> <small v-if="serie?.first_air_date" class="h5" >({{ serie?.first_air_date?.slice(0, -6)}})</small>
+      </h3>
 
-           <!-- Imagen y sinopsis -->
-            <div class="row p-2 m-auto" >
+      <!-- Imagen y sinopsis -->
+      <div class="row p-2 m-auto" >
             
           
               <!-- POSTER -->
-              <PosterComponent
+            <PosterComponent
             :imagen="serie?.poster_path"
             >
             </PosterComponent>
@@ -77,7 +77,8 @@
                 </div>
 
                 </small>
-                   <!-- Rating PARA AMBAS -->
+                    
+                    <!-- Rating PARA AMBAS -->
                    <div v-if="!spinner"  class="d-flex gap-3">
 
                       <span class="rounded text-white fw-bold d-flex align-items-center" > 
@@ -98,18 +99,18 @@
                       <strong class="m-1 h5" >{{ serie.vote_average }}</strong>
                       </span>
 
-                    </div>
+                   </div>
 
             </div>
           
-            </div>
+      </div>
 
-            <div class="w-100" >
-              <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
-            </div>
+      <div class="w-100" >
+          <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
+      </div>
 
-            <!-- DETALLES -->
-            <div v-if="!spinner" class="w-100 row p-3" >
+      <!-- DETALLES -->
+      <div v-if="!spinner" class="w-100 row p-3" >
 
               <!-- TAGLINE -->
               <h4 class="mt-2 m-0 text-center text-white col-12" >
@@ -128,20 +129,19 @@
             <!-- PROOVEDORES -->
             <ProovedoresComponent  v-if="!spinner" :proovedores="proovedores" ></ProovedoresComponent>
 
-            
-            <SliderTemporadas v-if="!spinner"
+            <!-- Slider Temporadas series -->
+            <component :is="SliderTemporadas" v-if="!spinner"
             :temporadas="contenido"
-            :nombre="'Temporadas'">
-            </SliderTemporadas>
-
+            :nombre="'Temporadas'"
+            />
             
-            <SliderReparto v-if="!spinner"
+            <!-- Slider reparto por si series -->
+            <component :is="SliderRepartoSeries" v-if="!spinner"
             :reparto="reparto"
             :nombre="'Reparto'"
-            >
-            </SliderReparto>
+            />
 
-         
+                  
               <!-- Galeria -->
             <div class="w-100 row mt-4 m-auto"  >
               <img class="img-thumbnail col-12 col-sm-6" v-if="serie?.backdrop_path" 
@@ -156,23 +156,24 @@
 </template>
 
 <script setup >
-import { onMounted, ref } from "@vue/runtime-core";
+import { defineAsyncComponent, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
+
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 import GeneroComponent from "../components/GeneroComponent.vue";
 import { keyApi } from "../funciones/key";
-import SliderTemporadas from "../components/SliderTemporadas.vue";
-import SliderReparto from "../components/SliderReparto.vue";
-import AgregarFavorito from "../components/users/AgregarFavorito.vue";
 import PosterComponent from "../components/PosterComponent.vue";
 
 
+const SliderRepartoSeries = defineAsyncComponent(() => import('../components/sliders/SliderRepartoSeries.vue'))
+const SliderTemporadas = defineAsyncComponent(() => import('../components/sliders/SliderTemporadas.vue'))
+const agregarFavoritos = defineAsyncComponent(() => import('../components/users/AgregarFavorito.vue') )
+
 const route = useRoute()
-const router = useRouter()
 
 const serie = ref({})
 const trailers = ref({})

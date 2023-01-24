@@ -61,7 +61,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation,Pagination } from "swiper";
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
-import TituloFavorito from "./users/TituloFavorito.vue";
+import TituloFavorito from "../users/TituloFavorito.vue";
 
 
 export default {

@@ -122,8 +122,8 @@
 
         
           <SliderRepartopeli v-if="!spinner"
-            :reparto="reparto"
-            ></SliderRepartopeli>
+          :reparto="reparto">
+          </SliderRepartopeli>
            
 
             <!-- Galeria -->
@@ -160,7 +160,7 @@ import ProovedoresComponent from "../components/ProovedoresComponent.vue";
 import YoutubeComponent from "../components/YoutubeComponent.vue";
 import PeliculasSimilares from "../components/PeliculasSimilares.vue";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
-import SliderRepartopeli from "../components/SliderRepartopeli.vue";
+import SliderRepartopeli from "../components/sliders/SliderRepartopeli.vue";
 import Swal from "sweetalert2";
 import { keyApi } from "../funciones/key";
 import AgregarFavorito from "../components/users/AgregarFavorito.vue";

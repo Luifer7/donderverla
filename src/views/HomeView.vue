@@ -3,61 +3,71 @@
 
   <div class="w-100 p-2">
 
-      <!-- 
-
-             <div class="w-100 mt-2" >
-        <SliderImdb
-        v-if="cines === {}"
-        :titulos="cines"
-        :nombre="'En cines'"
-        @getTitle="(titulo) => {
-        getEnCines(titulo)
-        }"
-        >
-
-        </SliderImdb>
-        
-      </div>
-
-       -->
 
       <!-- SLIDER TENDENCIAS -->
       <div class="w-100 mt-2" >
 
-        <SliderComponent
-        :titulos="tendencias"
-        :nombre="'Te recomendamos'"
-        @getTitle="(titulo) => {
-          getTitle(titulo)
-        }">
-        </SliderComponent>
+          <Suspense>
+            <component :is="sliderTendencias"  
+            :titulos="tendencias" :nombre="'Te recomendamos'"
+            @getTitle="(titulo) => {
+            getTitle(titulo)
+            }"
+            />
+            <template #fallback >
+            <div class="w-100 d-flex align-items-center justify-content-center p-4">
+              <SpinnerComponent></SpinnerComponent>
+            </div>
+            </template> 
+        </Suspense>
+
       </div>
 
+      <!-- Slider personas -->
       <div class="w-100 mt-2">
-
-        <PersonSlider
-          :persona="person"
-          :nombre="'Personas'"
-          >
-        </PersonSlider>
-
+        <Suspense>
+        <component :is="sliderPersonas"  
+        :persona="person"
+        :nombre="'Personas'"
+        />
+      </Suspense>
       </div>
-
+ 
+      <!-- Slider series top -->
       <div class="w-100 mt-2" >
 
-          <SliderComponent
+          <component :is="sliderTop"
+          :titulos="titulosTop"
+          :nombre="'Peliculas Top'"
+          @getTitle="(titulo) => {
+            getTitle(titulo)
+          }"
+          />
+
+          <!-- 
+              <SliderComponent
           :titulos="titulosTop"
           :nombre="'Peliculas Top'"
           @getTitle="(titulo) => {
             getTitle(titulo)
           }">
           </SliderComponent>
-        
+           -->
+
       </div>
      
+      <!-- Slider populares -->
       <div class="w-100 mt-2" >
+      <component :is="sliderPopulares"
+      :titulos="titulos"
+      :nombre="'Peliculas Populares'"
+      @getTitle="(titulo) => {
+        getTitle(titulo)
+      }"
+      />
 
-      <SliderComponent
+      <!-- 
+         <SliderComponent
       :titulos="titulos"
       :nombre="'Peliculas Populares'"
       @getTitle="(titulo) => {
@@ -65,9 +75,11 @@
       }"
       >
       </SliderComponent>
-
+       -->
+      
       </div>
 
+      
   </div>
   
   
@@ -76,17 +88,18 @@
 </template>
 
 <script setup >
-import { onMounted, ref } from "@vue/runtime-core";
+import { defineAsyncComponent, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
-import PersonSlider from "../components/PersonSlider.vue";
-import SliderComponent from "../components/SliderComponent.vue";
-import SliderImdb from "../components/SliderImdb.vue";
-import SpinnerComponent from "../components/SpinnerComponent.vue";
 import { keyApi } from "../funciones/key";
+import SpinnerComponent from "../components/SpinnerComponent.vue";
 
-const route = useRoute()
+const sliderTendencias = defineAsyncComponent(() => import("../components/sliders/SliderComponent.vue") )
+const sliderPersonas = defineAsyncComponent(() => import("../components/sliders/PersonSlider.vue"))
+const sliderTop = defineAsyncComponent(() => import("../components/sliders/SliderComponent.vue") )
+const sliderPopulares = defineAsyncComponent(() => import("../components/sliders/SliderComponent.vue") )
+
 const router = useRouter()
 
 const titulos = ref({})
@@ -134,13 +147,6 @@ onMounted( async () => {
    
 })
 
-const getTitle = (titulo) => {
-    router.push({
-      name: 'pelicula', params: {
-        pelicula: titulo.title, id: titulo.id 
-      }
-    })
-}
 
 const realoadData = async () => {
 
@@ -167,6 +173,14 @@ const realoadData = async () => {
     console.log(error)
   }
 
+}
+
+const getTitle = (titulo) => {
+    router.push({
+      name: 'pelicula', params: {
+        pelicula: titulo.title, id: titulo.id 
+      }
+    })
 }
 
 
