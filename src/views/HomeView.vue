@@ -91,7 +91,7 @@
 import { defineAsyncComponent, onMounted, ref } from "@vue/runtime-core";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { keyApi } from "../funciones/key";
 import SpinnerComponent from "../components/SpinnerComponent.vue";
 
@@ -104,7 +104,6 @@ const router = useRouter()
 
 const titulos = ref({})
 const titulosTop = ref({})
-const cines = ref({})
 const tendencias = ref({})
 const person = ref({}) 
 

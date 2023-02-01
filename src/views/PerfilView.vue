@@ -98,13 +98,12 @@ import { useRoute, useRouter } from "vue-router";
 import { useBodegaStore } from "../stores/bodega";
 import format from 'date-fns/format'
 import SpinnerComponent from "../components/SpinnerComponent.vue";
-import { ref } from "@vue/reactivity";
 import { useFavoritos } from "../funciones/Favoritos";
 
 const {  spinner, spinnerDelete, spinnerId, deleteFav } = useFavoritos()
-const route = useRoute()
+
 const router = useRouter()
-const useBodega = useBodegaStore()
+
 
  const bgImage = (imagen) => {
     return `background-image: url("https://image.tmdb.org/t/p/w500/${imagen}")`

@@ -2,6 +2,7 @@
 
  
     <div class="w-100 d-flex flex-column align-items-center justify-content-center" >
+
         <div class="row w-100 p-3">
             
             <div class="col-md-9 col-lg-6 col-xl-5 p-2 m-auto">
@@ -59,7 +60,6 @@
                 </form>
             </div>
 
-      
         </div>
 
         <div class="w-100 p-5" >

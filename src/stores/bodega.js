@@ -6,11 +6,6 @@ import { defineStore } from 'pinia'
 export const useBodegaStore = defineStore('bodega', () => {
 
 
-///////PELICULAS////////
-const peliculasPopulares = ref(null)
-const peticion = ref('')
-
-
 ///////SERIES////////
 const seriesPopulares = ref(null)
 const seriePeticion = ref('')
@@ -26,7 +21,7 @@ const favoritos = ref([])
 
 
   return { 
-    peliculasPopulares, peticion, seriePeticion, seriesPopulares, 
+    seriePeticion, seriesPopulares, 
     resultadoBusqueda, currentUser, isLogin, favoritos
   }
 

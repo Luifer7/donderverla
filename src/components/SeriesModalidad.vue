@@ -57,11 +57,10 @@
 
 
 <script setup >
-import { useRoute, useRouter } from "vue-router"
+import {useRouter } from "vue-router"
 import TituloFavorito from "./users/TituloFavorito.vue";
 
 const router = useRouter()
-const route = useRoute()
 
 defineProps({
     series: Object, resultados: Object, peticion: String

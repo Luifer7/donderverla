@@ -27,9 +27,9 @@
 </template>
 
 <script setup >
-import { addDoc,  collection, query, where, getDocs  } from "firebase/firestore"
+import { addDoc,  collection, query, getDocs  } from "firebase/firestore"
 import { useBodegaStore } from "../../stores/bodega";
-import { db, auth } from "../../../firebase";
+import { db } from "../../../firebase";
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "@vue/runtime-core";
 import Swal from "sweetalert2";

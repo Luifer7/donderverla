@@ -48,29 +48,7 @@
                 <strong>Duracion: <strong class="text-info" >{{ pelicula?.runtime }} Min</strong> </strong>
               </div>
 
-               <!-- RATING IMDB ETC.. -->
-                  <div v-if="!spinner" class="d-flex gap-3">
-
-                  <span class="rounded text-white fw-bold d-flex align-items-center" > 
-                    <img src="../assets/img/imdb.png" width="50" height="50" alt="">
-                    <strong class="m-1 h5" >{{ rating.imDb }}</strong>
-                  </span>
-                  <span class="rounded text-white fw-bold d-flex align-items-center" > 
-                    <img src="../assets/img/filmaffinity.png" width="30" height="25" alt="">
-                    <strong class="m-1 h5" >{{  rating.filmAffinity  }}</strong>
-                  </span>
-                  <span class="rounded text-white fw-bold d-flex align-items-center" > 
-                    <img src="../assets/img/tomato.png" width="35" height="35" alt="">
-                    <strong class="m-1 h5" >{{ rating.rottenTomatoes }}</strong>
-                  </span>
-                  <span class="rounded text-white fw-bold d-flex align-items-center my-1" > 
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/1280px-Tmdb.new.logo.svg.png" 
-                  width="30" height="23" alt="">
-                  <strong class="m-1 h5" >{{ pelicula.vote_average }}</strong>
-                </span>
-
-                  </div>
-
+            
                    <!-- STREAMING -->
              <div class="d-flex gap-3 flex-wrap mt-1" >
                 <div v-for="prov of proovedores?.flatrate" :key="prov.id" >
@@ -85,15 +63,16 @@
             
             </div>
 
-            
-          
           </div>
 
-
-
-          <YoutubeComponent :trailers="trailers"  ></YoutubeComponent>
+          <YoutubeComponent 
+          :trailers="trailers">
+          </YoutubeComponent>
       
-          <ProovedoresComponent v-if="!spinner" :proovedores="proovedores"></ProovedoresComponent>
+          <ProovedoresComponent 
+          v-if="!spinner" 
+          :proovedores="proovedores">
+          </ProovedoresComponent>
 
           <div v-if="spinner" class="w-100 text-center" >
           <SpinnerComponent></SpinnerComponent>
@@ -110,7 +89,7 @@
             <div class="row mt-4 w-100 m-auto"  >
             <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.backdrop_path}`" alt="imagen no disponible" >
             <img class="img-thumbnail col-12 col-sm-6" v-if="pelicula?.belongs_to_collection?.backdrop_path" :src="`https://image.tmdb.org/t/p/w500/${pelicula?.belongs_to_collection?.backdrop_path}`" alt="imagen no disponible" >
-          </div>
+            </div>
 
 
     </div>
@@ -140,28 +119,21 @@ const director = ref([])
 const escritor = ref([])
 const reparto = ref([])
 const genres = ref([])
-const rating = ref({})
 
 const spinner = ref(true)
 
 onMounted( async () => {
   
   let key = keyApi 
-
-  let find = `https://api.themoviedb.org/3/movie/${route.params.id}/external_ids${key}`
-  const imdbApi = await axios.get(find)
-  
   let movie = `https://api.themoviedb.org/3/movie`
   let lenguage = `&language=es-MX`
-  let imdbid = imdbApi.data.imdb_id 
 
   let apitrailers = `${movie}/${route.params.id}/videos${key}`
   let api = `${movie}/${route.params.id}${key}${lenguage}`
   let apireviews = `${movie}/${route.params.id}/reviews${key}${lenguage}`
   let apiproovedores = `${movie}/${route.params.id}/watch/providers${key}`
   let apiCreditos = `${movie}/${route.params.id}/credits${key}`
-  let apiImdb = `https://imdb-api.com/en/API/Ratings/k_8i45ej83/${imdbid}`
-
+  
   try {
 
     const res = await axios.get(api)
@@ -169,9 +141,7 @@ onMounted( async () => {
     const resReviews = await axios.get(apireviews)
     const resProovedores = await axios.get(apiproovedores)
     const resCreditos = await axios.get(apiCreditos)
-    const resIMDB = await axios.get(apiImdb)
 
-    rating.value = resIMDB.data
     pelicula.value = res.data
     genres.value = res.data.genres
     trailers.value = resTrailers.data.results
@@ -201,7 +171,6 @@ onMounted( async () => {
 
 
 const realoadData = async () => {
-  let n = Math.floor(Math.random() * 10)
   let movie = `https://api.themoviedb.org/3/movie`
   let key = `?api_key=9f7031622a3c84ce82bbf384f262391a`
   let lenguage = `&language=es-MX`

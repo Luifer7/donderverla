@@ -8,12 +8,12 @@
         <div class="d-flex flex-wrap gap-2 px-2 m-auto mt-3 mb-3 m-auto" >
             
             <button style="font-size: .8em;" 
-            v-for="g of generos"  :key="g.id" 
-            @click="getForGenre(g)"
+            v-for="genero of generos"  :key="genero.id" 
+            @click="obtenerPorGenero(genero)"
             class="text-center fw-bold p-2 rounded btn btn-sm btn-outline-info btnbtn" 
-            :class="mod === g.id ?'seleccionado' : ''"
-            >{{ g.name }} 
-            <span v-if="mod === g.id && spinnerButton" 
+            :class="modGenero === genero.id ?'seleccionado' : ''"
+            >{{ genero.name }} 
+            <span v-if="modGenero === genero.id && spinnerButton" 
             class="spinner-border spinner-border-sm" 
             role="status" aria-hidden="true"></span>
             </button>
@@ -22,7 +22,7 @@
     
         
         <ButtonsModalidad @change-mod="(p, m) => {
-          getPopular(p, m), clear()
+          getPeliculasModo(p, m), clear()
           }" 
           :modd="useBodega.peticion" >
         </ButtonsModalidad>
@@ -34,8 +34,8 @@
           :peliculas="peliculasGeneros?.results"
           :resultados="peliculasGeneros"
           :peticion="peliculasPeticionesGeneros"
-          @pasar-pagina="(n) => 
-            getForGenreTwo( n, idGenero)"
+          @pasar-pagina="(page) => 
+            obtenerGeneroSiguientePagina( page, idGenero)"
           />
         </div>
         <!-- COMPONENTE PELICULAS POR GENERO -->
@@ -43,11 +43,11 @@
          <!-- COMPONENTE PELICULAS POR MODALIDADES -->
         <div class="w-100">
             <Component  :is="PeliculasPorModalidades"
-            :peliculas="useBodega.peliculasPopulares?.results"
-            :resultados="useBodega.peliculasPopulares"
-            :peticion="useBodega.peticion"
+            :peliculas="peliculasModo?.results"
+            :resultados="peliculasModo"
+            :peticion="peticion"
             @pasar-pagina="(n) => 
-            getPopular( n, useBodega.peticion)"
+            getPeliculasModo( n, peticion)"
             />
         </div>
          <!-- COMPONENTE PELICULAS POR MODALIDADES -->
@@ -65,38 +65,36 @@ import { usePeliculas } from "../funciones/peliculas";
 import { useBodegaStore } from "../stores/bodega";
 import { keyApi } from "../funciones/key";
     
-const { getPopular } = usePeliculas()
+const { getPeliculasModo, peticion, peliculasModo, generos } = usePeliculas()
+
 const useBodega = useBodegaStore()
 
 const PeliculasPorGenero = defineAsyncComponent(() => import('../components/PeliculasModalidad.vue'))
 const PeliculasPorModalidades = defineAsyncComponent(() => import('../components/PeliculasModalidad.vue'))
 
-const generos = ref([])
-const mod = ref('')
+const modGenero = ref('')
 const idGenero = ref('')
 const spinnerButton = ref(null)
 const peliculasGeneros = ref([])
 const peliculasPeticionesGeneros = ref('')
 
 onMounted( async() => {
-    let api = `https://api.themoviedb.org/3/genre/movie/list${keyApi}&language=es-ES`
-    const res = await axios.get(api)
-    generos.value = res.data.genres
+    getPeliculasModo(Math.floor(Math.random() * 30), 'popular')
 })
 
-const getForGenre = async (g) => {
+const obtenerPorGenero = async (genero) => {
     spinnerButton.value = true
-    mod.value = g.id
-    let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${g.id}`
+    modGenero.value = genero.id
+    let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${genero.id}`
     const res = await axios.get(api)
     peliculasGeneros.value = res.data
-    peliculasPeticionesGeneros.value = g.name
+    peliculasPeticionesGeneros.value = genero.name
     spinnerButton.value = false
-    idGenero.value = g.id
+    idGenero.value = genero.id
 }
     
-const getForGenreTwo = async (n, id) => {
-    let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${id}&page=${n}`
+const obtenerGeneroSiguientePagina = async (page, id) => {
+    let api = `https://api.themoviedb.org/3/discover/movie${keyApi}&language=es-ES&with_genres=${id}&page=${page}`
     const res = await axios.get(api)
     peliculasGeneros.value = res.data
 }
